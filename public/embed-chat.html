@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soluciones Digitales IA — Asistente Virtual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  font-family:'Plus Jakarta Sans','Inter',-apple-system,sans-serif;
+  background:#07070f;color:#eeeef8;height:100%;width:100%;overflow:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+:root{
+  --bg-base:#07070f;--bg-surface:#0d0d18;--bg-raised:#12121e;
+  --nm-dark:rgba(0,0,0,.78);--nm-light:rgba(255,255,255,.028);
+  --accent:#2563eb;--accent-b:#3b82f6;
+  --t1:#eeeef8;--t2:#9090b0;--t3:#4a4a62;
+  --border:rgba(255,255,255,.055);--border-f:rgba(37,99,235,.45);
+}
+
+/* === FULL-SCREEN CONTAINER === */
+.ew{width:100%;height:100dvh;overflow:hidden;background:var(--bg-base);display:flex;flex-direction:column;max-width:75%;margin:0 auto}@media(max-width:768px){.ew{max-width:100%}}
+
+/* ── WELCOME ── */
+.ws{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:100%;height:100%;overflow-y:auto;padding:clamp(14px,3vmin,32px);
+}
+.ws.h{display:none}
+.bento{
+  width:100%;max-width:1100px;margin:0 auto;
+  display:flex;flex-direction:column;gap:clamp(10px,1.8vmin,20px);
+  justify-content:center;
+}
+
+.hero{
+  background:var(--bg-surface);border-radius:clamp(16px,2vw,26px);
+  padding:clamp(16px,3vmin,30px) clamp(18px,3vmin,32px) clamp(14px,2.5vmin,26px);
+  text-align:center;position:relative;overflow:hidden;
+  box-shadow:8px 8px 24px var(--nm-dark),-3px -3px 10px var(--nm-light),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.hero::before{content:'';position:absolute;top:-60%;left:-30%;width:160%;height:160%;background:radial-gradient(ellipse at 35% 45%,rgba(37,99,235,.07),transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:80%;height:80%;background:radial-gradient(ellipse,rgba(99,37,235,.04),transparent 70%);pointer-events:none}
+.hi{
+  width:clamp(38px,4.5vmin,54px);height:clamp(38px,4.5vmin,54px);
+  background:linear-gradient(145deg,#2563eb,#1246bf);
+  border-radius:clamp(11px,1.4vmin,16px);display:flex;align-items:center;justify-content:center;
+  font-size:clamp(15px,2vmin,20px);font-weight:800;color:#fff;margin:0 auto clamp(6px,1vmin,12px);position:relative;letter-spacing:.5px;
+  box-shadow:5px 5px 14px rgba(0,0,0,.6),-2px -2px 8px rgba(37,99,235,.12),inset 0 1px 0 rgba(255,255,255,.22),0 0 20px rgba(37,99,235,.15);
+}
+.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,3vmin,27px);font-weight:800;color:var(--t1);margin-bottom:clamp(4px,.6vmin,8px);position:relative;letter-spacing:-.2px}
+.hero p{font-size:clamp(12px,1.5vmin,14.5px);color:var(--t2);position:relative;line-height:1.55;font-weight:400;max-width:620px;margin:0 auto}
+.hero .ct{font-size:clamp(12.5px,1.4vmin,15px);color:#b0b0c8;font-weight:500;margin-top:clamp(5px,.7vmin,9px);position:relative}
+.hero .ct em{color:var(--accent-b);font-style:normal;font-weight:600}
+
+.scard{
+  background:var(--bg-surface);border-radius:clamp(14px,1.6vmin,20px);
+  padding:clamp(11px,1.5vmin,18px) clamp(14px,2vmin,24px);
+  box-shadow:6px 6px 18px var(--nm-dark),-2px -2px 8px var(--nm-light),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.sw{width:100%;max-width:600px;margin:0 auto;position:relative}
+.sb{
+  width:100%;padding:clamp(10px,1.3vmin,14px) clamp(14px,2vmin,20px) clamp(10px,1.3vmin,14px) clamp(36px,4vmin,48px);
+  border-radius:clamp(10px,1.2vmin,14px);border:1px solid var(--border);
+  background:#0a0a14;color:var(--t1);font-size:clamp(12px,1.3vmin,14px);font-family:inherit;font-weight:400;outline:none;
+  transition:all .25s;letter-spacing:.1px;
+  box-shadow:inset 3px 3px 8px rgba(0,0,0,.5),inset -1px -1px 4px rgba(255,255,255,.02);
+}
+.sb::placeholder{color:var(--t3);font-style:italic}
+.sb:focus{border-color:var(--border-f);box-shadow:inset 3px 3px 10px rgba(0,0,0,.55),0 0 0 3px rgba(37,99,235,.1),0 0 18px rgba(37,99,235,.07)}
+.si{position:absolute;left:clamp(11px,1.5vmin,16px);top:50%;transform:translateY(-50%);color:var(--t3);font-size:clamp(13px,1.5vmin,16px);pointer-events:none}
+.ss{
+  position:absolute;right:5px;top:50%;transform:translateY(-50%);
+  background:linear-gradient(135deg,#2563eb,#1246bf);border:none;color:#fff;
+  padding:clamp(5px,.7vmin,8px) clamp(12px,1.6vmin,18px);border-radius:clamp(8px,1vmin,12px);
+  font-size:clamp(10.5px,1.2vmin,13px);font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.2px;
+  transition:all .2s;
+  box-shadow:3px 3px 10px rgba(0,0,0,.4),0 0 14px rgba(37,99,235,.15),inset 0 1px 0 rgba(255,255,255,.18);
+}
+.ss:hover{opacity:.9;box-shadow:3px 3px 12px rgba(0,0,0,.5),0 0 20px rgba(37,99,235,.25)}
+
+.bg{display:flex;flex-wrap:nowrap;gap:clamp(4px,.5vmin,8px);justify-content:center}
+.bg .c{
+  background:var(--bg-surface);border-radius:clamp(12px,1.4vmin,16px);
+  padding:clamp(5px,.6vmin,8px) clamp(10px,1.2vmin,14px);cursor:pointer;
+  transition:all .28s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;border:1px solid transparent;
+  box-shadow:6px 6px 18px var(--nm-dark),-2px -2px 8px var(--nm-light),inset 0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.04);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(12px,1.3vmin,14px);font-weight:700;color:var(--t1);
+  width:auto;flex-shrink:0;white-space:nowrap;
+  -webkit-appearance:none;appearance:none;
+}
+.bg .c:hover{
+  transform:translateY(-2px);background:linear-gradient(135deg,var(--bg-raised) 0%,rgba(37,99,235,.04) 100%);border-color:rgba(37,99,235,.2);
+  box-shadow:8px 8px 24px var(--nm-dark),-2px -2px 8px var(--nm-light),0 0 24px rgba(37,99,235,.08),inset 0 0 0 1px rgba(37,99,235,.12),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.bg .c::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .35s}
+.bg .c:hover::before{opacity:1}
+
+/* ── CHAT ── */
+.cs{
+  display:none;flex-direction:column;flex:1;overflow:hidden;
+  background:var(--bg-surface);
+}
+.cs.a{display:flex}
+
+.ch{
+  background:linear-gradient(135deg,#0b0b16 0%,#0f0f1c 100%);
+  border-bottom:1px solid var(--border);
+  padding:clamp(10px,1.6vmin,18px) clamp(14px,2vmin,24px);
+  display:flex;align-items:center;gap:clamp(8px,1.2vmin,14px);flex-shrink:0;
+  box-shadow:0 6px 24px rgba(0,0,0,.4),inset 0 -1px 0 rgba(255,255,255,.03);
+}
+.chb{
+  background:rgba(255,255,255,.035);border:1px solid var(--border);
+  color:var(--t2);cursor:pointer;font-size:clamp(15px,1.5vmin,18px);
+  padding:clamp(6px,.8vmin,9px) clamp(10px,1.2vmin,14px);
+  border-radius:clamp(9px,1vmin,12px);line-height:1;
+  transition:all .2s;box-shadow:3px 3px 8px rgba(0,0,0,.45),-1px -1px 5px var(--nm-light);
+}
+.chb:hover{color:var(--t1);background:rgba(255,255,255,.07);box-shadow:4px 4px 10px rgba(0,0,0,.5),-2px -2px 6px var(--nm-light)}
+.ca{
+  width:clamp(32px,3.5vmin,42px);height:clamp(32px,3.5vmin,42px);flex-shrink:0;border-radius:clamp(10px,1.2vmin,14px);
+  background:linear-gradient(145deg,#1e5ce8,#0f3aaa);
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(11px,1.2vmin,14px);font-weight:800;color:#fff;letter-spacing:.5px;
+  box-shadow:5px 5px 14px rgba(0,0,0,.6),-2px -2px 6px rgba(37,99,235,.1),inset 0 1px 0 rgba(255,255,255,.2),0 0 16px rgba(37,99,235,.1);
+}
+.cn{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(13px,1.5vmin,15px);font-weight:700;color:var(--t1);letter-spacing:-.1px}
+.cs2{font-size:clamp(9px,1vmin,11px);color:#22c55e;font-weight:600;display:flex;align-items:center;gap:4px;margin-top:1px;letter-spacing:.1px;position:relative}
+.cs2::before{content:'';width:6px;height:6px;background:#22c55e;border-radius:50%;box-shadow:0 0 7px rgba(34,197,94,.7);display:inline-block;animation:pdot 2.2s infinite}
+.cs3{cursor:pointer;font-size:13px;margin-left:4px;transition:transform .2s;user-select:none}
+.cs3:hover{transform:scale(1.15)}
+.vd{display:none;position:absolute;top:100%;left:0;margin-top:4px;background:var(--bg-raised);border:1px solid var(--border);border-radius:10px;padding:5px;min-width:200px;max-height:180px;overflow-y:auto;z-index:30;box-shadow:0 8px 32px rgba(0,0,0,.7);flex-direction:column;gap:2px}
+.vd.a{display:flex}
+.vd button{background:none;border:none;color:var(--t2);padding:5px 8px;border-radius:6px;cursor:pointer;font-size:11px;font-family:inherit;text-align:left;transition:all .15s;white-space:nowrap}
+.vd button:hover{background:rgba(37,99,235,.12);color:var(--t1)}
+.vd button.s{background:rgba(37,99,235,.2);color:var(--accent-b);font-weight:600}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+.cb2{
+  flex:1;overflow-y:auto;padding:clamp(14px,2vmin,24px) clamp(14px,2.5vmin,28px);
+  display:flex;flex-direction:column;gap:4px;
+  background:radial-gradient(ellipse 60% 40% at 15% 10%,rgba(37,99,235,.05),transparent 100%),radial-gradient(ellipse 50% 40% at 85% 90%,rgba(120,37,235,.035),transparent 100%),var(--bg-surface);
+}
+.cb2::-webkit-scrollbar{width:5px}
+.cb2::-webkit-scrollbar-track{background:transparent}
+.cb2::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:6px}
+
+.mr{display:flex;margin-bottom:2px;animation:mi .32s cubic-bezier(.22,1,.36,1) both}
+@keyframes mi{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.mr.e{margin-bottom:clamp(8px,1.2vmin,14px)}
+.mr.b{justify-content:flex-start}
+.mr.u{justify-content:flex-end}
+
+.bb{max-width:clamp(88%,80%,75%);padding:clamp(10px,1.2vmin,15px) clamp(13px,1.6vmin,20px);border-radius:clamp(14px,1.6vmin,18px);font-size:16px;line-height:1.7;font-weight:400;letter-spacing:.1px}
+.mr.b .bb{
+  background:#0f0f1c;color:#d0d0e4;border-bottom-left-radius:5px;
+  box-shadow:6px 6px 16px rgba(0,0,0,.6),-2px -2px 8px rgba(255,255,255,.022),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.mr.u .bb{
+  background:linear-gradient(145deg,#1a55e0 0%,#1244c0 55%,#0e36a8 100%);
+  color:#eef2ff;border-bottom-right-radius:5px;font-weight:500;
+  box-shadow:6px 6px 20px rgba(0,0,0,.55),-2px -2px 8px rgba(37,99,235,.1),inset 0 1px 0 rgba(255,255,255,.2),0 0 24px rgba(26,79,214,.14);
+}
+.bb strong{color:#f2f2fc;font-weight:700}
+.bb hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin:clamp(6px,.8vmin,10px) 0}
+.bb .ll{color:var(--accent-b);cursor:pointer;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;transition:color .2s}
+.bb .ll:hover{color:#60a5fa}
+.spk{background:none;border:1px solid rgba(255,255,255,.1);color:var(--t2);cursor:pointer;font-size:14px;border-radius:12px;padding:2px 7px;margin-top:6px;display:inline-flex;align-items:center;transition:all .2s}
+.spk:hover{background:rgba(37,99,235,.15);color:var(--accent-b);border-color:var(--accent)}
+.spk.pl{background:rgba(37,99,235,.2);color:var(--accent-b);border-color:var(--accent);animation:spk-pulse .8s infinite}
+@keyframes spk-pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.3)}50%{box-shadow:0 0 0 6px rgba(37,99,235,0)}}
+.bi{margin-top:7px;border-radius:12px;max-width:100%;max-height:clamp(140px,20vmin,220px);object-fit:cover;display:block;width:100%;box-shadow:5px 5px 16px rgba(0,0,0,.45)}
+
+.qr{position:relative;margin-top:clamp(8px,1vmin,12px);padding-top:clamp(8px,1vmin,12px);border-top:1px solid rgba(255,255,255,.05)}
+.qhb{
+  background:#0d0d1a;border:1px solid var(--border);color:var(--t2);
+  padding:clamp(7px,.8vmin,10px) clamp(13px,1.6vmin,20px);border-radius:22px;cursor:pointer;
+  font-size:clamp(11px,1.2vmin,13px);font-family:inherit;font-weight:600;
+  display:inline-flex;align-items:center;gap:6px;transition:all .22s;letter-spacing:.3px;
+  box-shadow:3px 3px 9px rgba(0,0,0,.45),-1px -1px 5px var(--nm-light);
+  user-select:none;
+}
+.qhb:hover{background:linear-gradient(135deg,#1a55e0,#1244c0);border-color:transparent;color:#eef2ff;box-shadow:3px 3px 12px rgba(0,0,0,.5),0 0 16px rgba(26,79,214,.22)}
+.qd{display:none;position:absolute;top:100%;left:0;margin-top:6px;flex-direction:column;gap:4px;background:var(--bg-raised);border:1px solid var(--border);border-radius:14px;padding:7px;min-width:210px;max-width:300px;box-shadow:0 12px 48px rgba(0,0,0,.75);z-index:20;animation:qda .18s cubic-bezier(.22,1,.36,1) both}
+.qd.qa{display:flex}
+@keyframes qda{from{opacity:0;transform:translateY(6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.qd .qb{width:100%;text-align:left;white-space:normal;word-break:break-word;justify-content:flex-start;border-radius:10px;padding:clamp(7px,.8vmin,10px) clamp(11px,1.3vmin,15px);font-size:clamp(10.5px,1.1vmin,12.5px);font-weight:500}
+.qd .qb.p{background:linear-gradient(135deg,#1a55e0,#1244c0);border-color:transparent;color:#eef2ff;font-weight:600}
+.qd .qb:hover{background:linear-gradient(135deg,#1a55e0,#1244c0);color:#eef2ff}
+
+.tr{display:flex;justify-content:flex-start;margin-bottom:5px}
+.tb{
+  background:#0f0f1c;padding:clamp(11px,1.3vmin,16px) clamp(14px,1.6vmin,20px);border-radius:16px;border-bottom-left-radius:5px;
+  display:flex;gap:5px;align-items:center;
+  box-shadow:6px 6px 16px rgba(0,0,0,.55),-2px -2px 7px rgba(255,255,255,.02);
+}
+.td{width:6px;height:6px;background:#3a3a58;border-radius:50%;animation:dp 1.5s infinite ease-in-out}
+.td:nth-child(2){animation-delay:.22s}
+.td:nth-child(3){animation-delay:.44s}
+@keyframes dp{0%,60%,100%{transform:translateY(0);opacity:.25;background:#3a3a58}30%{transform:translateY(-5px);opacity:1;background:var(--accent-b)}}
+
+.ib{
+  background:linear-gradient(180deg,#0b0b16 0%,#0e0e1a 100%);
+  border-top:1px solid var(--border);
+  padding:clamp(10px,1.3vmin,16px) clamp(12px,2vmin,22px);
+  display:flex;gap:clamp(7px,1vmin,11px);align-items:center;flex-shrink:0;
+  box-shadow:inset 0 3px 10px rgba(0,0,0,.35);
+}
+.ib input{
+  flex:1;background:#08080f;border:1px solid var(--border);border-radius:24px;
+  padding:clamp(9px,1.1vmin,13px) clamp(14px,2vmin,22px);
+  color:var(--t1);font-size:clamp(12px,1.3vmin,14px);font-family:'Plus Jakarta Sans','Inter',inherit;font-weight:400;
+  outline:none;transition:all .28s;letter-spacing:.15px;
+  box-shadow:inset 4px 4px 10px rgba(0,0,0,.55),inset -1px -1px 5px rgba(255,255,255,.02);
+}
+.ib input:focus{
+  border-color:var(--border-f);
+  box-shadow:inset 4px 4px 12px rgba(0,0,0,.58),inset -1px -1px 6px rgba(255,255,255,.025),0 0 0 3px rgba(37,99,235,.09),0 0 20px rgba(37,99,235,.07);
+}
+.ib input::placeholder{color:var(--t3);font-style:italic;font-weight:400}
+.ib button,.ib .mv{
+  background:linear-gradient(145deg,#2060ec,#1144c2);border:none;color:#fff;
+  width:clamp(36px,4vmin,46px);height:clamp(36px,4vmin,46px);border-radius:clamp(12px,1.4vmin,16px);cursor:pointer;
+  font-size:clamp(15px,1.8vmin,19px);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all .22s cubic-bezier(.22,1,.36,1);
+  box-shadow:5px 5px 14px rgba(0,0,0,.55),-2px -2px 8px rgba(37,99,235,.1),inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(37,99,235,.12);
+}
+.ib button:hover,.ib .mv:hover{
+  background:linear-gradient(145deg,#2563eb,#1a4fd6);transform:scale(1.06) translateY(-1px);
+  box-shadow:7px 7px 18px rgba(0,0,0,.6),-2px -2px 8px rgba(37,99,235,.12),0 0 26px rgba(37,99,235,.22),inset 0 1px 0 rgba(255,255,255,.28);
+}
+.ib button:active,.ib .mv:active{transform:scale(.96);box-shadow:2px 2px 8px rgba(0,0,0,.55),inset 2px 2px 6px rgba(0,0,0,.3)}
+.mv.r{background:linear-gradient(145deg,#dc2626,#b91c1c);animation:pulse-mic .8s infinite}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}50%{box-shadow:0 0 0 10px rgba(220,38,38,0)}}
+
+.tl{display:none;flex:1;overflow:hidden}
+.tl.a{display:block}
+.tl iframe{width:100%;height:100%;border:none}
+
+/* ── RESPONSIVE BREAKPOINTS ── */
+@media(max-width:900px){
+  .bg{gap:clamp(6px,1vw,10px)}.bg .c{padding:clamp(11px,2vw,16px);border-radius:clamp(12px,1.5vw,16px)}
+}
+@media(max-width:720px){
+  .bg{grid-template-columns:1fr 1fr;gap:clamp(5px,.8vw,8px)}.bg .c{padding:clamp(10px,1.5vw,14px)}
+}
+@media(max-width:480px){
+  .bg{grid-template-columns:1fr;gap:6px}.bg .c{padding:12px;border-radius:14px;gap:5px}
+  .ci{font-size:22px;display:inline-block;margin-right:8px;margin-bottom:0;vertical-align:middle}
+  .c h3{font-size:14px;display:inline-block;vertical-align:middle}
+}
+</style>
+<script src="research.js"></script>
+</head>
+<body>
+
+<div class="ew">
+  <div class="ws" id="ws">
+    <div class="bento">
+
+      <div class="hero">
+        <div class="hi">SD</div>
+        <h1>Soluciones Digitales IA</h1>
+        <p>Resuelve tus dudas al instante. Sin esperas, sin llamadas.</p>
+        <div class="ct">Ahorra tiempo. <em>Nosotros solucionamos tus inquietudes</em> mientras tu te enfocas en lo que importa.</div>
+      </div>
+
+      <div class="scard">
+        <div class="sw">
+          <span class="si">&#x1F50D;</span>
+          <input class="sb" id="sb" type="text" placeholder="Busca soluciones para tu negocio..." autocomplete="off">
+          <button class="ss" id="sbtn">Consultar</button>
+        </div>
+      </div>
+
+      <div class="bg">
+        <button class="c" type="button" data-cat="webdev">Desarrollo Web</button>
+        <button class="c" type="button" data-cat="ia">IA Conversacional</button>
+        <button class="c" type="button" data-cat="whatsapp">WhatsApp Automation</button>
+        <button class="c" type="button" data-cat="mineria">Mineria de Datos B2B</button>
+        <button class="c" type="button" data-cat="estrategia">Estrategia Maestra 365</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cs" id="cs">
+    <div class="ch">
+      <button class="chb" id="chb">&#x2190;</button>
+      <div class="ca">SD</div>
+      <div>
+        <div class="cn">Soluciones Digitales</div>
+        <div class="cs2">En linea <span class="cs3" id="vsb">🎙️</span><div class="vd" id="vd"></div></div>
+      </div>
+    </div>
+    <div class="cb2" id="cb2">
+      <div class="tr" id="tr" style="display:none">
+        <div class="tb"><div class="td"></div><div class="td"></div><div class="td"></div></div>
+      </div>
+    </div>
+    <div class="ib" id="ib">
+      <input id="ci" type="text" placeholder="Escribe o habla tu pregunta..." autocomplete="off">
+      <button class="mv" id="mbtn" title="Hablar">&#x1F3A4;</button>
+      <button id="snd">&#x27A4;</button>
+    </div>
+    <div class="tl" id="tl">
+      <iframe id="tif" src="" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+var DATA = [
+  { id:'webdev', label:'Desarrollo Web UX/UI', icon:'\u{1F310}',
+    tags:['pagina web','sitio web','landing page','pagina','web','ecommerce','tienda online','tarjeta digital','presencia digital','sitio corporativo','desarrollo web','ux','ui','ventas','conversion','negocio','posicionamiento','marca','marketing'],
+    intro:'<strong>Desarrollo Web UX/UI — 4 soluciones digitales que convierten visitantes en clientes.</strong><br><br>Tomamos la informacion de tu negocio, eliminamos el ruido visual y los textos confusos, y lo organizamos en un entorno digital impecable. Cada pixel tiene una funcion: guiar la atencion, generar confianza y provocar la accion que tu negocio necesita. Diseñamos y desarrollamos landing pages de alto conversion, sitios corporativos que proyectan autoridad, tiendas e-commerce automatizadas y tarjetas digitales inteligentes. Todo responsive, ultra veloz y optimizado para mover la aguja de tu negocio.',
+    subs:[
+      { id:'landing', label:'Landing Page', img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+        tags:['landing','pagina de venta','captura','lead','pagina unica','conversion','persuasion','psicologia','neuromarketing','decision','posicionamiento','marca','marketing'],
+        ctx:'<strong>Ventas:</strong> eliminar distracciones multiplica conversiones (Schwartz, 2004). <strong>Posicionamiento:</strong> una comunicacion clara proyecta autoridad. <strong>Marketing:</strong> cada elemento enfocado en una accion maximiza el ROI.',
+        txt:'<strong>Landing Page — La pagina que convierte visitantes en clientes mientras tu negocio duerme.</strong><br><br>Una pagina con un solo objetivo: guiar a tu prospecto hacia una decision clara, sin distracciones ni escape. Cada elemento visual —tipografia, color, imagen— esta diseñado para una unica mision: convertir.<br><br>Eliminamos todo lo que distrae y potenciamos lo que convence: titulos que enganchan, prueba social que genera confianza, escasez que acelera la decision.<br><br>Copywriting persuasivo, formularios inteligentes, velocidad sub-2 segundos. Cada milisegundo de carga importa, cada distraccion es una venta que no fue.' },
+      { id:'corporativo', label:'Sitio Web Corporativo', img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
+        tags:['corporativo','empresa','institucional','compania','negocio web','oficina','autoridad','confianza','persuasion','credibilidad'],
+        ctx:'<strong>Ventas:</strong> el diseno profesional activa confianza antes de leer (Cialdini, 1984). <strong>Posicionamiento:</strong> tu marca se percibe como lider del sector. <strong>Marketing:</strong> centraliza toda tu comunicacion digital en un solo hub.',
+        txt:'<strong>Sitio Web Corporativo — Tu sede digital 24/7 que proyecta autoridad desde el primer clic.</strong><br><br>Tu pagina corporativa es la casa de tu negocio en internet. Es donde tus clientes verifican que eres real, serio y confiable. Un sitio profesional no es un lujo: es el requisito minimo para hacer negocios hoy.<br><br>Diseñamos cada seccion para proyectar tu mejor version: pagina principal con tu propuesta de valor, portafolio de trabajos, equipo, testimoniales de clientes reales, blog de autoridad y contacto directo. CMS intuitivo, SEO completo, analitica integrada, velocidad optimizada.' },
+      { id:'ecommerce', label:'E-commerce', img:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+        tags:['ecommerce','tienda','ventas online','pagos','catalogo','carrito','compras','urgencia','escasez','prueba social','persuasion'],
+        ctx:'<strong>Ventas:</strong> la escasez y urgencia aceleran la decision de compra (Kahneman & Tversky, 1979). <strong>Posicionamiento:</strong> la Prueba Social te muestra como opcion popular (Cialdini, 1984). <strong>Marketing:</strong> tu tienda vende 24/7 en automatico.',
+        txt:'<strong>E-commerce — Tu tienda abierta 24/7 que vende mientras tu descansas.</strong><br><br>Una sucursal comercial automatizada donde los clientes navegan, eligen y pagan por si mismos. Sin horarios, sin dependencia de un vendedor.<br><br>Checkout en 3 pasos, pasarelas de pago multiples (Mercado Pago, Stripe, PayPal, PSE), inventario en tiempo real con alertas automaticas, carritos abandonados con recordatorio via WhatsApp, y estrategias de conversion integradas. Tu negocio facturando 24/7.' },
+      { id:'tarjeta', label:'Tarjeta Digital Inteligente', img:'https://images.unsplash.com/photo-1574701148212-8518049c7b2a?w=600&h=400&fit=crop',
+        tags:['tarjeta','contacto','qr','presentacion','digital','tarjeta de presentacion','reciprocidad','friccion','confianza'],
+        ctx:'<strong>Ventas:</strong> eliminar friccion en el primer contacto acelera la conversion (Kahneman, 2011). <strong>Posicionamiento:</strong> proyectas innovacion y modernidad. <strong>Marketing:</strong> unifica catalogos, portafolio y redes en un solo enlace.',
+        txt:'<strong>Tarjeta Digital Inteligente — La evolucion definitiva de la tarjeta de presentacion tradicional.</strong><br><br>Disenada para que tu informacion comercial nunca termine en la basura. Esta tarjeta inteligente unifica toda tu identidad profesional en un solo lugar accesible desde moviles y computadoras.<br><br>Con solo acercar una tarjeta fisica al celular de tu cliente, mostrarle un codigo QR o enviarle un enlace corto, esa persona podra guardar tu contacto directo en su agenda telefonica con un solo toque, ademas de explorar tus catalogos, portafolios y redes.<br><br>Te da un estatus impecable ante cada nuevo prospecto y asegura que tu negocio este siempre a mano en el dispositivo que la gente mas usa.' }
+      ]},
+  { id:'ia', label:'Ingenieria Conversacional IA', icon:'\u{1F916}',
+    tags:['ia','inteligencia artificial','chatbot','bot','agente','automatizar','atencion','cliente','conversacion','multicanal','asistente virtual','audio','ventas','negocio','automatizacion','posicionamiento','marca','marketing'],
+    intro:'<strong>Ingenieria Conversacional IA — Atencion 24/7 que califica, responde y cierra por ti.</strong><br><br>Ponemos un cerebro artificial en tus lineas de comunicacion que comprende lenguaje natural, entiende texto, escucha mensajes de voz y responde con la misma fluidez y conocimiento que tu mejor empleado. Ya sea un agente autonomo que atiende clientes a las 2 AM o un sistema multicanal que organiza y rota prospectos entre tu equipo de ventas, esta infraestructura garantiza disponibilidad absoluta, respuesta inmediata y cero perdidas de oportunidades.',
+    subs:[
+      { id:'piloto', label:'Piloto Pro - Agente IA Autonomo', img:'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+        tags:['piloto','agente ia','autonomo','asistente','v4','marca blanca','distribuidor','compromiso','consistencia','confianza'],
+        ctx:'<strong>Ventas:</strong> el compromiso verbal del cliente lo alinea con tu solucion (Cialdini, 1984). <strong>Posicionamiento:</strong> atencion 24/7 con IA te posiciona como innovador. <strong>Marketing:</strong> califica prospectos sin gastar recursos humanos.',
+        txt:'<strong>Piloto Pro — Un agente IA que atiende, califica y cierra por ti 24/7.</strong><br><br>Imagina un vendedor que nunca duerme, nunca se cansa, nunca olvida un dato y atiende a todos tus clientes a la vez con la misma calidez y conocimiento. Eso es Piloto Pro.<br><br>Entiende lenguaje natural, escucha audios, comprende dudas complejas y responde sobre precios, politicas, horarios y soporte. Detecta intencion de compra, califica prospectos, agenda citas y solo escala a humano cuando es necesario. Se integra con WhatsApp, web, Telegram y Messenger.<br><br>Y si eres agencia: puedes revenderlo con tu propia marca y logotipo mientras nosotros operamos la infraestructura.' },
+      { id:'multicanal', label:'Chatbot Multicanal Inteligente', img:'https://images.unsplash.com/photo-1531746790095-e5cb157dccf1?w=600&h=400&fit=crop',
+        tags:['multicanal','canales','equipo','ventas','prospectos','rotacion','asesor','centralizar','familiaridad','exposicion','confianza'],
+        ctx:'<strong>Ventas:</strong> la exposicion repetida genera preferencia de marca (Zajonc, 1968). <strong>Posicionamiento:</strong> estar en todos los canales donde esta tu cliente te hace omnipresente. <strong>Marketing:</strong> centraliza prospectos y rotacionalos sin perdidas.',
+        txt:'<strong>Chatbot Multicanal — Todos tus mensajes en un solo lugar, ningun lead se pierde.</strong><br><br>Unifica WhatsApp, Messenger, Instagram, Telegram y web en una sola bandeja. Un asistente virtual recibe a todos, responde al instante y cuando detecta intencion de compra, transfiere la conversacion con historial completo al asesor disponible.<br><br>Rotacion equitativa de prospectos, filtro automatico de spam, captura de datos sin intervencion humana, cola de espera virtual con estimado de tiempo, y respuestas 24/7 aunque tu equipo no este. El tiempo de primera respuesta se reduce de horas a segundos. Tu equipo deja de perseguir mensajes y empieza a cerrar ventas.' }
+    ]},
+  { id:'whatsapp', label:'WhatsApp Automation', icon:'\u{1F4F1}',
+    tags:['whatsapp','mensajes','envio','masivo','calentador','cuentas','bloqueo','linea','difusion','proteccion','ventas','prospeccion','negocio','posicionamiento','marca','marketing'],
+    intro:'<strong>WhatsApp Automation — Comunicacion masiva con trato uno-a-uno, sin bloqueos.</strong><br><br>Creamos una infraestructura automatizada que emula el comportamiento humano —pausas, variaciones de tiempo, redaccion unica— para que puedas comunicarte a gran escala protegiendo siempre tus lineas telefonicas. La Plataforma de Envio Masivo te permite enviar campanas personalizadas con nombre, imagenes y audios a miles de contactos en minutos. Y el Calentador Inteligente prepara tus lineas nuevas para que nunca sean bloqueadas.',
+    subs:[
+      { id:'envio', label:'Plataforma de Envio Masivo', img:'https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=600&h=400&fit=crop',
+        tags:['envio','masivo','difusion','campana','publicidad','promocion','base de datos','personalizado','personalizacion','confianza','cercania'],
+        ctx:'<strong>Ventas:</strong> la personalizacion activa el sentido de identidad (Carmody & Lewis, 2006). <strong>Posicionamiento:</strong> mensajes personalizados crean cercania con tu marca. <strong>Marketing:</strong> campanas masivas con trato uno-a-uno.',
+        txt:'<strong>Envio Masivo Inteligente — Mensajes personalizados que llegan como de persona a persona.</strong><br><br>Un panel que te permite enviar mensajes masivos con trato individual. Cada destinatario recibe su nombre, contenido relevante y medios enriquecidos (imagenes, PDFs, videos, audios). La plataforma emula comportamiento humano —pausas, tiempos variables, redaccion unica— para proteger tus lineas y maximizar la entregabilidad.<br><br>Importacion desde Excel o CRM, segmentacion por filtros, campanas frias, seguimiento, reactivacion, lanzamientos, drips. Reportes de entregados, leidos, respondidos y conversion. Sin bloqueos, sin spam. Miles de mensajes enviados con la calidez de un mensaje escrito a mano.'  },
+      { id:'calentador', label:'Calentador Inteligente de Cuentas', img:'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop',
+        tags:['calentador','cuentas','bloqueo','proteccion','linea','seguridad','reputacion','nuevo'],
+        txt:'<strong>Calentador de Cuentas — Protege tus lineas de WhatsApp antes de que las bloqueen.</strong><br><br>Enviar mensajes comerciales desde una linea nueva o inactiva es como gritar en una biblioteca: los algoritmos antispam te detectan y bloquean al instante. Este sistema conecta tus numeros a una red interna segura que simula conversaciones humanas reales durante 15 dias, elevando gradualmente su confianza ante los servidores.<br><br>Fase 1: Activacion (dias 1-3). Fase 2: Conversaciones basicas (4-7). Fase 3: Actividad moderada (8-12). Fase 4: Maduracion (13-15). Cuando termina, tu linea esta lista para prospeccion sin riesgos. Desde 1 hasta 50+ lineas simultaneas. Sin calentador, tus campanas mueren antes de empezar.' }
+    ]},
+  { id:'mineria', label:'Mineria de Datos B2B', icon:'\u{1F50D}',
+    tags:['mineria','datos','b2b','prospectos','clientes','barrido','grupos','nichos','recuperar','rescate','contactos','ventas','prospeccion','negocio','posicionamiento','marca','marketing'],
+    intro:'<strong>Mineria de Datos B2B — Encuentra clientes reales que otros no ven.</strong><br><br>Automatizamos por completo el descubrimiento de oportunidades comerciales. Usamos herramientas especializadas que barren internet, mapas digitales y comunidades para entregarte listas masivas de prospectos reales y calificados. Barrido por nicho y zona te da datos de empresas con contacto directo. Mineria de grupos activos te lleva a personas que ya hablan de tu sector. Y la recuperacion de grupos abandonados rescata audiencias que tu competencia dejo ir.',
+    subs:[
+      { id:'barrido', label:'Barrido Comercial por Nicho', img:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+        tags:['barrido','nicho','zona','prospeccion','lista','contactos','mapas','segmentacion','foco','relevancia'],
+        ctx:'<strong>Ventas:</strong> la segmentacion precisa activa el sesgo de relevancia (Kahneman, 2011). <strong>Posicionamiento:</strong> llegar al cliente ideal en el momento exacto. <strong>Marketing:</strong> construye listas calificadas sin esfuerzo manual.',
+        txt:'<strong>Barrido por Nicho — Encuentra a tus clientes ideales en minutos.</strong><br><br>Un sistema automatizado que rastrea Google Maps, directorios comerciales y redes sociales para extraer empresas de tu nicho con datos completos: nombre, WhatsApp, correo, web, direccion, calificacion. En minutos, no en semanas.<br><br>Filtra por sector, ciudad, radio geografico y palabra clave. Exporta a Excel o CSV, o integra directo a la plataforma de envio masivo. Dejas de improvisar y empiezas a prospectar con precision quirurgica.' },
+      { id:'grupos', label:'Mineria de Grupos Activos', img:'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=600&h=400&fit=crop',
+        tags:['grupos','activos','whatsapp','miembros','comunidad','interes','tematicos','prueba social','validacion','pertenencia'],
+        ctx:'<strong>Ventas:</strong> la validacion social reduce la resistencia del prospecto (Cialdini, 1984). <strong>Posicionamiento:</strong> entrar en comunidades activas te presenta como parte del ecosistema. <strong>Marketing:</strong> prospeccion en caliente donde el interes ya existe.',
+        txt:'<strong>Mineria de Grupos — Prospecta personas que YA estan hablando de tu sector.</strong><br><br>El barrido tradicional encuentra negocios frios. La mineria de grupos encuentra personas CALIENTES: ya estan en grupos discutiendo temas de tu industria, ya consumen contenido relacionado, ya tienen intencion de compra. La tasa de respuesta es 3-4 veces mayor.<br><br>Localizamos y recopilamos contactos de participantes en grupos publicos de WhatsApp, Telegram y comunidades tematicas. Filtramos por palabra clave, ubicacion, tamano y actividad del grupo. Datos eticos, solo grupos con enlace publico. Multiplica la efectividad de tu prospeccion.' },
+      { id:'rescate', label:'Recuperacion de Grupos Abandonados', img:'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop',
+        tags:['rescate','recuperar','abandonados','audiencia','inactivos','competencia','perdida','oportunidad','repesca'],
+        ctx:'<strong>Ventas:</strong> recuperar audiencias abandonadas aprovecha el interes ya demostrado (Kahneman & Tversky, 1979). <strong>Posicionamiento:</strong> reactivar contactos olvidados te da segunda oportunidad. <strong>Marketing:</strong> convierte leads frios en calientes sin nueva captacion.',
+        txt:'<strong>Rescate de Audiencias — Audiencias que YA te necesitan, solo esperan que llegues.</strong><br><br>Grupos y comunidades enteras que quedaron abandonadas por sus creadores originales. Miles de personas que ya demostraron interes en tu sector, dormidas, esperando que alguien les ofrezca valor. Como heredar una tienda con clientes adentro.<br><br>Nuestro sistema detecta grupos inactivos, analiza su tamano, tematica, nivel de actividad historico y calidad de miembros. Te entregamos los datos para que contactes a esa audiencia preseleccionada y recuperes el terreno que la competencia dejo ir.' }
+    ]},
+  { id:'estrategia', label:'Estrategia Maestra 365', icon:'\u{1F3AF}',
+    tags:['estrategia','365','completo','ecosistema','embudo','automatizado','conversion','secreto','ventas','crecimiento','negocio','resultados','posicionamiento','marca','marketing'],
+    intro:'<strong>Estrategia Maestra 365 — El ecosistema completo que usamos para crecer nosotros mismos.</strong><br><br>En Soluciones Digitales somos producto de nuestros productos. No salimos a vender; salimos a servir a las empresas mediante la implementacion de este mismo ecosistema. Esto no es teoria: es el sistema que usamos para captar, calificar y convertir nuestros propios clientes. Mineria de datos + calentador de lineas + envio masivo personalizado + agente IA + chatbot multicanal + web conversion. Todo integrado, todo automatizado, midiendo cada etapa del embudo.',
+    subs:[
+      { id:'eco', label:'Ecosistema Completo de Conversion', img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+        tags:['ecosistema','completo','todo','integral','full','crecimiento','narrativa','historia','confianza','transformacion'],
+        ctx:'<strong>Ventas:</strong> una historia coherente libera oxitocina y genera confianza (Zak, 2015). <strong>Posicionamiento:</strong> presentar tu oferta como transformacion te diferencia. <strong>Marketing:</strong> automatiza todo el embudo, de la prospeccion al cierre.',
+        txt:'<strong>Estrategia Maestra 365 — El ecosistema completo que usamos para crecer nosotros mismos.</strong><br><br>En Soluciones Digitales somos producto de nuestros productos. No salimos a vender; salimos a servir a las empresas mediante la implementacion de este mismo ecosistema, demostrando como alcanzar resultados extraordinarios con inversiones minimas.<br><br>Nuestra propia estrategia de crecimiento es un engranaje impecable y muy natural que compartimos contigo:<br><br>Todo empieza cuando dejamos de adivinar y usamos nuestro <span class="ll" onclick="showCat(\'mineria\')">Software de Mineria de Datos (Producto 4)</span> para localizar por nicho y zona a los negocios que de verdad nos necesitan; incluso, con un toque de picardia, rescatamos a esos contactos olvidados en grupos abandonados por la competencia para darles la atencion que buscan.<br><br>Para conectar con ellos protegiendo siempre nuestras lineas, activamos el <span class="ll" onclick="showSub(cat(\'whatsapp\'),findSub(\'calentador\').sub)">Calentador Inteligente de Cuentas (Modulo 3.2)</span>, asegurando una reputacion impecable ante los servidores. Con la infraestructura segura, la <span class="ll" onclick="showSub(cat(\'whatsapp\'),findSub(\'envio\').sub)">Plataforma de Envio Masivo (Modulo 3.1)</span> nos permite enviarles una propuesta tan cercana, llamandolos por su nombre y con audios que parecen grabados al instante, que captar su atencion es inevitable.<br><br>En cuanto responden, el <span class="ll" onclick="showSub(cat(\'ia\'),findSub(\'piloto\').sub)">Piloto Pro / Agente IA Autonomo (Modulo 2.1)</span> los atiende cordialmente a la hora que sea. Escucha sus dudas y los guia con tanta sutileza que solo nos pasa el contacto de los verdaderos interesados. Si el flujo de mensajes es gigante, el <span class="ll" onclick="showSub(cat(\'ia\'),findSub(\'multicanal\').sub)">Chatbot Multicanal (Modulo 2.2)</span> rota los prospectos listos entre el equipo humano con total equidad, mientras que en eventos fisicos cerramos al instante con el toque rapido de nuestra <span class="ll" onclick="showSub(cat(\'webdev\'),findSub(\'tarjeta\').sub)">Tarjeta Digital Inteligente (Modulo 1.2)</span>.<br><br>Al final, todos llegan a nuestra <span class="ll" onclick="showCat(\'webdev\')">Infraestructura de Desarrollo Web UX/UI (Producto 1)</span>. En estos Ecosistemas Dinamicos para movil y escritorio, los usuarios navegan con total claridad, conversan con nuestro guia virtual y, sin sentir jamas la presion de una venta, descubren por si mismos las soluciones que su negocio necesita. Mientras otros persiguen clientes, nosotros servimos en piloto automatico.' }
+    ]}
+];
+
+// Global state
+var TYPEBOT_URL = 'https://typebot.co/soluciones-digitales';
+var SESSION_ID = 'ws-' + Date.now();
+var INTERACTION_COUNT = 0;
+var LEAD_NAME = '';
+var LEAD_PHONE = '';
+var LEAD_STATE = null; // null, 'name', 'phone', 'done'
+var LEAD_WHATSAPP = '573115893220';
+var CURRENT_CAT = '';
+var CHAT_HISTORY = [];
+
+function captureLead() {
+  if (LEAD_STATE === 'done') {
+    openTypebot();
+    return;
+  }
+  LEAD_STATE = 'name';
+  userSaid('Quiero asesoria personalizada');
+  setTimeout(function() {
+    reply('<strong>Queremos brindarte una atencion especializada y personalizada.</strong><br><br>Por favor, comparteme tu <strong>nombre</strong> para poder atenderte mejor.');
+  }, 600);
+}
+
+function sendLead(name, phone) {
+  var waMsg = 'Nuevo lead - Nombre: ' + name + ', WhatsApp: ' + phone;
+  var waUrl = 'https://wa.me/' + LEAD_WHATSAPP + '?text=' + encodeURIComponent(waMsg);
+
+  reply('Perfecto <strong>' + name + '</strong>! Te hemos registrado exitosamente.<br><br>Un asesor se pondra en contacto contigo al <strong>' + phone + '</strong> para brindarte la atencion que mereces.<br><br>Mientras tanto, puedes continuar explorando nuestras soluciones:',
+    DATA.map(function(c) {
+      return { label: c.icon + ' ' + c.label, fn: function() { showCat(c.id); } };
+    }).concat([
+      { label: 'Hablar con asesor ahora', fn: function() { window.open(waUrl, '_blank'); }, primary: true }
+    ])
+  );
+
+  // Send registration to backend
+  fetch('/api/registrar-usuario', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionId: SESSION_ID, nombre: name, telefono: phone })
+  }).catch(function(err) {
+    console.error('Error enviando lead:', err);
+  });
+}
+
+function findSub(id) {
+  for (var i = 0; i < DATA.length; i++) {
+    for (var j = 0; j < DATA[i].subs.length; j++) {
+      if (DATA[i].subs[j].id === id) return { cat: DATA[i], sub: DATA[i].subs[j] };
+    }
+  }
+  return null;
+}
+
+function $(id) { return document.getElementById(id); }
+
+function cat(id) { return DATA.find(function(c) { return c.id === id; }); }
+
+function norm(t) { return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+
+function searchContent(q) {
+  var query = norm(q);
+  if (!query) return [];
+  var offTopic = ['tutorial', 'como se hace', 'aprender', 'curso', 'capacitacion'];
+  for (var i = 0; i < offTopic.length; i++) {
+    if (query.includes(offTopic[i])) return [{ offTopic: true, word: offTopic[i] }];
+  }
+  var r = [];
+  DATA.forEach(function(c) {
+    if (c.id === query || norm(c.label).includes(query) || c.tags.some(function(t) { return norm(t).includes(query); })) {
+      r.push({ type: 'cat', cat: c });
+      return;
+    }
+    c.subs.forEach(function(s) {
+      if (s.id === query || norm(s.label).includes(query) || s.tags.some(function(t) { return norm(t).includes(query); }) || norm(s.txt).includes(query) || (s.ctx && norm(s.ctx).includes(query))) {
+        r.push({ type: 'sub', cat: c, sub: s });
+      }
+    });
+  });
+  return r;
+}
+
+function typing(on) {
+  $('tr').style.display = on ? 'flex' : 'none';
+  $('cb2').scrollTop = $('cb2').scrollHeight;
+}
+
+function hideOldReplies() {
+  var all = $('cb2').querySelectorAll('.mr.b .qr');
+  for (var i = 0; i < all.length; i++) { all[i].style.display = 'none'; }
+}
+
+function addMsg(html, cls) {
+  var d = document.createElement('div');
+  d.className = 'mr ' + (cls || 'b');
+  d.innerHTML = '<div class="bb">' + html + '</div>';
+  $('cb2').insertBefore(d, $('tr'));
+  $('cb2').scrollTop = $('cb2').scrollHeight;
+  saveChat();
+  return d;
+}
+
+function reply(text, actions) {
+  typing(true);
+  hideOldReplies();
+  var delay = 600 + Math.min(Math.floor(text.length / 4), 1200);
+  setTimeout(function() {
+    typing(false);
+    var html = text;
+    if (actions && actions.length) {
+      html += '<div class="qr"><button class="qhb">\u2630 Opciones</button><div class="qd">';
+      for (var i = 0; i < actions.length; i++) {
+        var a = actions[i];
+        html += '<button class="qb' + (a.primary ? ' p' : '') + '" data-i="' + i + '">' + a.label + '</button>';
+      }
+      html += '</div></div>';
+    }
+    var el = addMsg(html, 'b e');
+    // Add speaker button for TTS
+    var bb = el.querySelector('.bb');
+    if (bb && !bb.querySelector('.spk')) {
+      var spk = document.createElement('button');
+      spk.className = 'spk';
+      spk.textContent = '\u{1F50A}';
+      spk.title = 'Escuchar';
+      spk.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (spk.classList.contains('pl')) { window.speechSynthesis.cancel(); spk.className = 'spk'; spk.textContent = '\u{1F50A}'; return; }
+        spk.className = 'spk pl'; spk.textContent = '\u{1F508}';
+        speakText(text, spk);
+      });
+      bb.appendChild(spk);
+    }
+    if (actions) {
+      var hb = el.querySelector('.qhb');
+      var dd = el.querySelector('.qd');
+      if (hb && dd) {
+        hb.addEventListener('click', function(e) { e.stopPropagation(); dd.classList.toggle('qa'); });
+        el.querySelectorAll('.qb').forEach(function(b) {
+          b.addEventListener('click', function() {
+            dd.classList.remove('qa');
+            actions[parseInt(this.dataset.i)].fn();
+          });
+        });
+      }
+    }
+    $('ci').focus();
+  }, delay);
+}
+
+function userSaid(text) {
+  addMsg(text, 'u');
+  $('ci').value = '';
+}
+
+// Session persistence
+function saveChat() {
+  try {
+    var msgs = [];
+    $('cb2').querySelectorAll('.mr').forEach(function(el) {
+      if (el.id === 'tr') return;
+      var bb = el.querySelector('.bb');
+      if (!bb) return;
+      var clone = bb.cloneNode(true);
+      var qr = clone.querySelector('.qr');
+      if (qr) qr.remove();
+      msgs.push({ role: el.classList.contains('u') ? 'user' : 'bot', html: clone.innerHTML });
+    });
+    sessionStorage.setItem('chat_hist', JSON.stringify(msgs));
+    sessionStorage.setItem('chat_interaction_count', INTERACTION_COUNT);
+    sessionStorage.setItem('chat_lead_state', LEAD_STATE);
+    sessionStorage.setItem('chat_lead_name', LEAD_NAME);
+    sessionStorage.setItem('chat_lead_phone', LEAD_PHONE);
+  } catch (e) {}
+}
+
+function loadChat() {
+  try {
+    var data = JSON.parse(sessionStorage.getItem('chat_hist'));
+    if (!data || !data.length) return false;
+    $('cb2').innerHTML = '<div class="tr" id="tr" style="display:none"><div class="tb"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>';
+    data.forEach(function(m) { addMsg(m.html, m.role === 'user' ? 'u' : 'b e'); });
+    INTERACTION_COUNT = parseInt(sessionStorage.getItem('chat_interaction_count') || '0');
+    LEAD_STATE = sessionStorage.getItem('chat_lead_state') || null;
+    LEAD_NAME = sessionStorage.getItem('chat_lead_name') || '';
+    LEAD_PHONE = sessionStorage.getItem('chat_lead_phone') || '';
+    $('ws').classList.add('h');
+    $('cs').classList.add('a');
+    return true;
+  } catch (e) { return false; }
+}
+
+function clearChat() {
+  try {
+    sessionStorage.removeItem('chat_hist');
+    sessionStorage.removeItem('chat_interaction_count');
+    sessionStorage.removeItem('chat_lead_state');
+    sessionStorage.removeItem('chat_lead_name');
+    sessionStorage.removeItem('chat_lead_phone');
+  } catch (e) {}
+}
+
+function startChat() {
+  clearChat();
+  INTERACTION_COUNT = 0;
+  LEAD_STATE = null;
+  LEAD_NAME = '';
+  LEAD_PHONE = '';
+  CHAT_HISTORY = [];
+  $('ws').classList.add('h');
+  $('cs').classList.add('a');
+  $('tl').classList.remove('a');
+  $('tif').src = '';
+  $('cb2').innerHTML = '<div class="tr" id="tr" style="display:none"><div class="tb"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>';
+}
+
+function askAllServices() {
+  userSaid('Quiero conocer todos los servicios');
+  reply('Claro. Trabajamos 5 areas de soluciones digitales:', DATA.map(function(c) {
+    return { label: c.icon + ' ' + c.label, fn: function() { showCat(c.id); } };
+  }).concat([
+    { label: 'Asesoria personalizada', fn: captureLead, primary: true }
+  ]));
+}
+
+function showCat(id) {
+  var c = cat(id);
+  if (!c) return;
+  CURRENT_CAT = c.label;
+  userSaid(c.icon + ' ' + c.label);
+  // Single-sub categories (like Estrategia Maestra) show full content directly
+  if (c.subs.length === 1) { showSub(c, c.subs[0]); return; }
+  reply(c.intro + '<br><br>Selecciona el servicio que te interesa:', c.subs.map(function(s) {
+    return { label: s.label, fn: function() { showSub(c, s); } };
+  }).concat([
+    { label: 'Asesoria personalizada', fn: captureLead, primary: true }
+  ]));
+}
+
+function showSub(c, s) {
+  userSaid(s.label);
+  var body = s.txt + (s.img ? '<br><img class="bi" src="' + s.img + '">' : '');
+  var opts = [];
+  c.subs.filter(function(x) { return x.id !== s.id; }).forEach(function(x) {
+    opts.push({ label: x.label, fn: function() { showSub(c, x); } });
+  });
+  // Additional referenced products when showing Estrategia Maestra
+  if (c.id === 'estrategia') {
+    opts.push({ label: '\u{1F50D} Mineria de Datos', fn: function() { showCat('mineria'); } });
+    opts.push({ label: '\u{1F4F1} WhatsApp Automation', fn: function() { showCat('whatsapp'); } });
+    opts.push({ label: '\u{1F916} IA Conversacional', fn: function() { showCat('ia'); } });
+    opts.push({ label: '\u{1F310} Desarrollo Web', fn: function() { showCat('webdev'); } });
+  }
+  opts.push({ label: 'Otro servicio', fn: askAllServices });
+  opts.push({ label: 'Asesoria personalizada', fn: captureLead, primary: true });
+  reply(body, opts);
+}
+
+function openTypebot() {
+  userSaid('Quiero asesoria personalizada');
+  $('cb2').style.display = 'none';
+  $('ib').style.display = 'none';
+  $('tl').classList.add('a');
+  var url = TYPEBOT_URL;
+  if (CURRENT_CAT) url += '?Interes=' + encodeURIComponent(CURRENT_CAT);
+  $('tif').src = url;
+}
+
+// Call backend API for AI generation
+function callRealAI(text) {
+  typing(true);
+  hideOldReplies();
+
+  var controller = new AbortController();
+  setTimeout(function() { controller.abort(); }, 5000);
+  fetch('/api/widget-chat', {
+    signal: controller.signal,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      mensaje: text,
+      nombre: LEAD_NAME,
+      telefono: LEAD_PHONE,
+      historial: CHAT_HISTORY,
+      sessionId: SESSION_ID
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    typing(false);
+    if (data.status === 'SUCCESS') {
+      CHAT_HISTORY.push({ role: 'user', content: text });
+      CHAT_HISTORY.push({ role: 'assistant', content: data.respuesta });
+
+      if (data.sinSolucion) {
+        // Build WhatsApp redirect
+        var waMsg = 'Vengo de tu sitio web. Mi nombre es ' + LEAD_NAME + ', mi WhatsApp es ' + LEAD_PHONE + '. Mi consulta es: ' + text;
+        var waUrl = 'https://wa.me/' + LEAD_WHATSAPP + '?text=' + encodeURIComponent(waMsg);
+
+        reply(data.respuesta, [
+          { label: '\ud83d\udcac Conectar a WhatsApp', fn: function() { window.open(waUrl, '_blank'); }, primary: true }
+        ]);
+      } else {
+        reply(data.respuesta);
+      }
+    } else {
+      fallbackOfflineResponse(text);
+    }
+  })
+  .catch(function(err) {
+    console.error('API Error:', err);
+    fallbackOfflineResponse(text);
+  });
+}
+
+function fallbackOfflineResponse(text) {
+  typing(false);
+
+  // Try local DATA first (products)
+  var results = searchContent(text);
+  if (results.length > 0) {
+    if (results.length === 1) {
+      var r = results[0];
+      if (r.type === 'cat') { showCat(r.cat.id); return; }
+      if (r.type === 'sub') { showSub(r.cat, r.sub); return; }
+    }
+    var actions = [];
+    results.forEach(function(r) {
+      if (r.type === 'cat') actions.push({ label: r.cat.icon + ' ' + r.cat.label, fn: function() { showCat(r.cat.id); } });
+      else actions.push({ label: r.sub.label + ' (' + r.cat.icon + ')', fn: function() { showSub(r.cat, r.sub); } });
+    });
+    actions.push({ label: 'Asesoria personalizada', fn: captureLead, primary: true });
+    reply('Varias opciones relacionadas:', actions.slice(0, 5));
+    return;
+  }
+
+  // Fallback to local Topics / Search
+  var nText = norm(text);
+  var topicMatch = null;
+  for (var i = 0; i < TOPICS.length; i++) {
+    for (var j = 0; j < TOPICS[i].keywords.length; j++) {
+      if (nText.includes(norm(TOPICS[i].keywords[j]))) {
+        topicMatch = TOPICS[i];
+        break;
+      }
+    }
+    if (topicMatch) break;
+  }
+
+  if (topicMatch) {
+    var topicActions = topicMatch.related.map(function(id) {
+      var pair = findSub(id);
+      return pair ? { label: pair.sub.label + ' (' + pair.cat.icon + ')', fn: function() { showSub(pair.cat, pair.sub); } } : null;
+    }).filter(function(x) { return x; });
+    topicActions.push({ label: 'Asesoria personalizada', fn: captureLead, primary: true });
+    reply(topicMatch.answer, topicActions);
+    return;
+  }
+
+  // Off-topic
+  var offTopicWords = ['facebook', 'instagram', 'tiktok', 'twitter', 'linkedin', 'youtube', 'tutorial', 'como se hace', 'aprender', 'curso', 'capacitacion'];
+  for (var oi = 0; oi < offTopicWords.length; oi++) { if (nText.includes(offTopicWords[oi])) {
+    reply('Eso no forma parte de nuestros servicios directos, pero te recomendamos explorar nuestras soluciones:',
+      DATA.map(function(c) { return { label: c.icon + ' ' + c.label, fn: function() { showCat(c.id); } }; })
+      .concat([{ label: 'Asesoria personalizada', fn: captureLead, primary: true }]));
+    return;
+  }}
+
+  reply('No tengo datos sobre eso. ¿Te interesa alguna de estas areas?', DATA.map(function(c) {
+    return { label: c.icon + ' ' + c.label, fn: function() { showCat(c.id); } };
+  }).concat([
+    { label: 'Asesoria personalizada', fn: captureLead, primary: true }
+  ]));
+}
+
+function handleUserInput(text) {
+  if (!text.trim()) return;
+
+  // Intercept if in process of capturing lead
+  if (LEAD_STATE === 'name') {
+    LEAD_NAME = text.trim();
+    LEAD_STATE = 'phone';
+    userSaid(text);
+    setTimeout(function() {
+      reply('Gracias <strong>' + LEAD_NAME + '</strong>. Ahora, ¿cual es tu <strong>numero de WhatsApp</strong> para que un asesor se comunique directamente contigo?');
+    }, 400);
+    return;
+  }
+
+  if (LEAD_STATE === 'phone') {
+    LEAD_PHONE = text.trim();
+    LEAD_STATE = 'done';
+    userSaid(text);
+    sendLead(LEAD_NAME, LEAD_PHONE);
+    return;
+  }
+
+  // General user interaction count
+  INTERACTION_COUNT++;
+
+  // On the 4th interaction, demand name and phone before continuing
+  if (INTERACTION_COUNT === 4 && LEAD_STATE !== 'done') {
+    userSaid(text);
+    LEAD_STATE = 'name';
+    // Save current query to process AFTER lead is captured
+    var pendingText = text;
+    setTimeout(function() {
+      reply('Para continuar con la consulta y brindarte una mejor recomendacion, por favor comparteme tu <strong>nombre completo</strong>:');
+    }, 400);
+
+    // Override the phone handler to proceed back to AI with the pending message
+    var originalSendLead = sendLead;
+    sendLead = function(name, phone) {
+      // Restore original sendLead
+      sendLead = originalSendLead;
+      // Send Lead data to server
+      fetch('/api/registrar-usuario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId: SESSION_ID, nombre: name, telefono: phone })
+      }).catch(function(err) {});
+
+      reply('¡Gracias! Registro completado. Procedo a responder tu consulta...');
+      setTimeout(function() {
+        callRealAI(pendingText);
+      }, 1000);
+    };
+    return;
+  }
+
+  userSaid(text);
+
+  // Greetings check
+  var greetings = ['hola', 'buenas', 'buen dia', 'buenas tardes', 'buenas noches', 'que tal', 'como estas', 'saludos', 'hey', 'hello', 'hi', 'que mas', 'buenos dias'];
+  var qLower = text.trim().toLowerCase();
+  for (var gi = 0; gi < greetings.length; gi++) {
+    if (qLower === greetings[gi] || qLower.startsWith(greetings[gi] + ' ') || qLower.startsWith(greetings[gi] + ',') || qLower.startsWith(greetings[gi] + '!') || qLower.startsWith(greetings[gi] + '?')) {
+      reply('¡Hola! ¿En que puedo ayudarte hoy? Explora nuestras soluciones o escribeme tu consulta:', DATA.map(function(c) { return { label: c.icon + ' ' + c.label, fn: function() { showCat(c.id); } }; }).concat([{ label: 'Asesoria personalizada', fn: captureLead, primary: true }]));
+      return;
+    }
+  }
+
+  // Search local DATA first (products)
+  var results = searchContent(text);
+  if (results.length > 0 && results[0].offTopic) {
+    // Off-topic words detected
+    reply('Eso no forma parte de nuestros servicios directos, pero te recomendamos explorar nuestras soluciones:',
+      DATA.map(function(c) { return { label: c.icon + ' ' + c.label, fn: function() { showCat(c.id); } }; })
+      .concat([{ label: 'Asesoria personalizada', fn: captureLead, primary: true }]));
+    return;
+  }
+  if (results.length > 0) {
+    if (results.length === 1) {
+      var r = results[0];
+      if (r.type === 'cat') { showCat(r.cat.id); return; }
+      if (r.type === 'sub') { showSub(r.cat, r.sub); return; }
+    }
+    // Multiple matches — show menu
+    var actions = [];
+    results.forEach(function(r) {
+      if (r.type === 'cat') actions.push({ label: r.cat.icon + ' ' + r.cat.label, fn: function() { showCat(r.cat.id); } });
+      else actions.push({ label: r.sub.label + ' (' + r.cat.icon + ')', fn: function() { showSub(r.cat, r.sub); } });
+    });
+    actions.push({ label: 'Asesoria personalizada', fn: captureLead, primary: true });
+    reply('Varias opciones relacionadas:', actions.slice(0, 5));
+    return;
+  }
+
+  // Not found in DATA — search TOPICS (research)
+  var nText = norm(text);
+  var topicMatch = null;
+  for (var i = 0; i < TOPICS.length; i++) {
+    for (var j = 0; j < TOPICS[i].keywords.length; j++) {
+      if (nText.includes(norm(TOPICS[i].keywords[j]))) { topicMatch = TOPICS[i]; break; }
+    }
+    if (topicMatch) break;
+  }
+  if (topicMatch) {
+    var topicActions = topicMatch.related.map(function(id) {
+      var pair = findSub(id);
+      return pair ? { label: pair.sub.label + ' (' + pair.cat.icon + ')', fn: function() { showSub(pair.cat, pair.sub); } } : null;
+    }).filter(function(x) { return x; });
+    topicActions.push({ label: 'Asesoria personalizada', fn: captureLead, primary: true });
+    reply(topicMatch.answer, topicActions);
+    return;
+  }
+
+  // Nothing local — try AI server
+  callRealAI(text);
+}
+
+document.querySelectorAll('.c').forEach(function(el) {
+  el.addEventListener('click', function() {
+    var catId = this.dataset.cat;
+    startChat();
+    setTimeout(function() { handleUserInput(catId); }, 1800);
+  });
+});
+
+$('sbtn').addEventListener('click', function() {
+  var q = $('sb').value.trim();
+  if (q) { startChat(); setTimeout(function() { handleUserInput(q); }, 1800); }
+});
+$('sb').addEventListener('keydown', function(e) { if (e.key === 'Enter') $('sbtn').click(); });
+$('snd').addEventListener('click', function() { handleUserInput($('ci').value); });
+$('ci').addEventListener('keydown', function(e) { if (e.key === 'Enter') $('snd').click(); });
+
+$('chb').addEventListener('click', function() {
+  clearChat();
+  $('cs').classList.remove('a');
+  $('ws').classList.remove('h');
+  $('cb2').style.display = 'flex';
+  $('ib').style.display = 'flex';
+  $('tl').classList.remove('a');
+  $('cb2').innerHTML = '<div class="tr" id="tr" style="display:none"><div class="tb"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>';
+  LEAD_STATE = null; LEAD_NAME = ''; LEAD_PHONE = ''; INTERACTION_COUNT = 0;
+});
+
+// ── Web Speech API (STT + TTS) ──
+var recognition = null;
+var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'es';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.onresult = function(e) {
+    $('mbtn').className = 'mv';
+    var transcript = e.results[0][0].transcript;
+    $('ci').value = transcript;
+    handleUserInput(transcript);
+  };
+  recognition.onerror = function() { $('mbtn').className = 'mv'; };
+  recognition.onend = function() { $('mbtn').className = 'mv'; };
+}
+$('mbtn').addEventListener('click', function() {
+  if (!recognition) { reply('La voz no es compatible en este navegador. Usa Chrome o Edge.'); return; }
+  if ($('mbtn').classList.contains('r')) { recognition.abort(); $('mbtn').className = 'mv'; return; }
+  $('mbtn').className = 'mv r';
+  recognition.start();
+});
+var ttsVoices = [];
+var ttsSelectedVoice = null;
+function loadTTSVoices() {
+  ttsVoices = window.speechSynthesis.getVoices();
+  if (!ttsVoices.length) { setTimeout(loadTTSVoices, 200); return; }
+  populateVoiceMenu();
+}
+function populateVoiceMenu() {
+  var menu = $('vd');
+  if (!menu) return;
+  var esVoices = ttsVoices.filter(function(v) { return /es/i.test(v.lang); });
+  if (!esVoices.length) esVoices = ttsVoices;
+  menu.innerHTML = '';
+  esVoices.forEach(function(v) {
+    var b = document.createElement('button');
+    b.textContent = v.name.replace(/Microsoft|Desktop|Online|\(Natural\)/g, '').trim();
+    if (ttsSelectedVoice && ttsSelectedVoice.name === v.name) b.className = 's';
+    b.addEventListener('click', function() {
+      ttsSelectedVoice = v;
+      menu.querySelectorAll('button').forEach(function(x) { x.className = ''; });
+      b.className = 's';
+      menu.classList.remove('a');
+    });
+    menu.appendChild(b);
+  });
+}
+function speakText(text, btn) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  var clean = text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 350);
+  if (!clean) return;
+  var utter = new SpeechSynthesisUtterance(clean);
+  utter.lang = 'es';
+  utter.rate = 0.85;
+  utter.pitch = 0.95;
+  if (ttsSelectedVoice) { utter.voice = ttsSelectedVoice; }
+  else if (ttsVoices.length) {
+    for (var vi = 0; vi < ttsVoices.length; vi++) {
+      var v = ttsVoices[vi];
+      if (/google español|helena.*spanish|sabina|microsoft.*spanish.*neural|es_es|es-es.*neural|jorge|pablo|carla/i.test(v.name)) {
+        utter.voice = v; ttsSelectedVoice = v; break;
+      }
+    }
+    if (!utter.voice) {
+      var fallback = ttsVoices.filter(function(v) { return /es/i.test(v.lang); });
+      if (fallback.length) { utter.voice = fallback[0]; ttsSelectedVoice = fallback[0]; }
+    }
+  }
+  utter.onend = function() { if (btn) { btn.className = 'spk'; btn.textContent = '\u{1F50A}'; } };
+  window.speechSynthesis.speak(utter);
+}
+loadTTSVoices();
+window.speechSynthesis.onvoiceschanged = function() { loadTTSVoices(); };
+$('vsb').addEventListener('click', function(e) { e.stopPropagation(); $('vd').classList.toggle('a'); });
+document.addEventListener('click', function(e) { if (!$('vd').contains(e.target) && e.target.id !== 'vsb') $('vd').classList.remove('a'); });
+
+// Restore chat history on load
+if(!loadChat()){
+  // Welcome screen stays visible
+}
+</script>
+</body>
+</html>

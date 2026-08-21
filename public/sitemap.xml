@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage - Máxima prioridad -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <!-- Páginas institucionales - Alta prioridad -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/quienes-somos</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/ecosistema</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/blog</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <!-- Productos principales - Alta prioridad SEO -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/chatbot</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/guardian-difusion</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/extractor</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/auditor-estrategico</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/auditor-sitio-web</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/tarjeta-digital</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/sitios-web</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <!-- Productos secundarios -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/canal1-chatbot</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/calentador-cuentas</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/fanpage-envio-masivo</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/probador-virtual</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.75</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- E-commerce -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/tienda</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.85</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/producto</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <!-- Tutoriales y recursos -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/tutorial-botweb</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/tutorial-guardian-difusion</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://solucionesdigitalesia.com/tutorial-ia</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Páginas legales -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/politica-privacidad</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  
+  <!-- Admin (low priority, just for indexing) -->
+  <url>
+    <loc>https://solucionesdigitalesia.com/admin-auditor</loc>
+    <lastmod>2026-07-27</lastmod>
+    <priority>0.1</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  
+</urlset>

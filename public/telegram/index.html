@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Soluciones Digitales IA: desarrollamos Mini Apps inteligentes para tus clientes dentro de Telegram. Chatbots, pagos, juegos y automatización con inteligencia artificial.">
+  <title>Soluciones Digitales IA — Apps inteligentes para tu negocio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%232AABEE' d='M9.04 15.51l-.38 5.35c.54 0 .78-.23 1.06-.51l2.55-2.44 5.27 3.85c.97.53 1.65.25 1.91-.89L22.9 2.96c.3-1.36-.5-1.9-1.42-1.56L1.7 9.6c-1.36.53-1.34 1.29-.23 1.63l5.03 1.57L18.4 4.62c.56-.34 1.07-.15.65.2L9.04 15.51z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="sd-navbar" id="siteNavbar">
+    <div class="sd-navbar__inner">
+      <div class="sd-navbar__left">
+        <a href="/index.html" class="sd-navbar__logo" data-prod="/websd/wordpress/">
+          <img src="https://www.365.deymercadeoeficiente.com/wp-content/uploads/2025/12/SOLUCIONES.png" alt="Soluciones Digitales IA">
+        </a>
+
+        <nav class="sd-navbar__desktop" aria-label="Navegación principal">
+          <a href="/index.html" class="sd-link" data-prod="/websd/wordpress/">Inicio</a>
+
+          <div class="sd-dd" data-dd>
+            <button class="sd-dd__btn" type="button" data-dd-btn aria-expanded="false" aria-haspopup="true">
+              Productos
+              <svg class="sd-dd__chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="sd-dd__panel" data-dd-panel>
+              <button class="sd-dd__close" type="button" data-dd-close aria-label="Cerrar menú">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+              <div class="sd-dd__grid">
+                <div class="sd-dd__col">
+                  <div class="sd-dd__cat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <h4 class="sd-dd__cat-title">Sitios Web</h4>
+                  </div>
+                  <ul class="sd-dd__links">
+                    <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Vitrina de Conversión</a></li>
+                    <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Ecosistema de Autoridad</a></li>
+                    <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Hub de Negocios</a></li>
+                    <li><a href="/solucionesdigitales.html" data-prod="/websd/wordpress/solucionesdigitales/">Tarjeta Profesional de Negocios</a></li>
+                  </ul>
+                </div>
+
+                <div class="sd-dd__col">
+                  <div class="sd-dd__cat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    <h4 class="sd-dd__cat-title">Inteligencia Artificial</h4>
+                  </div>
+                  <ul class="sd-dd__links">
+                    <li><a href="/probador-virtual.html" data-prod="/websd/wordpress/probador-virtual/">Probador Virtual IA</a></li>
+                    <li><a href="/chatbot.html" data-prod="/websd/wordpress/chatbot/">Piloto Pro - Agente IA Autónomo</a></li>
+                    <li><a href="/canal1-chatbot.html" data-prod="/websd/wordpress/canal1-chatbot/">Chatbot Multicanal Inteligente</a></li>
+                    <li><a href="/telegram/index.html" data-prod="/telegram/index.html" class="sd-dd__active">Mini Apps en Telegram</a></li>
+                  </ul>
+                </div>
+
+                <div class="sd-dd__col">
+                  <div class="sd-dd__cat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <h4 class="sd-dd__cat-title">WhatsApp Automation</h4>
+                  </div>
+                  <ul class="sd-dd__links">
+                    <li><a href="/guardian-difusion.html" data-prod="/websd/wordpress/guardian-difusion/">Plataforma de Envío Masivo</a></li>
+                    <li><a href="/calentador-cuentas.html" data-prod="/websd/wordpress/calentador-cuentas/">Calentador Inteligente de Cuentas</a></li>
+                  </ul>
+                </div>
+
+                <div class="sd-dd__col">
+                  <div class="sd-dd__cat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                    <h4 class="sd-dd__cat-title">Minería en WhatsApp</h4>
+                  </div>
+                  <ul class="sd-dd__links">
+                    <li><a href="/extractor.html" data-prod="/websd/wordpress/extractor/">Extractor de datos de WhatsApp</a></li>
+                  </ul>
+                </div>
+
+                <div class="sd-dd__col">
+                  <div class="sd-dd__cat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    <h4 class="sd-dd__cat-title">Auditoría</h4>
+                  </div>
+                  <ul class="sd-dd__links">
+                    <li><a href="/auditor-estrategico.html" data-prod="/websd/wordpress/auditor-estrategico/">Auditor Estratégico</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="sd-dd__footer">
+                <span>Explora todas nuestras soluciones</span>
+                <a href="/index.html#productos" class="sd-dd__all" data-prod="/websd/wordpress/#productos">Ver todos →</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="/tienda.html" class="sd-link" data-prod="/websd/wordpress/tienda/">Tienda</a>
+          <a href="/ecosistema.html" class="sd-link" data-prod="/websd/wordpress/ecosistema/">Ecosistema</a>
+          <a href="/blog.html" class="sd-link" data-prod="/websd/wordpress/blog/">Blog</a>
+          <a href="/quienes-somos.html" class="sd-link" data-prod="/websd/wordpress/quienes-somos/">Quiénes Somos</a>
+        </nav>
+      </div>
+
+      <div class="sd-navbar__right">
+        <a href="tel:+573115893220" class="sd-navbar__phone">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +57 311 589 3220
+        </a>
+
+        <button class="sd-navbar__burger" type="button" data-burger aria-label="Menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sd-mobile" data-mobile>
+    <div class="sd-mobile__overlay" data-mobile-close></div>
+    <div class="sd-mobile__drawer">
+      <div class="sd-mobile__header">
+        <span>Menú</span>
+        <button class="sd-mobile__close" type="button" data-mobile-close aria-label="Cerrar menú">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div class="sd-mobile__body">
+        <nav class="sd-mobile__nav">
+          <a href="/index.html" class="sd-mobile__link" data-prod="/websd/wordpress/">Inicio</a>
+
+          <div class="sd-mobile__cat">
+            <button class="sd-mobile__cat-btn" type="button" data-cat-btn aria-expanded="false">
+              <span>Productos</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="sd-mobile__cat-body" data-cat-body hidden>
+              <div class="sd-mobile__cat-col">
+                <div class="sd-mobile__cat-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <span>Sitios Web</span>
+                </div>
+                <ul class="sd-mobile__cat-links">
+                  <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Vitrina de Conversión</a></li>
+                  <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Ecosistema de Autoridad</a></li>
+                  <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Hub de Negocios</a></li>
+                  <li><a href="/solucionesdigitales.html" data-prod="/websd/wordpress/solucionesdigitales/">Tarjeta Profesional de Negocios</a></li>
+                </ul>
+              </div>
+              <div class="sd-mobile__cat-col">
+                <div class="sd-mobile__cat-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  <span>Inteligencia Artificial</span>
+                </div>
+                <ul class="sd-mobile__cat-links">
+                  <li><a href="/probador-virtual.html" data-prod="/websd/wordpress/probador-virtual/">Probador Virtual IA</a></li>
+                  <li><a href="/chatbot.html" data-prod="/websd/wordpress/chatbot/">Piloto Pro - Agente IA Autónomo</a></li>
+                  <li><a href="/canal1-chatbot.html" data-prod="/websd/wordpress/canal1-chatbot/">Chatbot Multicanal Inteligente</a></li>
+                  <li><a href="/telegram/index.html" data-prod="/telegram/index.html" class="sd-dd__active">Mini Apps en Telegram</a></li>
+                </ul>
+              </div>
+              <div class="sd-mobile__cat-col">
+                <div class="sd-mobile__cat-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>WhatsApp Automation</span>
+                </div>
+                <ul class="sd-mobile__cat-links">
+                  <li><a href="/guardian-difusion.html" data-prod="/websd/wordpress/guardian-difusion/">Plataforma de Envío Masivo</a></li>
+                  <li><a href="/calentador-cuentas.html" data-prod="/websd/wordpress/calentador-cuentas/">Calentador Inteligente de Cuentas</a></li>
+                </ul>
+              </div>
+              <div class="sd-mobile__cat-col">
+                <div class="sd-mobile__cat-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                  <span>Minería en WhatsApp</span>
+                </div>
+                <ul class="sd-mobile__cat-links">
+                  <li><a href="/extractor.html" data-prod="/websd/wordpress/extractor/">Extractor de datos de WhatsApp</a></li>
+                </ul>
+              </div>
+              <div class="sd-mobile__cat-col">
+                <div class="sd-mobile__cat-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  <span>Auditoría</span>
+                </div>
+                <ul class="sd-mobile__cat-links">
+                  <li><a href="/auditor-estrategico.html" data-prod="/websd/wordpress/auditor-estrategico/">Auditor Estratégico</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <a href="/tienda.html" class="sd-mobile__link" data-prod="/websd/wordpress/tienda/">Tienda</a>
+          <a href="/ecosistema.html" class="sd-mobile__link" data-prod="/websd/wordpress/ecosistema/">Ecosistema</a>
+          <a href="/blog.html" class="sd-mobile__link" data-prod="/websd/wordpress/blog/">Blog</a>
+          <a href="/quienes-somos.html" class="sd-mobile__link" data-prod="/websd/wordpress/quienes-somos/">Quiénes Somos</a>
+        </nav>
+
+        <div class="sd-mobile__contact">
+          <a href="tel:+573115893220" class="sd-mobile__call">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Llamar · +57 311 589 3220
+          </a>
+          <a href="https://wa.me/573115893220" target="_blank" rel="noopener noreferrer" class="sd-mobile__wa">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Contáctanos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+      <div class="container hero__inner">
+        <div class="hero__content reveal">
+          <span class="hero__badge">Soluciones digitales con inteligencia artificial</span>
+          <h1 class="hero__title">Desarrollamos apps <span class="grad-text">inteligentes</span> para tu negocio</h1>
+          <p class="hero__subtitle">
+            Somos un equipo de desarrollo que convierte tu idea en una <strong>Mini App dentro de Telegram</strong>:
+            chatbots con IA, comercio, pagos, juegos y automatización. Rápido de lanzar, sin descargas y
+            con una experiencia que tus usuarios ya conocen.
+          </p>
+          <div class="hero__buttons">
+            <a href="#contacto" class="btn btn--primary">
+              Solicitar propuesta
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <a href="https://t.me/TdragongoldBot" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Probar ejemplo en vivo</a>
+            <a href="#proceso" class="btn btn--ghost">Ver nuestro proceso</a>
+          </div>
+          <ul class="hero__points">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Desarrollamos para ti y tus clientes</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> IA aplicada a cada proyecto</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Lanzamiento en semanas, no meses</li>
+          </ul>
+        </div>
+
+        <div class="hero__mock reveal" aria-hidden="true">
+          <div class="phone">
+            <div class="phone__notch"></div>
+            <div class="phone__screen">
+              <div class="mock-header">
+                <div class="mock-avatar">G</div>
+                <div>
+                  <strong>Trading Gold</strong>
+                  <span>@Tradinggoldbot · en línea</span>
+                </div>
+                <div class="mock-actions"><span></span><span></span></div>
+              </div>
+              <div class="mock-banner">
+                <span class="mock-banner__emoji">📈</span>
+                <div>
+                  <strong>Señal de trading con IA</strong>
+                  <span>Análisis actualizado hace 2 min</span>
+                </div>
+              </div>
+              <div class="mock-chat">
+                <div class="mock-msg mock-msg--bot">¡Hola! Soy el asistente de Trading Gold 🚀</div>
+                <div class="mock-msg mock-msg--user">¿Qué señal recomiendas hoy?</div>
+                <div class="mock-msg mock-msg--bot">Compra fuerte en oro, stop en 2.390. Evalúa la señal completa 👇</div>
+              </div>
+              <div class="mock-cta">Ver señal completa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="apps container" id="servicios">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Servicios</span>
+        <h2 class="section-title">Lo que desarrollamos para ti</h2>
+        <p class="section-desc">Diseñamos, construimos y lanzamos apps con inteligencia artificial para que conectes con tus clientes dentro de Telegram.</p>
+      </div>
+
+      <div class="apps__grid">
+        <article class="app-card reveal">
+          <img class="app-card__img" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" alt="Chatbot con inteligencia artificial" loading="lazy">
+          <h3>Chatbots con IA</h3>
+          <p>Asistentes que atienden, responden y venden por ti 24/7, entrenados con el conocimiento de tu negocio.</p>
+          <span class="app-card__tag">Más solicitado</span>
+        </article>
+
+        <article class="app-card reveal">
+          <img class="app-card__img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Pagos dentro de Telegram" loading="lazy">
+          <h3>Comercio y pagos</h3>
+          <p>Tiendas y pasarelas de pago dentro del chat. Tus clientes compran en un toque, sin fricción.</p>
+          <span class="app-card__tag">Conversión</span>
+        </article>
+
+        <article class="app-card reveal">
+          <img class="app-card__img" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" alt="Juegos para Telegram" loading="lazy">
+          <h3>Juegos y engagement</h3>
+          <p>Mini juegos y dinámicas que enganchan a tu audiencia y la mantienen volviendo por más.</p>
+          <span class="app-card__tag">Retención</span>
+        </article>
+
+        <article class="app-card reveal">
+          <img class="app-card__img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Paneles y finanzas" loading="lazy">
+          <h3>Paneles y finanzas</h3>
+          <p>Dashboards, suscripciones y cobros recurrentes con datos en tiempo real para tu operación.</p>
+          <span class="app-card__tag">Automatización</span>
+        </article>
+
+        <article class="app-card reveal">
+          <img class="app-card__img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" alt="Educación y cursos" loading="lazy">
+          <h3>Educación y cursos</h3>
+          <p>Lecciones, quizzes y certificados interactivos que tus clientes completan dentro del chat.</p>
+          <span class="app-card__tag">Fidelización</span>
+        </article>
+
+        <article class="app-card reveal">
+          <img class="app-card__img" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" alt="Automatización de procesos" loading="lazy">
+          <h3>Automatización de procesos</h3>
+          <p>Encuestas, recordatorios, reservas y flujos internos que ahorran horas a tu equipo cada semana.</p>
+          <span class="app-card__tag">Eficiencia</span>
+        </article>
+
+        <article class="app-card app-card--cta reveal">
+          <h3>¿Tu idea aún no está aquí?</h3>
+          <p>Hablemos. La transformamos en una app con IA lista para tus clientes.</p>
+          <a href="#contacto" class="btn btn--primary btn--sm">Empezar ahora</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="benefits" id="beneficios">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-eyebrow">Beneficios</span>
+          <h2 class="section-title">Por qué trabajar con nosotros</h2>
+          <p class="section-desc">Un solo equipo que te acompaña de la idea al lanzamiento, con IA en cada etapa.</p>
+        </div>
+
+        <div class="benefits__grid">
+          <article class="benefit reveal">
+            <div class="benefit__num">01</div>
+            <h3>Enfoque en resultados</h3>
+            <p>No vendemos código, vendemos soluciones que generan ventas, retención y crecimiento para tu negocio.</p>
+          </article>
+          <article class="benefit reveal">
+            <div class="benefit__num">02</div>
+            <h3>IA integrada de verdad</h3>
+            <p>Cada proyecto incorpora inteligencia artificial en la interacción, los datos y la automatización.</p>
+          </article>
+          <article class="benefit reveal">
+            <div class="benefit__num">03</div>
+            <h3>Lanzamiento rápido</h3>
+            <p>Metodología ágil para publicar tu app en semanas, no en meses, y validar con tus clientes.</p>
+          </article>
+          <article class="benefit reveal">
+            <div class="benefit__num">04</div>
+            <h3>Sin instalaciones</h3>
+            <p>Tu app vive dentro de Telegram: cero descargas, cero registros y cero fricción para tus usuarios.</p>
+          </article>
+          <article class="benefit reveal">
+            <div class="benefit__num">05</div>
+            <h3>Acompañamiento continuo</h3>
+            <p>Soporte, mejoras y nuevas funciones después del lanzamiento para que la app crezca contigo.</p>
+          </article>
+          <article class="benefit reveal">
+            <div class="benefit__num">06</div>
+            <h3>Precios claros</h3>
+            <p>Propuestas transparentes, sin costos ocultos y con entregables definidos desde el primer día.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="how container" id="proceso">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Proceso</span>
+        <h2 class="section-title">De la idea al lanzamiento en 3 pasos</h2>
+        <p class="section-desc">Un camino claro, probado y con IA aplicada en cada fase.</p>
+      </div>
+
+      <div class="how__steps">
+        <div class="how__step reveal">
+          <div class="how__step-badge">1</div>
+          <h3>Descubrimiento</h3>
+          <p>Analizamos tu negocio, tu audiencia y definimos la solución de IA que mejor encaje.</p>
+        </div>
+        <div class="how__step reveal">
+          <div class="how__step-badge">2</div>
+          <h3>Diseño y desarrollo</h3>
+          <p>Nuestro equipo de producto e IA diseña, construye y prueba tu app hasta dejarla lista.</p>
+        </div>
+        <div class="how__step reveal">
+          <div class="how__step-badge">3</div>
+          <h3>Lanzamiento y mejora</h3>
+          <p>Publicamos tu app, medimos su rendimiento y la mejoramos con datos reales.</p>
+        </div>
+      </div>
+
+      <div class="how__image reveal">
+        <div class="how__image-parallax">
+          <img src="https://res.cloudinary.com/c3quh0in/image/upload/v1786849912/telegram1_ndtvzx.jpg" alt="Desarrollo de apps con inteligencia artificial" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing container" id="precios">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Precios</span>
+        <h2 class="section-title">Una inversión, un proyecto, tuyo para siempre</h2>
+        <p class="section-desc">Pagas por el desarrollo de tu proyecto. La infraestructura queda a tu nombre, 100% tuya, de por vida.</p>
+      </div>
+
+      <div class="pricing__card reveal">
+        <div class="pricing__badge">Todo incluido</div>
+        <h3 class="pricing__title">Tu proyecto, tu infraestructura</h3>
+        <p class="pricing__subtitle">Un solo pago por el desarrollo. Sin mensualidades, sin licencias, sin depender de terceros.</p>
+
+        <div class="pricing__benefits">
+          <div class="pricing__benefit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            <div><strong>Diseño y desarrollo completo</strong><span>Idea a lanzamiento con IA aplicada en cada etapa.</span></div>
+          </div>
+          <div class="pricing__benefit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            <div><strong>Infraestructura a tu nombre</strong><span>Servidores, dominio y cuentas configurados en tu propiedad.</span></div>
+          </div>
+          <div class="pricing__benefit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            <div><strong>Pertenencia total de por vida</strong><span>El código y la infraestructura son 100% tuyos, para siempre.</span></div>
+          </div>
+          <div class="pricing__benefit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            <div><strong>Sin mensualidades ni licencias</strong><span>Un solo pago por el desarrollo. Sin costos ocultos.</span></div>
+          </div>
+          <div class="pricing__benefit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            <div><strong>Soporte post-lanzamiento</strong><span>Acompañamiento y mejoras después de publicar tu app.</span></div>
+          </div>
+          <div class="pricing__benefit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            <div><strong>Transferencia de conocimiento</strong><span>Te enseñamos a gestionar tu app y a crecer sobre ella.</span></div>
+          </div>
+        </div>
+
+        <div class="pricing__price">
+          <span class="pricing__price-label">Inversión</span>
+          <span class="pricing__price-value">Según tu proyecto</span>
+          <span class="pricing__price-note">Recibe una propuesta a la medida de tu idea y tu infraestructura.</span>
+        </div>
+
+        <div class="pricing__actions">
+          <a href="#contacto" class="btn btn--primary btn--lg">Cotizar mi proyecto</a>
+          <a href="#proceso" class="btn btn--ghost btn--lg">Ver el proceso</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" id="proyectos">
+      <div class="container stats__inner">
+        <div class="stat reveal">
+          <span class="stat__value" data-count="120">120</span><span class="stat__suffix">+</span>
+          <p>apps lanzadas para clientes</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__value" data-count="40">40</span><span class="stat__suffix">+</span>
+          <p>clientes activos hoy</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__value" data-count="98">98</span><span class="stat__suffix">%</span>
+          <p>de satisfacción en entregas</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__value" data-count="3">3</span><span class="stat__suffix">w</span>
+          <p>tiempo promedio de lanzamiento</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta container" id="contacto">
+      <div class="cta__card reveal">
+        <h2>¿Tienes una idea? Hagámosla realidad</h2>
+        <p>Cuéntanos tu proyecto y recibe una propuesta con IA aplicada a tu negocio. Sin compromiso.</p>
+        <div class="cta__buttons">
+          <a class="btn btn--primary btn--lg" href="mailto:hola@soldigitales.ai">
+            Escríbenos
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#proceso">Ver nuestro proceso</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer sd-footer-box">
+    <div class="container">
+      <div class="sd-footer-box__inner">
+        <div class="sd-footer-box__brand">
+          <div class="sd-footer-box__logo">
+            Soluciones Digitales <span class="sd-footer-box__logo-accent">IA</span>
+          </div>
+          <p>Creamos y optimizamos infraestructuras de software a la medida, automatizaciones comerciales y sistemas de inteligencia artificial para impulsar la productividad de tu organización.</p>
+          <div class="sd-footer-box__socials">
+            <a href="#" aria-label="Facebook" class="sd-footer-box__social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="Twitter" class="sd-footer-box__social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+            <a href="#" aria-label="YouTube" class="sd-footer-box__social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+            <a href="#" aria-label="Instagram" class="sd-footer-box__social"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+          </div>
+        </div>
+
+        <div class="sd-footer-box__cols">
+          <div class="sd-footer-box__col">
+            <h4>Servicios</h4>
+            <ul>
+              <li><a href="/sitios-web.html" data-prod="/websd/wordpress/sitios-web/">Desarrollo Web</a></li>
+              <li><a href="/chatbot.html" data-prod="/websd/wordpress/chatbot/">IA Conversacional</a></li>
+              <li><a href="/guardian-difusion.html" data-prod="/websd/wordpress/guardian-difusion/">WhatsApp Automation</a></li>
+              <li><a href="/extractor.html" data-prod="/websd/wordpress/extractor/">Minería B2B</a></li>
+            </ul>
+          </div>
+          <div class="sd-footer-box__col">
+            <h4>Empresa</h4>
+            <ul>
+              <li><a href="/quienes-somos.html" data-prod="/websd/wordpress/quienes-somos/">Quiénes somos</a></li>
+              <li><a href="/index.html#casos" data-prod="/websd/wordpress/#casos">Casos de éxito</a></li>
+              <li><a href="/index.html#mensaje" data-prod="/websd/wordpress/#mensaje">Contacto</a></li>
+              <li><a href="/tarjeta-digital.html" data-prod="/websd/wordpress/tarjeta-digital/">Tarjeta Digital</a></li>
+            </ul>
+          </div>
+          <div class="sd-footer-box__col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="/index.html" data-prod="/websd/wordpress/">Privacidad</a></li>
+              <li><a href="/index.html" data-prod="/websd/wordpress/">Términos de uso</a></li>
+              <li><a href="/index.html" data-prod="/websd/wordpress/">Política de datos</a></li>
+              <li><a href="/index.html" data-prod="/websd/wordpress/">Cookies</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sd-footer-box__bottom">
+        <p>© 2025 Soluciones Digitales IA. Todos los derechos reservados.</p>
+        <p>Bogotá, Colombia &nbsp;·&nbsp; <a href="https://wa.me/573115893220" target="_blank" rel="noopener noreferrer">+57 311 589 3220</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

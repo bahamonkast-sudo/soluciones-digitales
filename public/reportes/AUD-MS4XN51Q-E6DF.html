@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Estratégico - AUD-MS4XN51Q-E6DF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    
+    /* HEADER PROFESIONAL CON GRADIENTE */
+    .header {
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .audit-id {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      color: white;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* INFO BOX CON GRADIENTE */
+    .info-section {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+      padding: 30px 40px;
+      border-bottom: 4px solid #2962ff;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+    
+    .info-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #2962ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    /* CONTENIDO */
+    .content {
+      padding: 50px 40px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 50px 0 25px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 8px 24px rgba(41,98,255,0.25);
+    }
+    
+    h1:first-of-type {
+      margin-top: 0;
+    }
+    
+    h1 .emoji {
+      font-size: 36px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    
+    h2 {
+      color: #2962ff;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 35px 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #e8f0ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h3 {
+      color: #444;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 28px 0 15px 0;
+    }
+    
+    p {
+      margin: 16px 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+    }
+    
+    ul {
+      margin: 20px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    li {
+      margin: 15px 0;
+      padding-left: 40px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    
+    li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #2962ff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    strong {
+      color: #2962ff;
+      font-weight: 700;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+      background: linear-gradient(to right, rgba(41,98,255,0.1), transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    /* CALL TO ACTION STICKY */
+    .cta-sticky {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      animation: bounceIn 0.6s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .cta-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 18px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37,211,102,0.5);
+    }
+    
+    .cta-icon {
+      font-size: 24px;
+      animation: shake 2s ease-in-out infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+      20%, 40%, 60%, 80% { transform: rotate(10deg); }
+    }
+    
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 50px 40px;
+      text-align: center;
+      color: #999;
+    }
+    
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .footer-contact {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #ccc;
+    }
+    
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .social-icon:hover {
+      background: #2962ff;
+      transform: translateY(-3px);
+      border-color: #2962ff;
+    }
+    
+    .footer-disclaimer {
+      font-size: 12px;
+      color: #666;
+      margin-top: 30px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .header { padding: 40px 20px; }
+      .logo { font-size: 32px; }
+      .header-title { font-size: 22px; }
+      .info-section { padding: 20px; }
+      .content { padding: 30px 20px; }
+      .footer { padding: 30px 20px; }
+      .cta-sticky { bottom: 20px; right: 20px; }
+      .cta-button { padding: 14px 20px; font-size: 14px; }
+      h1 { font-size: 22px; padding: 20px; flex-direction: column; text-align: center; }
+      h1 .emoji { font-size: 32px; }
+    }
+    
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; }
+      .cta-sticky { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER PROFESIONAL -->
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡ Soluciones Digitales IA</div>
+      <div class="header-title">Diagnóstico Estratégico de Conversión</div>
+      <div class="audit-id">ID: AUD-MS4XN51Q-E6DF</div>
+    </div>
+    
+    <!-- INFO SECTION -->
+    <div class="info-section">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Fecha</div>
+            <div class="info-value">28 de julio de 2026 a las 12:31</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏢</div>
+          <div>
+            <div class="info-label">Categoría</div>
+            <div class="info-value">E-commerce -> Moda</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🌐</div>
+          <div>
+            <div class="info-label">Activos Digitales</div>
+            <div class="info-value">Instagram</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">Canal de Cierre</div>
+            <div class="info-value">WhatsApp</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Cliente</div>
+            <div class="info-value">Cliente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CONTENIDO DINÁMICO -->
+    <div class="content">
+      <h1><span class="emoji">🚨</span><span>DIAGNÓSTICO DE FUGA PRINCIPAL</span></h1>
+<p>Tu negocio en la categoría <strong>E-commerce -> Moda</strong> está experimentando una pérdida constante de prospectos cualificados. El cuello de botella radica en la desconexión entre la propuesta de valor y el canal de cierre (<em>WhatsApp</em>). Al llevar tráfico frío directamente sin una fase previa de educación o filtro, el costo por adquisición se dispara y la tasa de conversión cae por debajo del 2%.</p>
+<br>
+<h1><span class="emoji">⚠️</span><span>3 FALENCIAS CRÍTICAS EN EL ECOSISTEMA</span></h1>
+<ul>
+<li><strong>Falta de Oferta de Filtro</strong>: Los prospectos llegan con objeciones de precio porque no han percibido el valor diferencial antes de ser dirigidos a <em>WhatsApp</em>.</li>
+<li><strong>Desalineación de Anuncios y Creativos</strong>: Si utilizas <em>Reels</em>, es probable que estés sufriendo fatiga publicitaria o clics de curiosos no calificados.</li>
+<li><strong>Vulnerabilidad de Políticas en Meta/Google</strong>: El nicho <strong>E-commerce -> Moda</strong> suele activar alertas por promesas de resultados inmediatos o lenguaje agresivo, arriesgando baneos de cuenta publicitaria.</li>
+</ul>
+<br>
+<h1><span class="emoji">🛡️</span><span>AJUSTE DE CUMPLIMIENTO & POLÍTICAS</span></h1>
+<ul>
+<li><strong>Cero Promesas Absolutas</strong>: En Meta y Google Ads, jamás uses frases como <em>"Gana X dinero en 30 días"</em>, <em>"Cura garantizada"</em> o <em>"Resultados 100% asegurados"</em>.</li>
+<li><strong>Enfoque en Proceso, no en Atributo Personal</strong>: Sustituye <em>"¿Estás frustrado con tu negocio?"</em> por <em>"Descubre el método probado para optimizar la captación B2B"</em>.</li>
+<li><strong>Cumplimiento para E-commerce -> Moda</strong>: Asegura un aviso legal (<em>Disclaimer</em>) claro en la landing page y una Política de Privacidad visible en el pie de página.</li>
+</ul>
+<br>
+<h1><span class="emoji">⚡</span><span>QUICK WIN (ACCIÓN EN 24 HORAS)</span></h1>
+<p>Pide a tu equipo o configura hoy mismo una <strong>Respuesta Automática de Bienvenida de 3 Preguntas de Filtro</strong> en <em>WhatsApp</em> antes de atender al prospecto. Esto filtrará a curiosos y elevará la tasa de conversión con clientes listos para comprar.</p>
+<br>
+<h1><span class="emoji">🎯</span><span>ESTRATEGIA Y FORMATO RECOMENDADO</span></h1>
+<ul>
+<li><strong>Atractivo de Entrada (Top of Funnel)</strong>: Implementa un Video Lead Magnet corto o VSL de 3 minutos abordando la solución a: <em>"No convierto visitas en ventas..."</em></li>
+<li><strong>Formato Creativo Principal</strong>: Videos en formato 9:16 con caso de estudio real o demostración visual del servicio/producto.</li>
+<li><strong>KPI Clave</strong>: Mide la tasa de clics a conversación (CTR > 2.5%) y la tasa de agendamiento/cierre (> 15%).</li>
+</ul>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-logo">⚡ Soluciones Digitales IA</div>
+      <div class="footer-contact">📱 WhatsApp: +57 311 589 3220</div>
+      <div class="footer-contact">🌐 www.solucionesdigitalesia.com</div>
+      <div class="footer-contact">📧 contacto@solucionesdigitalesia.com</div>
+      
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="WhatsApp">💬</a>
+        <a href="#" class="social-icon" title="Instagram">📸</a>
+        <a href="#" class="social-icon" title="LinkedIn">💼</a>
+        <a href="#" class="social-icon" title="YouTube">🎥</a>
+      </div>
+      
+      <div class="footer-disclaimer">
+        Este diagnóstico es confidencial y exclusivo para Cliente.<br>
+        Prohibida su reproducción total o parcial sin autorización.<br>
+        © 2025 Soluciones Digitales IA - Todos los derechos reservados
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA STICKY WHATSAPP -->
+  <div class="cta-sticky">
+    <a href="https://wa.me/573115893220?text=Hola!%20Leí%20mi%20diagnóstico%20AUD-MS4XN51Q-E6DF%20y%20quiero%20agendar%20una%20llamada%20estratégica" class="cta-button" target="_blank">
+      <span class="cta-icon">💬</span>
+      <span>Agendar Llamada Estratégica</span>
+    </a>
+  </div>
+  
+  <!-- Analytics -->
+  <script>
+    // Registrar apertura del reporte
+    fetch('/api/audit-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auditId: 'AUD-MS4XN51Q-E6DF', timestamp: new Date().toISOString() })
+    }).catch(() => {});
+    
+    // Registrar tiempo en página
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      navigator.sendBeacon('/api/audit-time', JSON.stringify({ 
+        auditId: 'AUD-MS4XN51Q-E6DF', 
+        timeSpent 
+      }));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Estratégico - AUD-MS53B8CQ-03AC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    
+    /* HEADER PROFESIONAL CON GRADIENTE */
+    .header {
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .audit-id {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      color: white;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* INFO BOX CON GRADIENTE */
+    .info-section {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+      padding: 30px 40px;
+      border-bottom: 4px solid #2962ff;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+    
+    .info-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #2962ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    /* CONTENIDO */
+    .content {
+      padding: 50px 40px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 50px 0 25px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 8px 24px rgba(41,98,255,0.25);
+    }
+    
+    h1:first-of-type {
+      margin-top: 0;
+    }
+    
+    h1 .emoji {
+      font-size: 36px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    
+    h2 {
+      color: #2962ff;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 35px 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #e8f0ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h3 {
+      color: #444;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 28px 0 15px 0;
+    }
+    
+    p {
+      margin: 16px 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+    }
+    
+    ul {
+      margin: 20px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    li {
+      margin: 15px 0;
+      padding-left: 40px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    
+    li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #2962ff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    strong {
+      color: #2962ff;
+      font-weight: 700;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+      background: linear-gradient(to right, rgba(41,98,255,0.1), transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    /* CALL TO ACTION STICKY */
+    .cta-sticky {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      animation: bounceIn 0.6s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .cta-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 18px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37,211,102,0.5);
+    }
+    
+    .cta-icon {
+      font-size: 24px;
+      animation: shake 2s ease-in-out infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+      20%, 40%, 60%, 80% { transform: rotate(10deg); }
+    }
+    
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 50px 40px;
+      text-align: center;
+      color: #999;
+    }
+    
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .footer-contact {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #ccc;
+    }
+    
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .social-icon:hover {
+      background: #2962ff;
+      transform: translateY(-3px);
+      border-color: #2962ff;
+    }
+    
+    .footer-disclaimer {
+      font-size: 12px;
+      color: #666;
+      margin-top: 30px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .header { padding: 40px 20px; }
+      .logo { font-size: 32px; }
+      .header-title { font-size: 22px; }
+      .info-section { padding: 20px; }
+      .content { padding: 30px 20px; }
+      .footer { padding: 30px 20px; }
+      .cta-sticky { bottom: 20px; right: 20px; }
+      .cta-button { padding: 14px 20px; font-size: 14px; }
+      h1 { font-size: 22px; padding: 20px; flex-direction: column; text-align: center; }
+      h1 .emoji { font-size: 32px; }
+    }
+    
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; }
+      .cta-sticky { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER PROFESIONAL -->
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡ Soluciones Digitales IA</div>
+      <div class="header-title">Diagnóstico Estratégico de Conversión</div>
+      <div class="audit-id">ID: AUD-MS53B8CQ-03AC</div>
+    </div>
+    
+    <!-- INFO SECTION -->
+    <div class="info-section">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Fecha</div>
+            <div class="info-value">28 de julio de 2026 a las 15:10</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏢</div>
+          <div>
+            <div class="info-label">Categoría</div>
+            <div class="info-value">Productos Naturales, Suplementos & Bienestar -> Suplementos Deportivos & Alimenticios</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🌐</div>
+          <div>
+            <div class="info-label">Activos Digitales</div>
+            <div class="info-value">Sitio Web / Landing Page, WhatsApp Business / Grupo de WhatsApp</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">Canal de Cierre</div>
+            <div class="info-value">WhatsApp / Telegram Business</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Cliente</div>
+            <div class="info-value">Cliente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CONTENIDO DINÁMICO -->
+    <div class="content">
+      <h1><span class="emoji">🚨</span><span>DIAGNÓSTICO DE FUGA PRINCIPAL</span></h1>
+<p>El problema principal identificado es la falta de ventas en el nicho de suplementos deportivos y alimenticios. Según un estudio de HubSpot, "el 80% de los consumidores confían más en las recomendaciones de amigos y familiares que en la publicidad" (HubSpot, 2024). Esto sugiere que la falta de confianza y credibilidad en la marca podría ser un factor clave en la falta de ventas. Además, la falta de un enfoque en contenido orgánico y la dependencia en anuncios de imagen estática podrían estar limitando el alcance y el engagement con el público objetivo.</p>
+<br>
+<h1><span class="emoji">�</span><span>� ESTRATEGIA ORGÁNICA (PRIORIDAD #1)</span></h1>
+<p>La estrategia orgánica es fundamental para generar confianza y credibilidad en la marca. A continuación, se presentan algunas estrategias orgánicas que pueden ayudar a mejorar las ventas:</p>
+<br>
+<h2>� � Contenido de Alto Impacto Orgánico</h2>
+<ul>
+<li><strong>YouTube SEO</strong>: crear videos educativos sobre suplementos deportivos y alimenticios, como "Los beneficios del proteín en polvo para el músculo" o "Cómo elegir el suplemento adecuado para tu dieta". Según vidIQ, "los videos educativos rankean 3x más que los promocionales" (vidIQ, 2024).</li>
+<li><strong>Instagram Reels</strong>: crear reels educativos y entretenidos sobre suplementos deportivos y alimenticios, como "5 consejos para aumentar tu fuerza en el gimnasio" o "Cómo preparar un smoothie saludable con proteín en polvo". Según Meta Insights, "los reels educativos alcanzan 3.5x más no-seguidores que los posts estáticos" (Meta Insights, 2024).</li>
+<li><strong>Blog</strong>: crear artículos de blog sobre suplementos deportivos y alimenticios, como "Los beneficios de la creatina para el rendimiento deportivo" o "Cómo elegir el suplemento adecuado para tu dieta cetogénica". Según Ahrefs, "los artículos de blog de 1,500+ palabras rankean en el top 10 de Google en 3-6 meses" (Ahrefs, 2024).</li>
+</ul>
+<br>
+<h2>� � Comunidades y Networking Orgánico</h2>
+<ul>
+<li><strong>Grupos de Facebook</strong>: unirse a grupos de Facebook relacionados con suplementos deportivos y alimenticios, como "Suplementos Deportivos" o "Nutrición y Bienestar". Según Social Media Examiner, "administrar un grupo de Facebook de 500+ miembros puede generar 8-15 clientes/mes orgánicos" (Social Media Examiner, 2024).</li>
+<li><strong>Colaboraciones</strong>: colaborar con influencers y expertos en el nicho de suplementos deportivos y alimenticios para promocionar productos y servicios. Según CoSchedule, "el co-marketing con complementarios puede generar 40% más alcance sin presupuesto" (CoSchedule, 2023).</li>
+</ul>
+<br>
+<h2>🔍 SEO y Contenido Escrito</h2>
+<ul>
+<li><strong>Keywords</strong>: identificar keywords relevantes para el nicho de suplementos deportivos y alimenticios, como "suplementos deportivos" o "proteín en polvo". Según Ahrefs, "las keywords de baja competencia y alta conversión pueden generar más tráfico y ventas" (Ahrefs, 2024).</li>
+<li><strong>Estructura de blog</strong>: crear una estructura de blog clara y organizada, con títulos, subtítulos y párrafos bien definidos. Según HubSpot, "los artículos de blog con una estructura clara y organizada pueden mejorar la experiencia del usuario y aumentar la conversión" (HubSpot, 2024).</li>
+</ul>
+<br>
+<h2>📊 Métricas Orgánicas Esperadas</h2>
+<ul>
+<li><strong>Alcance</strong>: 1,000 - 5,000 personas alcanzadas por mes en las redes sociales.</li>
+<li><strong>Engagement</strong>: 100 - 500 likes, comentarios y compartidos por mes en las redes sociales.</li>
+<li><strong>Leads</strong>: 10 - 50 leads por mes a través de las redes sociales y el sitio web.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� ADS PAGOS (ACELERADOR - OPCIONAL)</span></h1>
+<p>Si se decide utilizar ads pagos, es importante enfocarse en retargeting y remarketing para maximizar el ROI. Según AdEspresso, "el retargeting puede reducir el costo por adquisición en un 50-70%" (AdEspresso, 2024). También es importante utilizar anuncios de imagen dinámica y video para aumentar el engagement y la conversión.</p>
+<br>
+<h1><span class="emoji">⚠️</span><span>3 FALENCIAS CRÍTICAS + SOLUCIONES</span></h1>
+<p>A continuación, se presentan tres falencias críticas y sus soluciones:</p>
+<br>
+<h2>Falencia 1: Falta de Contenido de Valor</h2>
+<p><strong>Impacto</strong>: la falta de contenido de valor puede generar una falta de confianza y credibilidad en la marca.</p>
+<p><strong>Solución Orgánica</strong>: crear contenido de valor a través de blog, YouTube, Instagram Reels y otros canales de contenido.</p>
+<p><strong>Solución con Ads</strong>: utilizar anuncios de imagen dinámica y video para promocionar contenido de valor.</p>
+<br>
+<h2>Falencia 2: Falta de Interacción en las Redes Sociales</h2>
+<p><strong>Impacto</strong>: la falta de interacción en las redes sociales puede generar una falta de engagement y conversión.</p>
+<p><strong>Solución Orgánica</strong>: interactuar con los seguidores en las redes sociales a través de comentarios, likes y compartidos.</p>
+<p><strong>Solución con Ads</strong>: utilizar anuncios de imagen dinámica y video para promocionar contenido interactivo.</p>
+<br>
+<h2>Falencia 3: Falta de Optimización del Sitio Web</h2>
+<p><strong>Impacto</strong>: la falta de optimización del sitio web puede generar una falta de conversión y ventas.</p>
+<p><strong>Solución Orgánica</strong>: optimizar el sitio web para mejorar la experiencia del usuario y aumentar la conversión.</p>
+<p><strong>Solución con Ads</strong>: utilizar anuncios de imagen dinámica y video para promocionar el sitio web y aumentar la conversión.</p>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-logo">⚡ Soluciones Digitales IA</div>
+      <div class="footer-contact">📱 WhatsApp: +57 311 589 3220</div>
+      <div class="footer-contact">🌐 www.solucionesdigitalesia.com</div>
+      <div class="footer-contact">📧 contacto@solucionesdigitalesia.com</div>
+      
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="WhatsApp">💬</a>
+        <a href="#" class="social-icon" title="Instagram">📸</a>
+        <a href="#" class="social-icon" title="LinkedIn">💼</a>
+        <a href="#" class="social-icon" title="YouTube">🎥</a>
+      </div>
+      
+      <div class="footer-disclaimer">
+        Este diagnóstico es confidencial y exclusivo para Cliente.<br>
+        Prohibida su reproducción total o parcial sin autorización.<br>
+        © 2025 Soluciones Digitales IA - Todos los derechos reservados
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA STICKY WHATSAPP -->
+  <div class="cta-sticky">
+    <a href="https://wa.me/573115893220?text=Hola!%20Leí%20mi%20diagnóstico%20AUD-MS53B8CQ-03AC%20y%20quiero%20agendar%20una%20llamada%20estratégica" class="cta-button" target="_blank">
+      <span class="cta-icon">💬</span>
+      <span>Agendar Llamada Estratégica</span>
+    </a>
+  </div>
+  
+  <!-- Analytics -->
+  <script>
+    // Registrar apertura del reporte
+    fetch('/api/audit-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auditId: 'AUD-MS53B8CQ-03AC', timestamp: new Date().toISOString() })
+    }).catch(() => {});
+    
+    // Registrar tiempo en página
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      navigator.sendBeacon('/api/audit-time', JSON.stringify({ 
+        auditId: 'AUD-MS53B8CQ-03AC', 
+        timeSpent 
+      }));
+    });
+  </script>
+</body>
+</html>

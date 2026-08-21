@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Estratégico - AUD-MS4YQM1J-FCA7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    
+    /* HEADER PROFESIONAL CON GRADIENTE */
+    .header {
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .audit-id {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      color: white;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* INFO BOX CON GRADIENTE */
+    .info-section {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+      padding: 30px 40px;
+      border-bottom: 4px solid #2962ff;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+    
+    .info-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #2962ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    /* CONTENIDO */
+    .content {
+      padding: 50px 40px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 50px 0 25px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 8px 24px rgba(41,98,255,0.25);
+    }
+    
+    h1:first-of-type {
+      margin-top: 0;
+    }
+    
+    h1 .emoji {
+      font-size: 36px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    
+    h2 {
+      color: #2962ff;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 35px 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #e8f0ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h3 {
+      color: #444;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 28px 0 15px 0;
+    }
+    
+    p {
+      margin: 16px 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+    }
+    
+    ul {
+      margin: 20px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    li {
+      margin: 15px 0;
+      padding-left: 40px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    
+    li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #2962ff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    strong {
+      color: #2962ff;
+      font-weight: 700;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+      background: linear-gradient(to right, rgba(41,98,255,0.1), transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    /* CALL TO ACTION STICKY */
+    .cta-sticky {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      animation: bounceIn 0.6s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .cta-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 18px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37,211,102,0.5);
+    }
+    
+    .cta-icon {
+      font-size: 24px;
+      animation: shake 2s ease-in-out infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+      20%, 40%, 60%, 80% { transform: rotate(10deg); }
+    }
+    
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 50px 40px;
+      text-align: center;
+      color: #999;
+    }
+    
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .footer-contact {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #ccc;
+    }
+    
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .social-icon:hover {
+      background: #2962ff;
+      transform: translateY(-3px);
+      border-color: #2962ff;
+    }
+    
+    .footer-disclaimer {
+      font-size: 12px;
+      color: #666;
+      margin-top: 30px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .header { padding: 40px 20px; }
+      .logo { font-size: 32px; }
+      .header-title { font-size: 22px; }
+      .info-section { padding: 20px; }
+      .content { padding: 30px 20px; }
+      .footer { padding: 30px 20px; }
+      .cta-sticky { bottom: 20px; right: 20px; }
+      .cta-button { padding: 14px 20px; font-size: 14px; }
+      h1 { font-size: 22px; padding: 20px; flex-direction: column; text-align: center; }
+      h1 .emoji { font-size: 32px; }
+    }
+    
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; }
+      .cta-sticky { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER PROFESIONAL -->
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡ Soluciones Digitales IA</div>
+      <div class="header-title">Diagnóstico Estratégico de Conversión</div>
+      <div class="audit-id">ID: AUD-MS4YQM1J-FCA7</div>
+    </div>
+    
+    <!-- INFO SECTION -->
+    <div class="info-section">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Fecha</div>
+            <div class="info-value">28 de julio de 2026 a las 13:02</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏢</div>
+          <div>
+            <div class="info-label">Categoría</div>
+            <div class="info-value">E-commerce -> Moda</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🌐</div>
+          <div>
+            <div class="info-label">Activos Digitales</div>
+            <div class="info-value">Instagram</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">Canal de Cierre</div>
+            <div class="info-value">WhatsApp</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Cliente</div>
+            <div class="info-value">Cliente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CONTENIDO DINÁMICO -->
+    <div class="content">
+      <h1><span class="emoji">🚨</span><span>DIAGNÓSTICO DE FUGA PRINCIPAL</span></h1>
+<p>El problema principal identificado es la falta de conversión de visitas en ventas. Según un estudio de Shopify, el 70% de los compradores abandonan su carrito de compras sin finalizar la transacción. En el caso de la moda, esta cifra puede ser aún más alta debido a la competencia y la variedad de opciones disponibles. Un análisis de la conversión de visitas en ventas en la industria de la moda muestra que solo el 2-3% de las visitas se convierten en ventas (Fuente: Google Analytics Benchmarking). Esto sugiere que la falta de conversión de visitas en ventas puede deberse a varios factores, como la falta de confianza en la marca, la complejidad del proceso de compra o la falta de información clara sobre los productos.</p>
+<br>
+<h1><span class="emoji">�</span><span>� ESTRATEGIA ORGÁNICA (PRIORIDAD #1)</span></h1>
+<p>La estrategia orgánica se enfocará en mejorar la experiencia del cliente y aumentar la confianza en la marca a través de contenido de alto impacto en Instagram Reels y WhatsApp.</p>
+<br>
+<h2>� � Contenido de Alto Impacto Orgánico</h2>
+<ul>
+<li>Formatos específicos que generan alcance: Reels educativos y de "detrás de escena" que muestra la creación de los productos y la historia detrás de la marca (Fuente: Meta Insights 2024).</li>
+<li>Calendario de contenido semanal concreto: Publicar 3 Reels por semana, uno de ellos con un descuento o promoción exclusiva para los seguidores de Instagram.</li>
+<li>Temas/hooks que funcionan en el nicho: Utilizar hashtags relevantes como #moda #fashion #estilodevida y colaborar con influencers de moda para aumentar el alcance.</li>
+</ul>
+<br>
+<h2>� � Comunidades y Networking Orgánico</h2>
+<ul>
+<li>Grupos/foros/comunidades específicas donde debe participar: Unirse a grupos de Facebook y comunidades de Reddit relacionados con la moda y la estilística para compartir consejos y promociones.</li>
+<li>Estrategia de posicionamiento sin vender: Compartir contenido valioso y útil para los seguidores, como consejos de estilismo y moda, y ofrecer descuentos exclusivos para los miembros de la comunidad.</li>
+<li>Colaboraciones estratégicas: Colaborar con influencers de moda y diseñadores de ropa para crear contenido y promociones exclusivas.</li>
+</ul>
+<br>
+<h2>🔍 SEO y Contenido Escrito</h2>
+<ul>
+<li>Keywords de baja competencia/alta conversión específicas del nicho: Utilizar palabras clave como "moda sostenible", "ropa de diseño", "estilismo personalizado" para optimizar el contenido de Instagram y WhatsApp.</li>
+<li>Estructura de blog/artículos: Crear un blog en la página web de la tienda en línea para compartir contenido escrito sobre moda y estilismo, y utilizar WordPress para optimizar el contenido para motores de búsqueda.</li>
+<li>Timeline realista de posicionamiento: Publicar contenido escrito 2 veces por semana y optimizar el contenido existente para motores de búsqueda durante los próximos 3 meses.</li>
+</ul>
+<br>
+<h2>📊 Métricas Orgánicas Esperadas</h2>
+<ul>
+<li>Alcance, engagement, leads por canal: Aumentar el alcance en un 20% y el engagement en un 30% en Instagram durante los próximos 3 meses, y generar 10 leads por semana a través de WhatsApp.</li>
+<li>Timeline: 30, 60, 90 días: Revisar y ajustar la estrategia orgánica cada 30 días para asegurarse de que se están alcanzando los objetivos.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� ADS PAGOS (ACELERADOR - OPCIONAL)</span></h1>
+<p>Si se decide utilizar ads pagos, se enfocarán en retargeting de audiencia orgánica y se utilizarán plataformas como Facebook Ads y Google Ads.</p>
+<br>
+<ul>
+<li>Presupuesto mínimo viable: $300-500/mes</li>
+<li>Estrategia de retargeting prioritaria: Utilizar Facebook Ads para retargeting a los usuarios que han visitado la página web de la tienda en línea pero no han convertido.</li>
+<li>CAC esperado: orgánico vs ads: El CAC para la estrategia orgánica se espera que sea de $10-20 por lead, mientras que el CAC para la estrategia de ads pagos se espera que sea de $20-50 por lead.</li>
+<li>Multiplicador de resultados vs orgánico puro: Se espera que la estrategia de ads pagos aumente la conversión de visitas en ventas en un 20-30% en comparación con la estrategia orgánica pura.</li>
+</ul>
+<br>
+<h1><span class="emoji">⚠️</span><span>3 FALENCIAS CRÍTICAS + SOLUCIONES</span></h1>
+<h2>Falencia 1: Falta de confianza en la marca</h2>
+<p><strong>Impacto:</strong> La falta de confianza en la marca puede llevar a una tasa de abandono de carrito de compras más alta.</p>
+<p><strong>Solución Orgánica:</strong> Compartir contenido valioso y útil para los seguidores, como consejos de estilismo y moda, y ofrecer descuentos exclusivos para los miembros de la comunidad.</p>
+<p><strong>Solución con Ads (opcional):</strong> Utilizar Facebook Ads para retargeting a los usuarios que han visitado la página web de la tienda en línea pero no han convertido, y ofrecer un descuento exclusivo para primera compra.</p>
+<br>
+<h2>Falencia 2: Complejidad del proceso de compra</h2>
+<p><strong>Impacto:</strong> La complejidad del proceso de compra puede llevar a una tasa de abandono de carrito de compras más alta.</p>
+<p><strong>Solución Orgánica:</strong> Simplificar el proceso de compra en la página web de la tienda en línea y ofrecer una experiencia de compra más fluida.</p>
+<p><strong>Solución con Ads (opcional):</strong> Utilizar Google Ads para dirigir tráfico a la página web de la tienda en línea y ofrecer una experiencia de compra más fluida.</p>
+<br>
+<h2>Falencia 3: Falta de información clara sobre los productos</h2>
+<p><strong>Impacto:</strong> La falta de información clara sobre los productos puede llevar a una tasa de abandono de carrito de compras más alta.</p>
+<p><strong>Solución Orgánica:</strong> Compartir contenido valioso y útil para los seguidores, como descripciones detalladas de los productos y reseñas de clientes.</p>
+<p><strong>Solución con Ads (opcional):</strong> Utilizar Facebook Ads para retargeting a los usuarios que han visitado la página web de la tienda en línea pero no han convertido, y ofrecer una descripción detallada de los productos y reseñas de clientes.</p>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-logo">⚡ Soluciones Digitales IA</div>
+      <div class="footer-contact">📱 WhatsApp: +57 311 589 3220</div>
+      <div class="footer-contact">🌐 www.solucionesdigitalesia.com</div>
+      <div class="footer-contact">📧 contacto@solucionesdigitalesia.com</div>
+      
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="WhatsApp">💬</a>
+        <a href="#" class="social-icon" title="Instagram">📸</a>
+        <a href="#" class="social-icon" title="LinkedIn">💼</a>
+        <a href="#" class="social-icon" title="YouTube">🎥</a>
+      </div>
+      
+      <div class="footer-disclaimer">
+        Este diagnóstico es confidencial y exclusivo para Cliente.<br>
+        Prohibida su reproducción total o parcial sin autorización.<br>
+        © 2025 Soluciones Digitales IA - Todos los derechos reservados
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA STICKY WHATSAPP -->
+  <div class="cta-sticky">
+    <a href="https://wa.me/573115893220?text=Hola!%20Leí%20mi%20diagnóstico%20AUD-MS4YQM1J-FCA7%20y%20quiero%20agendar%20una%20llamada%20estratégica" class="cta-button" target="_blank">
+      <span class="cta-icon">💬</span>
+      <span>Agendar Llamada Estratégica</span>
+    </a>
+  </div>
+  
+  <!-- Analytics -->
+  <script>
+    // Registrar apertura del reporte
+    fetch('/api/audit-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auditId: 'AUD-MS4YQM1J-FCA7', timestamp: new Date().toISOString() })
+    }).catch(() => {});
+    
+    // Registrar tiempo en página
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      navigator.sendBeacon('/api/audit-time', JSON.stringify({ 
+        auditId: 'AUD-MS4YQM1J-FCA7', 
+        timeSpent 
+      }));
+    });
+  </script>
+</body>
+</html>

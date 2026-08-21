@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Typebot - Antigravity</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.7; }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 2.5rem; color: #38bdf8; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.5rem; color: #7dd3fc; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #1e293b; }
+        h3 { color: #94a3b8; margin: 1.5rem 0 0.5rem; }
+        p { margin: 1rem 0; }
+        code { background: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #a5f3fc; }
+        pre { background: #1e293b; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 1rem 0; font-size: 0.85rem; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .badge-green { background: #065f46; color: #6ee7b7; }
+        .badge-blue { background: #1e3a5f; color: #93c5fd; }
+        .badge-yellow { background: #5c3d0e; color: #fcd34d; }
+        .card { background: #1e293b; border-radius: 12px; padding: 20px; margin: 1.5rem 0; }
+        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .step { display: flex; gap: 16px; margin: 1.5rem 0; padding: 16px; background: #1e293b; border-radius: 10px; border-left: 4px solid #38bdf8; }
+        .step-num { font-size: 1.2rem; font-weight: 700; color: #38bdf8; min-width: 28px; }
+        .flow-diagram { background: #0f172a; padding: 20px; border-radius: 12px; margin: 1.5rem 0; font-family: monospace; white-space: pre; line-height: 2; overflow-x: auto; }
+        .flow-diagram .group { color: #7dd3fc; }
+        .flow-diagram .conn { color: #475569; }
+        .flow-diagram .block { color: #e2e8f0; }
+        .url-box { background: #0f172a; padding: 12px 16px; border-radius: 8px; font-family: monospace; margin: 0.5rem 0; }
+        .variable-list { list-style: none; }
+        .variable-list li { padding: 8px 12px; margin: 4px 0; background: #0f172a; border-radius: 6px; font-family: monospace; font-size: 0.85rem; }
+        .endpoints { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+        .endpoint { background: #0f172a; padding: 12px; border-radius: 8px; }
+        .endpoint .method { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
+        .method-get { background: #065f46; color: #6ee7b7; }
+        .method-post { background: #1e3a5f; color: #93c5fd; }
+        hr { border: none; border-top: 1px solid #1e293b; margin: 2rem 0; }
+        @media (max-width: 768px) { .endpoints { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🤖 Antigravity + Typebot</h1>
+    <p>Guía para conectar <strong>Antigravity</strong> (Groq + IA) con <strong>Typebot</strong> y crear una charla amena con tus usuarios.</p>
+    
+    <div class="badge badge-green">Nuevos endpoints Typebot</div>
+    <div class="badge badge-blue">V6 flow importable</div>
+
+    <hr>
+
+    <h2>📡 Endpoints disponibles</h2>
+    <p>El servidor ahora expone estos endpoints específicos para Typebot:</p>
+    
+    <div class="endpoints">
+        <div class="endpoint">
+            <span class="method method-post">POST</span>
+            <code>/api/typebot</code>
+            <p style="font-size:0.85rem; margin-top:6px;">Webhook principal. Recibe <code>sessionId</code> + <code>message</code>, devuelve la respuesta de IA.</p>
+        </div>
+        <div class="endpoint">
+            <span class="method method-post">POST</span>
+            <code>/api/typebot/registrar</code>
+            <p style="font-size:0.85rem; margin-top:6px;">Registra leads. Recibe <code>sessionId</code>, <code>nombre</code>, <code>email</code>, etc.</p>
+        </div>
+        <div class="endpoint">
+            <span class="method method-post">POST</span>
+            <code>/api/typebot/reset</code>
+            <p style="font-size:0.85rem; margin-top:6px;">Reinicia una sesión.</p>
+        </div>
+        <div class="endpoint">
+            <span class="method method-get">GET</span>
+            <code>/api/typebot-flow</code>
+            <p style="font-size:0.85rem; margin-top:6px;">Descarga el flow JSON para importar en Typebot.</p>
+        </div>
+    </div>
+
+    <h2>📥 Importar el Flow en Typebot</h2>
+    
+    <div class="step">
+        <div class="step-num">1</div>
+        <div>
+            <strong>Abre Typebot Studio</strong>
+            <p>Crea un nuevo Typebot y selecciona <strong>"Importar un archivo"</strong> (Import a file).</p>
+            <p>Selecciona el archivo <code>typebot-flow.json</code> que está en la raíz del proyecto.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-num">2</div>
+        <div>
+            <strong>Configura la URL del webhook</strong>
+            <p>En los bloques <strong>"Webhook"</strong> (HTTP Request), actualiza la URL si tu servidor corre en otro puerto o dominio:</p>
+            <div class="url-box">http://localhost:3000/api/typebot</div>
+            <p>En producción, cámbiala a tu dominio real.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-num">3</div>
+        <div>
+            <strong>Prueba el flujo</strong>
+            <p>Usa el botón <strong>"Test"</strong> en Typebot para probar la conversación. Escribe un mensaje y el asistente Antigravity responderá.</p>
+        </div>
+    </div>
+
+    <h2>🧩 Estructura del Flow</h2>
+    
+    <div class="flow-diagram">
+<span class="group">INICIO</span>
+<span class="conn">  │</span>
+<span class="conn">  ▼</span>
+<span class="group">¿Primera vez?</span>
+<span class="conn">  ├─ Si → Bienvenida → Input → API → Condición</span>
+<span class="conn">  │                                          │</span>
+<span class="conn">  │                      ┌───────────────────┤</span>
+<span class="conn">  │                      ▼                   ▼</span>
+<span class="conn">  │                 SUCCESS              BLOQUEO</span>
+<span class="conn">  │                      │                   │</span>
+<span class="conn">  │                      ▼                   ▼</span>
+<span class="group">  │              Mostrar IA         Formulario Registro</span>
+<span class="conn">  │                      │                   │</span>
+<span class="conn">  │                      ├── Loop Input ◄────┘</span>
+<span class="conn">  │                      ▼</span>
+<span class="group">  └─ No → Loop Input → API → Mostrar → Loop Input</span>
+    </div>
+
+    <h2>🔌 Cómo configurar manualmente (si no usas el JSON)</h2>
+
+    <div class="card">
+        <div class="card-header"><span class="badge badge-yellow">1</span> <strong>Bloque: HTTP Request</strong></div>
+        <p>Arrastra un bloque <strong>HTTP Request</strong> (categoría Integraciones) al canvas.</p>
+        <p><strong>Configuración:</strong></p>
+        <pre>URL: http://localhost:3000/api/typebot
+Método: POST
+Headers:
+  Content-Type: application/json
+
+Body (JSON):
+{
+  "sessionId": "{{sessionId}}",
+  "message": "{{userMessage}}"
+}</pre>
+        <p><strong>Mapeo de respuesta:</strong></p>
+        <pre>respuesta → variable "aiResponse"
+status    → variable "apiStatus"</pre>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><span class="badge badge-yellow">2</span> <strong>Bloque: Condition</strong></div>
+        <p>Después del HTTP Request, añade un bloque <strong>Condition</strong> para bifurcar:</p>
+        <pre>Si "apiStatus" es igual a "SUCCESS" → mostrar respuesta
+Si "apiStatus" es igual a "BLOQUEO_REGISTRO" → ir a registro</pre>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><span class="badge badge-yellow">3</span> <strong>Bloque: Text Bubble</strong></div>
+        <p>Muestra la respuesta de la IA usando la variable:</p>
+        <pre>{{aiResponse}}</pre>
+        <p>Typebot renderizará automáticamente Markdown, imágenes, audios, etc.</p>
+    </div>
+
+    <h2>🧠 Variables en Typebot</h2>
+    <p>El flow usa estas variables. Se crean automáticamente al importar el JSON:</p>
+    <ul class="variable-list">
+        <li><strong>userMessage</strong> — Mensaje que escribe el usuario</li>
+        <li><strong>apiStatus</strong> — Estado de la respuesta (SUCCESS / BLOQUEO_REGISTRO)</li>
+        <li><strong>aiResponse</strong> — Texto de respuesta de Antigravity</li>
+        <li><strong>hasInteracted</strong> — Control para saber si ya ha conversado</li>
+        <li><strong>sessionIdVar</strong> — ID de sesión para el backend</li>
+        <li><strong>regNombre, regEmail, regTelefono, regEmpresa</strong> — Datos del formulario</li>
+    </ul>
+
+    <h2>⚙️ Personalización</h2>
+
+    <div class="card">
+        <h3>🎨 El Prompt del Asistente</h3>
+        <p>Edita <code>agente.md</code> para cambiar la personalidad y tono de Antigravity. Este archivo se inyecta automáticamente como system prompt en cada llamada a Groq.</p>
+    </div>
+
+    <div class="card">
+        <h3>📚 Base de Conocimiento</h3>
+        <p>Edita <code>biblioteca.txt</code> para agregar información que Antigravity debe conocer (precios, servicios, horarios, etc.).</p>
+    </div>
+
+    <div class="card">
+        <h3>🔄 Límite de interacciones</h3>
+        <p>Por defecto, Antigravity permite <strong>2 mensajes gratis</strong> antes de pedir registro. Puedes cambiar este número en:</p>
+        <pre>src/server.ts → línea: session.interacciones >= 2</pre>
+    </div>
+
+    <h2>🚀 Producción</h2>
+    <p>Para usar en producción:</p>
+    <ol style="margin-left:20px; line-height:2;">
+        <li>Cambia todas las URLs de <code>http://localhost:3000</code> a tu dominio real</li>
+        <li>Asegúrate de que <code>GROQ_API_KEY</code> esté configurada en <code>.env</code></li>
+        <li>Ejecuta <code>npm start</code> para iniciar el servidor</li>
+        <li>En Typebot, cambia las URLs de los bloques Webhook y vuelve a probar</li>
+    </ol>
+
+    <hr>
+    <p style="text-align:center; color:#64748b;">Antigravity + Typebot — Hecho con ❤️</p>
+</div>
+</body>
+</html>

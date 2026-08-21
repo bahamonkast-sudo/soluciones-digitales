@@ -1,0 +1,70 @@
+DIAGNÓSTICO DE LA PÁGINA MULTIDRINK
+======================================
+
+Archivos revisados: index.html, style.css, main.js, chatbot.js, unete.html
+
+PROBLEMAS ENCONTRADOS:
+======================
+
+1. BOM (Byte Order Mark) antes del DOCTYPE
+   - Archivo: index.html (línea 1)
+   - Problema: El archivo comienza con un carácter invisible '?' (U+FEFF / BOM)
+     antes de <!DOCTYPE html>.
+   - Consecuencia: El navegador entra en "Quirks Mode", lo que rompe
+     el renderizado del layout, box model, y estilos CSS.
+
+2. BOM al inicio de style.css
+   - Archivo: style.css (línea 1)
+   - Problema: Mismo carácter BOM antes de /* VARIABLES...
+   - Consecuencia: Puede interferir con la interpretación completa del CSS.
+
+3. Codificación de texto corrupta (mojibake) en todo el HTML
+   - Archivo: index.html (en todo el contenido)
+   - Problema: Los caracteres acentuados (á, é, í, ó, ú, ñ, ü, etc.)
+     aparecen como texto basura: "?f�", "?f�a", "?f�n", "?f�", etc.
+     Ejemplos reales en el código:
+       - "M?f�s que productos" → debería ser "Más que productos"
+       - "Energ?f�a" → debería ser "Energía"
+       - "Digesti?f�n" → debería ser "Digestión"
+       - "Men?f�" → debería ser "Menú"
+       - "C?f�digo" → debería ser "Código"
+       - "T?f�cnico" → debería ser "Técnico"
+   - Consecuencia: Todo el texto en español se ve ilegible para el usuario.
+
+4. unete.html depende de WordPress externo
+   - Archivo: unete.html
+   - Problema: Es una copia parcial del tema Divi de WordPress que carga
+     recursos (CSS, JS, imágenes) desde multyhealth.com.
+     Sin conexión al servidor de MultyHealth, la página no funciona.
+   - Consecuencia: La página está rota si no hay internet y acceso al WP.
+
+CÓMO SOLUCIONARLO:
+===================
+
+Paso 1 - Eliminar el BOM de index.html y style.css:
+   - Abrir los archivos en VS Code (o cualquier editor moderno)
+   - Guardar como "UTF-8 without BOM"
+   - En VS Code: Click en la esquina inferior derecha (donde dice "UTF-8
+     with BOM") y seleccionar "Save with Encoding" > "UTF-8"
+   - En PowerShell: Usar el comando:
+     Get-Content index.html | Set-Content index.html -Encoding UTF8
+
+Paso 2 - Reparar la codificación de texto:
+   - Los archivos necesitan ser reconvertidos a UTF-8 puro.
+   - En PowerShell:
+     Get-Content index.html -Encoding Byte -Raw | Set-Content
+     index.html -Encoding UTF8
+   - Si los acentos siguen corruptos, habrá que reescribir manualmente
+     los textos afectados con sus caracteres originales (á, é, í, ó, ú,
+     ñ, ü).
+
+Paso 3 - Para unete.html:
+   - Si se necesita como página local independiente, hay que
+     reescribirla desde cero sin depender del tema Divi/WordPress.
+   - Si se usa solo online, apuntar correctamente al dominio
+     multyhealth.com.
+
+Paso 4 - Verificación:
+   - Abrir index.html en el navegador después de las correcciones.
+   - Verificar que los acentos se vean correctamente.
+   - Verificar que el layout se renderice bien (sin quirks mode).

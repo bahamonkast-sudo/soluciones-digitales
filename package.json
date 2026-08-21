@@ -1,0 +1,46 @@
+{
+  "name": "soluciones-digitales-ia",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "preview": "vite preview",
+    "sync": "node sync.cjs",
+    "auditor-server": "node auditor-server.cjs",
+    "seo:sitemap": "node scripts/generate-sitemap.cjs",
+    "seo:validate": "node scripts/validate-seo-files.cjs",
+    "seo:check": "npm run seo:validate",
+    "perf:images": "node scripts/optimize-images.cjs",
+    "perf:optimize": "node scripts/optimize-and-rename-images.cjs",
+    "perf:check": "npm run perf:images"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "cal-sans": "^1.0.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "framer-motion": "^11.0.0",
+    "hls.js": "^1.6.16",
+    "html2canvas": "^1.4.1",
+    "lenis": "^1.3.25",
+    "lucide-react": "^0.475.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-helmet-async": "^3.0.0",
+    "react-markdown": "^10.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.0.0",
+    "vite": "^8.1.0"
+  }
+}

@@ -1,0 +1,82 @@
+# robots.txt - Soluciones Digitales IA
+# Optimizado para SEO y crawling eficiente
+
+# Permitir acceso a todos los bots principales
+User-agent: *
+Allow: /
+
+# Bloquear directorios administrativos y sensibles
+Disallow: /admin-auditor
+Disallow: /reportes/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*.cjs$
+Disallow: /*.bat$
+
+# Bloquear archivos temporales y de configuración
+Disallow: /temp*.js
+Disallow: /*.log
+Disallow: /*.md$
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.agents/
+
+# Permitir explícitamente assets importantes
+Allow: /assets/
+Allow: /public/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.woff$
+Allow: /*.woff2$
+
+# Configuración específica para Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin-auditor
+Disallow: /reportes/
+
+# Configuración para Googlebot Images
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Configuración para bots de redes sociales (Open Graph)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Bloquear bots maliciosos conocidos
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Crawl delay para evitar sobrecarga
+Crawl-delay: 1
+
+# Sitemap XML
+Sitemap: https://solucionesdigitalesia.com/sitemap.xml

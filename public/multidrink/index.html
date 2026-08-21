@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multydrink | Bebida Antioxidante 100% Natural</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2óamily=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800;900&family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">    <!-- ESTILOS Y SCRIPT PARA SCROLL HORIZONTAL (Se evitan problemas de caché) -->
+    <style>
+        /* Estilos Slider / Galería */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--color-gold);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .slider-btn:hover {
+            background: var(--color-green-dark);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slider-btn.prev-btn { left: 20px; }
+        .slider-btn.next-btn { right: 20px; }
+        
+        #sliderWrapper {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            overflow: hidden; /* Ocultamos overflow para botones */
+            display: none;
+        }
+
+        .horizontal-scroll-wrapper {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            width: 100%;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            align-items: stretch; /* Hace que todas tengan la misma altura */
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            background: var(--color-bg-light);
+        }
+        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+        .horizontal-section {
+            min-width: 100%;
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 60px 80px; 
+            box-sizing: border-box;
+        }
+
+        /* Clases maestras para alineación perfecta */
+        .slide-header {
+            flex: 0 0 auto;
+            text-align: center;
+            min-height: 140px; /* Fija altura de cabecera */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slide-body {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .slide-footer {
+            flex: 0 0 auto;
+            min-height: 70px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Optimización de Espacios - Distribución estratégica */
+        .slide-body .stats-card {
+            padding: 25px !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06) !important;
+        }
+        .slide-body .stats-card p,
+        .slide-body .stats-card ul {
+            font-size: 0.95rem !important;
+            line-height: 1.6 !important;
+        }
+        .slide-body .stats-card h4,
+        .slide-body .stats-card strong {
+            font-size: 1.15rem !important;
+            margin-bottom: 12px !important;
+        }
+        .slide-grid {
+            gap: 30px !important;
+            align-items: stretch;
+        }
+
+        @media (max-width: 768px) {
+            .horizontal-section { padding: 40px 20px; }
+            .slider-btn.prev-btn { left: 5px; }
+            .slider-btn.next-btn { right: 5px; }
+        }
+
+        /* Estilos Acordeón Dossier */
+        details.dossier-accordion summary { list-style: none; }
+        details.dossier-accordion summary::-webkit-details-marker { display: none; }
+        details.dossier-accordion[open] summary .accordion-icon {
+            transform: rotate(45deg);
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- CONTENEDOR MAESTRO -->
+    <!-- Menú de Navegación Fijo -->
+    <nav class="main-nav">
+        <div class="nav-brand">MULTYHEALTH</div>
+        <button class="hamburger" id="menuToggle" onclick="document.getElementById('navLinks').classList.toggle('active')" style="position: relative; z-index: 9999999 !important; pointer-events: auto;">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#anclaje">Inicio</a></li>
+            <li><a href="#disparador">El Desafío Actual</a></li>
+            <li><a href="#credibilidad">Nuestra Trayectoria</a></li>
+            <li><a href="#solucion">Ecosistema de Valor</a></li>
+            <li><a href="#dossier">Dossier Técnico</a></li>
+            <li><a href="unete.html" style="color: var(--color-gold); font-weight: bold;">Obtener ingresos</a></li>
+        </ul>
+    </nav>
+
+    <div class="app-container">
+
+        <!-- PANEL LATERAL -->
+        <aside id="sidePanel" class="side-panel">
+            <div class="panel-content">
+
+                <div class="anclaje-card">
+                    <div class="status">
+                        <span class="dot"></span> Online
+                    </div>
+                    
+                    <div class="logo-box">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80" alt="Guillermo Castellanos">
+                    </div>
+                    
+                    <div class="info">
+                        <div class="company">MULTYDRINK</div>
+                        <div class="name">Guillermo Castellanos B.</div>
+                        <div class="role">Asesor Especializado en Bienestar</div>
+                        <div class="divider"></div>
+                        <p class="slogan">"Recupera tu energía vital, detén el envejecimiento prematuro y transforma tu salud celular."</p>
+                    </div>
+                </div>
+
+                <div class="action-buttons" style="display: flex; flex-direction: row; gap: 10px; margin-bottom: 30px; width: 100%;">
+                    <a href="tel:+123456789" class="btn-unete btn-outline-gold" style="text-align: center; flex: 1; padding: 12px 5px; font-size: 0.75rem; line-height: 1.2; border-radius: 50px;">Llamar Ahora</a>
+                    <a href="#" class="btn-unete btn-outline-gold" style="text-align: center; flex: 1; padding: 12px 5px; font-size: 0.75rem; line-height: 1.2; border-radius: 50px;">Descargar Info</a>
+                    <a href="mailto:contacto@multyhealth.com" class="btn-unete btn-outline-gold" style="text-align: center; flex: 1; padding: 12px 5px; font-size: 0.75rem; line-height: 1.2; border-radius: 50px;">Contactar Asesor</a>
+                </div>
+
+                <div class="social-qr-section">
+                    <p class="social-title" style="color:#FFFFFF; letter-spacing:2px; font-weight:600; font-size:0.8rem; margin-bottom:20px;">SÍGUENOS</p>
+                    <div class="social-links">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#" id="qrBtn" title="Mostrar Código QR"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6"/><rect x="15" y="3" width="6" height="6"/><rect x="3" y="15" width="6" height="6"/><rect x="15" y="15" width="6" height="6"/><path d="M3 12h18"/><path d="M12 3v18"/></svg></a>
+                    </div>
+                    <div class="philosophy-box">
+                        <p class="philosophy-text">
+                            Desde antioxidantes que protegen tus células hasta herramientas que revelan la historia de tu biología; nuestra combinación de ciencia y bienestar consciente está diseñada para impulsarte hacia una vida con vitalidad, claridad y evolución.
+                        </p>
+                        <p class="philosophy-highlight">
+                            La transformación empieza en tu interior, iníciala hoy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="toggleBtn" class="toggle-btn" aria-label="Abrir panel">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+        </aside>
+
+        <!-- POPUP MODAL PARA CÓDIGO QR -->
+        <div id="qrModal" class="qr-modal">
+            <div class="qr-modal-content">
+                <span id="qrCloseBtn" class="qr-modal-close">&times;</span>
+                <h3 style="color:var(--color-gold); margin-bottom: 20px; font-family: 'Cinzel', serif;">Escanea para conectar</h3>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://multyhealth.com" alt="QR Code" style="border-radius:10px; border:2px solid var(--color-gold);">
+            </div>
+        </div>
+
+        <!-- CONTENIDO PRINCIPAL (Estructura 9S) -->
+        <main id="mainContent" class="main-content">
+            
+            <section id="anclaje" class="hero-section-new">
+                <div class="hero-content-split">
+                    <div class="hero-text-left fade-in-up">
+                        <div class="hero-brand">MULTYDRIN<span class="k-green">K</span></div>
+                        <h1 class="hero-title">Tu bienestar, tu evolución, tu momento es ahora.</h1>
+                        <p class="hero-subtitle-text">Productos naturales, conocimiento real y oportunidades para transformar tu vida desde adentro hacia afuera.</p>
+                        <div class="hero-buttons">
+                            <a href="productos.html" class="btn-unete btn-gold-hero">Descubre Multydrink</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                      <section id="disparador" class="sec deportistas-section">
+                <div class="deportistas-image-wrapper">
+                    <img src="./seccion2-img-new.jpg" alt="Vitalidad" class="deportistas-bg-img">
+                    <div class="deportistas-glass-overlay">
+                        <div class="deportistas-cards-grid">
+                            <div class="stats-card glass-card-premium glass-card-title">
+                                <h2 class="kinetic-title" style="color: #000000;">¿Tu estilo de vida te está pasando factura?</h2>
+                                <p class="explanation" style="color: #000000;">Identifica si el estrés celular y la falta de nutrientes están mermando tu calidad de vida.</p>
+                            </div>
+                            <div class="stats-card glass-card-premium">
+                                <h4>Falta de Energía</h4>
+                                <p>Te sientes agotado antes de que termine el día y dependes del café.</p>
+                            </div>
+                            <div class="stats-card glass-card-premium">
+                                <h4>Estrés Oxidativo</h4>
+                                <p>El envejecimiento prematuro y el daño celular afectan tu vitalidad.</p>
+                            </div>
+                            <div class="stats-card glass-card-premium">
+                                <h4>Mala Digestión</h4>
+                                <p>Hinchazón y malestar estomacal que afectan tu calidad de vida.</p>
+                            </div>
+                            <div class="stats-card glass-card-premium">
+                                <h4>Baja Inmunidad</h4>
+                                <p>Tu sistema inmune debilitado te hace vulnerable a enfermedades.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- SECCIÓN 3 -->
+            <section id="credibilidad" class="sec sec-full-image">
+                <div class="credibilidad-content">
+                    <div class="bento-card-daring light-box" style="margin-bottom: 30px;">
+                        <h2>Más que productos,<br>un movimiento consciente.</h2>
+                        <p class="explanation" style="margin-bottom: 0;">Transformar tu bienestar es transformar tu vida... y el mundo que te rodea. Un ecosistema para impulsar cambios reales en tu evolución personal y económica.</p>
+                    </div>
+
+                    <div class="split-layout" style="margin-top: 0; gap: 30px;">
+                        <div class="split-image" style="padding: 0; align-items: center; justify-content: center;">
+                            <div class="video-wrapper">
+                                <img src="./product-boxes.webp" alt="Cajas de MultyDrink" class="floating-product" style="transform: scale(1.1);">
+                            </div>
+                        </div>
+                        
+                        <div class="split-content">
+                            <div class="bento-container-daring" style="margin-top: 0; grid-template-columns: 1fr; gap: 20px;">
+                                <div class="bento-card-daring light-box" style="grid-column: 1 / -1;">
+                                    <h4>Vitalidad física</h4>
+                                    <p>100% natural, sin químicos artificiales, conservantes ni azúcar añadida.</p>
+                                </div>
+                                
+                                <div class="bento-card-daring light-box" style="grid-column: 1 / -1;">
+                                    <h4>Claridad Mental</h4>
+                                    <p>Fórmula respaldada por investigación científica para nutrir cuerpo y cerebro de forma equilibrada.</p>
+                                </div>
+                                
+                                <div class="bento-card-daring light-box" style="grid-column: 1 / -1;">
+                                    <h4>Crecimiento económico</h4>
+                                    <p>Construye estabilidad y libertad a través de nuestro modelo integral.</p>
+                                    <div class="play-btn" id="openVideoBtn" style="margin: 20px auto 0;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="solucion" class="sec coffee-parallax">
+                <h2 class="kinetic-title-sec4">Beneficios que Transforman</h2>
+                <p class="explanation sec4-sub">Recupera tu vitalidad con el poder combinado de la naturaleza.</p>
+                
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <h4>Energía Natural</h4>
+                        <p>Activa tu metabolismo y mantén tu vitalidad durante todo el día sin estimulantes artificiales.</p>
+                    </div>
+                    <div class="stats-card">
+                        <h4>Sistema Inmune Fuerte</h4>
+                        <p>Fortalece tus defensas naturales con Ganoderma Lucidum y componentes bioactivos.</p>
+                    </div>
+                    <div class="stats-card">
+                        <h4>Función Cognitiva</h4>
+                        <p>Mejora la concentración, memoria y claridad mental gracias a las teaflavinas del Té Negro.</p>
+                    </div>
+                    <div class="stats-card">
+                        <h4>Salud Cardiovascular</h4>
+                        <p>El ácido clorogónico del mucílago de café promueve la salud de tu corazón y circulación.</p>
+                    </div>
+                    <div class="stats-card">
+                        <h4>Digestión óptima</h4>
+                        <p>La inulina prebiótica de la Miel de Agave alimenta tu flora intestinal y mejora la digestión.</p>
+                    </div>
+                    <div class="stats-card">
+                        <h4>Anti-Envejecimiento</h4>
+                        <p>Los polifenoles del Extracto de Uva activan genes de longevidad y protegen tu ADN.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Botón de Información de Valor -->
+            <div style="text-align: center; padding: 60px 20px; background: var(--color-bg-light);">
+                <button id="toggleInfoBtn" class="btn-unete btn-gold-hero">
+                    Ver más...
+                </button>
+            </div>
+
+            <!-- Contenedor Horizontal -->
+            <div id="sliderWrapper">
+                <button class="slider-btn prev-btn" aria-label="Anterior">&#10094;</button>
+                <button class="slider-btn next-btn" aria-label="Siguiente">&#10095;</button>
+                <div class="horizontal-scroll-wrapper" id="infoValorContainer">
+                    <!-- Sección Lógica -->
+                    <section id="logica" class="sec horizontal-section slide-unified" style="padding-top: 20px; padding-bottom: 20px;">
+                <div class="slide-header">
+                    <div class="section-title-box"><h2>5 Ingredientes Poderosos</h2></div>
+                    <p class="explanation" style="margin-bottom: 15px; font-size: 0.95rem;">Cada ingrediente fue cuidadosamente seleccionado por sus propiedades únicas y respaldo científico para estabilizar tus moléculas.</p>
+                </div>
+                <div class="slide-body">
+                    <div class="bento-container-daring" style="margin-top: 0; grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(130px, auto); gap: 20px;">
+                        <div class="bento-card-daring light-box" style="grid-column: span 2; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, rgba(230,245,225,0.75), rgba(255,255,255,0.75)), url('faint_botanical_bg.webp') center/cover no-repeat; border: 1px solid rgba(150, 200, 140, 0.5);">
+                            <h3 style="color:var(--color-green-dark); font-size: 1.4rem; margin-bottom: 8px;">Ganoderma Lucidum</h3>
+                            <p style="font-size: 1rem; line-height: 1.6; margin:0; color:var(--color-text); max-width: 800px;">Hongo de la inmortalidad que regula el sistema inmunológico, fortaleciéndolo y equilibrándolo para una salud óptima.</p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 25px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 8px; font-size: 1.15rem;">Té Negro</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.5; margin:0;">Sus teaflavinas mejoran la función cognitiva y estimulan el óxido nítrico.</p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 25px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 8px; font-size: 1.15rem;">Extracto de Uva</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.5; margin:0;">Activa genes de longevidad (SIRT1) y ralentiza el envejecimiento.</p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 25px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 8px; font-size: 1.15rem;">Mucílago de Café</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.5; margin:0;">Fibra soluble con ácido clorogónico que regula el metabolismo.</p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 25px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 8px; font-size: 1.15rem;">Miel de Agave</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.5; margin:0;">Inulina prebiótica que fortalece la digestión y regenera la mucosa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-footer"></div>
+            </section>
+
+            <section id="prueba" class="sec bg-light horizontal-section slide-unified" style="padding-top: 20px; padding-bottom: 20px;">
+                <div class="slide-header">
+                    <div class="section-title-box" style="margin-bottom: 10px;"><h2>Apoyo Integral a la Salud</h2></div>
+                    <p class="explanation" style="margin-bottom: 15px; font-size: 0.95rem;">Coadyuvante eficaz respaldado por evidencia científica para la prevención y el equilibrio sistémico mediante nutrición celular profunda.</p>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="bento-container-daring" style="margin-top: 0; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(180px, auto); gap: 20px;">
+                        
+                        <div class="bento-card-daring light-box" style="grid-column: span 2; grid-row: span 2; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(135deg, rgba(230,245,225,0.75), rgba(255,255,255,0.75)), url('faint_botanical_bg.webp') center/cover no-repeat; border: 1px solid rgba(150, 200, 140, 0.5);">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 12px; font-size: 1.3rem;">Inmunomodulación Celular</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.6; margin:0;">Los polisacáridos del <strong>Ganoderma Lucidum</strong> y la inulina de <strong>Agave</strong> actúan como potentes prebióticos. Estimulan macrófagos y linfocitos, fortaleciendo directamente la respuesta inmune intestinal y sistémica.</p>
+                        </div>
+
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 12px; font-size: 1.25rem;">Salud Metabólica y Cardiovascular</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.6; margin:0;">El <strong>ácido Clorogónico</strong> y las <strong>Teaflavinas</strong> demuestran capacidad clínica para regular lípidos, modular la presión arterial y mejorar la sensibilidad a la insulina.</p>
+                        </div>
+                        
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color:var(--color-green-main); margin-bottom: 12px; font-size: 1.25rem;">Neuroprotección y Longevidad</h4>
+                            <p style="font-size: 0.95rem; line-height: 1.6; margin:0;">El <strong>Extracto de Uva</strong> activa el gen SIRT1 asociado a la longevidad, protegiendo el ADN celular del estrés oxidativo y apoyando en la prevención del deterioro cognitivo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <div style="padding-top: 10px; border-top: 1px solid rgba(45, 106, 79, 0.2); text-align: center; width: 100%;">
+                        <p style="color:var(--color-text-muted); font-size: 0.75rem; line-height: 1.4; margin:0; max-width: 800px; margin-left: auto; margin-right: auto;">
+                            <em>*Sustento: Estudios clínicos indexados sobre compuestos bioactivos en bases de datos biomédicas (NCBI/PubMed).</em><br>
+                            MultyDrink es un suplemento de origen natural. <strong>No es un medicamento</strong>. No reemplaza la consulta ni tratamiento médico. Consulte a su profesional de la salud.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="datos" class="sec horizontal-section slide-unified" style="padding-top: 20px; padding-bottom: 20px;">
+                <div class="slide-header">
+                    <div class="section-title-box" style="margin-bottom: 10px;"><h2>Superioridad Antioxidante Demostrada</h2></div>
+                    <p class="explanation" style="margin-bottom: 15px; font-size: 0.95rem;">Los números que validan el poder protector de Multydrink frente a otras fuentes tradicionales. Matriz sinérgica de vitaminas y minerales.</p>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="bento-container-daring" style="margin-top: 0; gap: 20px; grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(130px, auto);">
+                        
+                        <div class="bento-card-daring" style="grid-column: span 1; grid-row: span 2; background: linear-gradient(135deg, var(--color-green-main), var(--color-green-dark)); color: white; padding: 30px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                            <h3 style="color: var(--color-gold); font-size: 1.4rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; line-height: 1.3;">Poder Antioxidante<br>(Valor ORAC)</h3>
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                <div style="font-size: 1.15rem; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px;"><b>700%</b> más que la Uva</div>
+                                <div style="font-size: 1.15rem; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px;"><b>600%</b> más que el Arándano</div>
+                                <div style="font-size: 1.15rem; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px;"><b>500%</b> más que el Té Verde</div>
+                            </div>
+                        </div>
+
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-dark); font-size: 1.25rem; display: block; margin-bottom: 10px;">Vitamina C + D3</strong>
+                            <p style="font-size:0.95rem; line-height: 1.5; margin:0;">
+                                Sinergia clave para fortalecer el sistema inmunológico, potenciar el colágeno y proteger la densidad ósea.
+                            </p>
+                        </div>
+                        
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-dark); font-size: 1.25rem; display: block; margin-bottom: 10px;">Calcio + Magnesio</strong>
+                            <p style="font-size:0.95rem; line-height: 1.5; margin:0;">
+                                Motor del cuerpo. Regulan la transmisión neuromuscular, previenen fatiga y estabilizan el ritmo cardíaco.
+                            </p>
+                        </div>
+                        
+                        <div class="bento-card-daring light-box" style="grid-column: span 2; padding: 25px 30px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-dark); font-size: 1.25rem; display: block; margin-bottom: 8px;">Fibra Soluble Premium</strong>
+                            <p style="font-size:0.95rem; line-height: 1.5; margin:0;">
+                                Prebiótico esencial. Estabiliza la glucosa, promueve saciedad y nutre la microbiota para una digestión impecable.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slide-footer"></div>
+            </section>
+
+            <section id="blindaje" class="sec bg-light horizontal-section slide-unified" style="padding-top: 20px; padding-bottom: 20px;">
+                <div class="slide-header">
+                    <div class="section-title-box" style="margin-bottom: 10px;"><h2>Aval de Salud y Preparación</h2></div>
+                    <p class="explanation" style="margin-bottom: 15px; font-size: 0.95rem;">Autenticidad y ciencia. Estándar internacional validado por métricas globales para asegurar la máxima defensa celular.</p>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="bento-container-daring" style="margin-top: 0; gap: 20px; grid-auto-rows: minmax(150px, auto); grid-template-columns: repeat(3, 1fr);">
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; grid-row: span 2; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-dark); font-size: 1.25rem; display: block; margin-bottom: 12px;">La Recomendación de la OMS</strong>
+                            <p style="font-size:0.95rem; line-height: 1.6; margin:0;">
+                                Sugiere un consumo diario de entre <strong>3,000 y 5,000 unidades ORAC</strong> para contrarrestar eficazmente el daño celular, prevenir envejecimiento y mantener el sistema inmune blindado.
+                            </p>
+                        </div>
+                        <div class="bento-card-daring" style="grid-column: span 2; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(135deg, rgba(230,245,225,0.75), rgba(255,255,255,0.75)), url('faint_botanical_bg.webp') center/cover no-repeat; border: 1px solid rgba(150, 200, 140, 0.5);">
+                            <strong style="color:var(--color-green-dark); font-size: 1.25rem; display: block; margin-bottom: 12px;">El Aporte de MultyDrink</strong>
+                            <p style="font-size:0.95rem; line-height: 1.6; margin:0;">
+                                Consumiendo <strong>3 sobres al día</strong>, obtienes de forma directa <strong style="color:var(--color-green-main); font-size: 1.1rem;">3,840 unidades ORAC</strong> de alta biodisponibilidad, cubriendo perfectamente tu cuota diaria requerida.
+                            </p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 2; padding: 25px 40px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-dark); font-size: 1.25rem; display: block; margin-bottom: 18px; text-align: center;">Fácil de incorporar a tu rutina diaria</strong>
+                            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; font-size: 1.05rem; color: var(--color-text); font-weight: 500;">
+                                <span>En agua fría o caliente</span>
+                                <span>En jugos o smoothies</span>
+                                <span>Directo del sachet</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-footer"></div>
+            </section>
+
+            <section id="conversion" class="sec horizontal-section slide-unified" style="text-align:center; padding-top: 20px; padding-bottom: 20px;">
+                <div class="slide-header">
+                    <div class="section-title-box" style="margin-bottom: 10px;"><h2>Resultados Visibles</h2></div>
+                    <p class="explanation" style="margin-bottom: 15px; font-size: 0.95rem;">
+                        La incorporación diaria de fitonutrientes detona respuestas metabólicas verificables desde las primeras semanas.
+                    </p>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="bento-container-daring" style="margin-top: 0; gap: 20px; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(180px, auto);">
+                        <div class="bento-card-daring light-box" style="grid-column: span 2; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-main); font-size: 1.25rem; display: block; margin-bottom: 12px;">Energía Sostenida</strong>
+                            <p style="font-size:0.95rem; line-height: 1.6; margin:0;">
+                                El Guaraná y Té Verde liberan energía gradualmente, evitando picos y caídas bruscas.
+                            </p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; grid-row: span 2; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-main); font-size: 1.25rem; display: block; margin-bottom: 12px;">Recuperación óptima</strong>
+                            <p style="font-size:0.95rem; line-height: 1.6; margin:0;">
+                                Magnesio y Resveratrol relajan el sistema neuromuscular favoreciendo un sueño profundo.
+                            </p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-main); font-size: 1.25rem; display: block; margin-bottom: 12px;">Defensa Inmunológica</strong>
+                            <p style="font-size:0.95rem; line-height: 1.6; margin:0;">
+                                Vitamina C, D3 y frutos rojos neutralizan el estrés oxidativo diario y fortalecen defensas.
+                            </p>
+                        </div>
+                        <div class="bento-card-daring light-box" style="grid-column: span 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="color:var(--color-green-main); font-size: 1.25rem; display: block; margin-bottom: 12px;">Equilibrio Digestivo</strong>
+                            <p style="font-size:0.95rem; line-height: 1.6; margin:0;">
+                                La fibra soluble actúa como prebiótico, facilitando absorción y estabilizando glucosa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer"></div>
+            </section>
+                </div> <!-- fin horizontal-scroll-wrapper -->
+            </div>
+            <!-- Fin Slider Wrapper -->
+
+            <!-- SECCIÓN COMPLEMENTARIA: DOSSIER TÉCNICO -->
+            <section id="dossier" class="sec dossier-section" style="padding-top: 40px; padding-bottom: 40px; background-color: white;">
+                <details class="dossier-accordion" style="width: 100%; max-width: 1200px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); overflow: hidden;">
+                    <summary style="padding: 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, var(--color-green-main), var(--color-green-dark)); color: white;">
+                        <div>
+                            <span class="theory-tag" style="background:var(--color-gold); color: var(--color-green-dark); margin-bottom: 10px; display: inline-block;">DOSSIER TÉCNICO</span>
+                            <h2 style="margin: 0; font-size: 2rem; color: white;">Innovación en Nutrición Celular</h2>
+                        </div>
+                        <span class="accordion-icon" style="font-size: 2.5rem; color: white; transition: transform 0.3s; line-height: 1;">+</span>
+                    </summary>
+                    <div style="padding: 30px;">
+                
+                <div class="dossier-content">
+                    <h3>1. Introducción y Composición Bioactiva</h3>
+                    <p>Multydrink se consolida como una formulación avanzada de nutrición integral, diseñada bajo rigurosos estándares de biodisponibilidad para optimizar la homeostasis celular. Esta matriz bioactiva integra extractos botánicos de alta pureza:</p>
+                    <ul>
+                        <li><strong>Extracto de Café (Baja cafeína):</strong> Proporciona ácidos clorogónicos con un impacto sistémico controlado sobre el sistema nervioso central.</li>
+                        <li><strong>Hongo Ganoderma Lucidum:</strong> Aporta b-glucanos y triterpenos con propiedades inmunomoduladoras y capacidad de señalización para la regeneración tisular.</li>
+                        <li><strong>Resveratrol de Uva:</strong> Polifenol estilbenoide reconocido por su capacidad de activación de las sirtuinas y protección del endotelio vascular.</li>
+                        <li><strong>Té Negro:</strong> Fuente de teaflavinas y catequinas que refuerzan la red de defensa antioxidante.</li>
+                    </ul>
+                    <p>Fórmula libre de colorantes artificiales, conservantes y sacarosa. Su perfil organoléptico se logra mediante el uso de inulina prebiótica (miel de agave/café).</p>
+
+                    <h3>2. Perfil Nutricional Detallado (Por 100g)</h3>
+                    <div style="overflow-x:auto;">
+                        <table class="dossier-table">
+                            <tr><th>Componente</th><th>Cantidad específica</th><th>Unidad</th></tr>
+                            <tr><td colspan="3" class="row-header">Minerales</td></tr>
+                            <tr><td>Calcio</td><td>75</td><td>mg</td></tr>
+                            <tr><td>Cobre</td><td>0,8</td><td>mg</td></tr>
+                            <tr><td>Fósforo</td><td>70</td><td>mg</td></tr>
+                            <tr><td>Hierro</td><td>5</td><td>mg</td></tr>
+                            <tr><td>Magnesio</td><td>68</td><td>mg</td></tr>
+                            <tr><td>Manganeso</td><td>2</td><td>mg</td></tr>
+                            <tr><td>Potasio</td><td>1,3</td><td>g</td></tr>
+                            <tr><td>Sodio</td><td>68</td><td>mg</td></tr>
+                            <tr><td colspan="3" class="row-header">Vitaminas</td></tr>
+                            <tr><td>Vitamina C (ácido ascórbico)</td><td>195</td><td>mg</td></tr>
+                            <tr><td>Vitamina D3 (Colecalciferol)</td><td>338</td><td>UI</td></tr>
+                            <tr><td>Vitamina E (Tocoferol)</td><td>1,4</td><td>mg</td></tr>
+                            <tr><td colspan="3" class="row-header">Fibra</td></tr>
+                            <tr><td>Fibra soluble</td><td>2</td><td>g</td></tr>
+                        </table>
+                    </div>
+                    <p style="margin-top:15px;"><strong>Aporte Energético:</strong> Un sobre de 10g suministra únicamente 24 calorías (1.2% del valor calórico de una dieta de 2000 calorías).</p>
+
+                    <h3>3. Mecanismo de Acción Fisiológica</h3>
+                    <p>El mecanismo de acción se fundamenta en la <strong>neutralización mediante donación de electrones</strong>. Los compuestos bioactivos estabilizan los radicales libres, deteniendo el estrés oxidativo.</p>
+
+                    <h3>4. Análisis de Capacidad Antioxidante (ORAC)</h3>
+                    <p>Cada sobre de 10g aporta <strong>1,280 unidades ORAC</strong>. La administración de 3 sobres diarios totaliza <strong>3,840 unidades ORAC</strong>, cubriendo satisfactoriamente los requerimientos sugeridos por la OMS.</p>
+                    
+                    <h3>5. Aplicaciones Clínicas</h3>
+                    <p>Coadyuvante eficaz en enfermedades oncológicas, oftalmológicas, neurológicas, salud cardiovascular, trastornos digestivos, salud reproductiva, dermatológica y bienestar psico-emocional.</p>
+
+                    <h3>6. Protocolo de Uso</h3>
+                    <p><strong>Posología:</strong> Un sobre de 10g, tres veces al día, preferiblemente antes de las comidas. Dilución versátil en agua o zumos.</p>
+
+                    <h3>7. Conclusión</h3>
+                    <p>El "Libro Blanco" de la suplementación antioxidante: Pureza 100% vegetal, densidad multimineral/vitamínica y eficacia terapéutica ORAC demostrada.</p>
+                </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- SECCIÓN IMPERIO / PRE-FOOTER -->
+            <section id="imperio" class="sec imperio-section fade-in-up">
+                <div class="imperio-content">
+                    <h2 class="imperio-title">¡Llegó el momento de crecer en grande sin caminar solo!</h2>
+                    <p class="imperio-subtitle">En Multydrink te unes a un <strong>equipo de empresarios decidido a apoyarte</strong> en cada paso de tu crecimiento. Olvídate de la incertidumbre: caminamos contigo y te equipamos con tecnología de automatización para que tu negocio fluya con total facilidad:</p>
+                    
+                    <div class="imperio-grid">
+                        <div class="imperio-text-box">
+                            <h4>Tus Aliados de Crecimiento</h4>
+                            <p>Publicador de Facebook, Calentador de WhatsApp y Extractores de datos <strong>(libres para ti por 2 meses)</strong>.</p>
+                        </div>
+                        <div class="imperio-text-box">
+                            <h4>Tu Equipo Digital 24/7</h4>
+                            <p>Tarjeta Digital y Chatbots Multivendedor para <strong>automatizar tus respuestas</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">Además, te enseñamos a crear tus propias piezas gráficas, videos de alto impacto y te capacitamos semanalmente para dominar las redes sociales con total confianza.</p>
+                        <p style="font-size: 1.2rem; font-weight: 600; margin-top: 15px;">Escríbenos ahora para conocer cómo unirte a nuestro equipo, activar estas herramientas y recibir todo nuestro soporte de marketing. ¡Tu comunidad te espera con los brazos abiertos!</p>
+                    </div>
+                    
+                    <div class="imperio-cta">
+                        <a href="https://wa.me/573115893220?text=Hola%2C%20quiero%20unirme%20a%20su%20equipo" class="btn-unete btn-unete-light" target="_blank">¡Hablemos hoy mismo!</a>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>Estructura 9S - Landing Page Multydrink © 2026 | Transformando el bienestar consciente<br>
+                Guillermo Castellanos, Emprendedor independiente<br>
+                Móvil: <a href="https://wa.me/573115893220?text=hola%20quiero%20conocer%20mas%20sobre%20tu%20empresa%20Soluciones%20digitales" target="_blank" style="color: var(--color-gold); font-weight: bold; text-decoration: none;">3115893220</a></p>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="close-video">&times;</span>
+            <div class="video-container">
+                <iframe id="youtubeIframe" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Animaciones y UI -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Animation Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+            
+            // Add fade-in-up class to more elements automatically for demonstration
+            document.querySelectorAll('.stats-card, .bento-card-daring').forEach(el => {
+                el.classList.add('fade-in-up');
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <!-- FLOTANTE WHATSAPP -->
+    <div class="whatsapp-float" id="whatsappFloat">
+        <button class="whatsapp-float-btn" id="whatsappToggle" aria-label="Contactar por WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </button>
+        <div class="whatsapp-dropdown" id="whatsappDropdown">
+            <div class="whatsapp-header">Contáctanos</div>
+            <a href="https://wa.me/573115893220?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Multydrink" target="_blank" class="whatsapp-contact" rel="noopener">
+                <span class="whatsapp-name">Embajador de Multydrink</span>
+                <span class="whatsapp-number">+57 311 589 3220</span>
+            </a>
+            <a href="https://wa.me/573138137910?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Multydrink" target="_blank" class="whatsapp-contact" rel="noopener">
+                <span class="whatsapp-name">Equipo de Marketing</span>
+                <span class="whatsapp-number">+57 313 813 7910</span>
+            </a>
+            <a href="https://wa.me/573206972677?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Multydrink" target="_blank" class="whatsapp-contact" rel="noopener">
+                <span class="whatsapp-name">Asesor</span>
+                <span class="whatsapp-number">+57 320 697 2677</span>
+            </a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggle = document.getElementById('whatsappToggle');
+            var dropdown = document.getElementById('whatsappDropdown');
+            var floatBtn = document.getElementById('whatsappFloat');
+            if (toggle && dropdown) {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                    floatBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(e) {
+                    if (!floatBtn.contains(e.target)) {
+                        dropdown.classList.remove('active');
+                        floatBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="main.js?v=01aedd77"></script>
+    <script src="chatbot.js"></script>
+    <script>
+        // Script para Slider / Galería
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollContainer = document.getElementById('infoValorContainer');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            if(scrollContainer && prevBtn && nextBtn) {
+                const scrollStep = () => scrollContainer.clientWidth;
+
+                prevBtn.addEventListener('click', () => {
+                    scrollContainer.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    scrollContainer.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+    <script>
+    // Funcionalidad del Menú Hamburguesa y Scroll Suave
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const scrollContainer = document.getElementById('infoValorContainer');
+        
+        if(menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Cerrar menú al hacer clic en un enlace (móvil)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    navLinks.classList.remove('active');
+                    
+                    // Lógica para scroll suave personalizado
+                    const targetId = link.getAttribute('href');
+                    if (targetId && targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault(); // Evitar el salto brusco
+                            
+                            // Verificar si el elemento está dentro de la galería horizontal
+                            const isHorizontal = scrollContainer && scrollContainer.contains(targetElement);
+                            
+                            if (isHorizontal) {
+                                // Scroll vertical hasta la galería primero, y luego horizontal
+                                const sliderWrapper = document.getElementById('sliderWrapper');
+                                sliderWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                
+                                setTimeout(() => {
+                                    scrollContainer.scrollTo({
+                                        left: targetElement.offsetLeft,
+                                        behavior: 'smooth'
+                                    });
+                                }, 300);
+                            } else {
+                                // Scroll vertical normal (con margen para el header fijo)
+                                const headerOffset = 80;
+                                const elementPosition = targetElement.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                            
+                            // Actualizar URL
+                            history.pushState(null, null, targetId);
+                        }
+                    }
+                });
+            });
+        }
+    });
+
+    // Remarcar la íltima letra de los títulos
+    document.querySelectorAll('.sec h2, .credibilidad-content h2, .bg-light h2').forEach(h2 => {
+        const nodes = Array.from(h2.childNodes);
+        let lastTextNode = null;
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeType === 3 && nodes[i].textContent.trim().length > 0) {
+                lastTextNode = nodes[i];
+                break;
+            }
+        }
+        if (lastTextNode) {
+            let text = lastTextNode.textContent;
+            let match = text.match(/([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ])([^a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*)$/);
+            if (match) {
+                const lastLetter = match[1];
+                const afterPunct = match[2];
+                const idx = text.lastIndexOf(lastLetter + afterPunct);
+                const before = text.slice(0, idx);
+                const span = document.createElement('span');
+                span.className = 'last-green';
+                span.textContent = lastLetter;
+                lastTextNode.textContent = before;
+                lastTextNode.parentNode.insertBefore(span, lastTextNode.nextSibling);
+                if (afterPunct) {
+                    const afterNode = document.createTextNode(afterPunct);
+                    span.parentNode.insertBefore(afterNode, span.nextSibling);
+                }
+            }
+        }
+    });
+    </script>
+
+    <!-- Escudo Anti-Copia -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'c' || e.key === 's' || e.key === 'p' || e.key === 'U' || e.key === 'C' || e.key === 'S' || e.key === 'P')) {
+                e.preventDefault();
+            }
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
+

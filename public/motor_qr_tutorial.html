@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motor QR - Tutorial de Instalación y Activación</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0e0e0;font-family:'Segoe UI',Arial,sans-serif;line-height:1.7;padding:0}
+.header{background:linear-gradient(135deg,#1a1a1a,#0d0d0d);padding:2.5rem 2rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.header h1{font-size:2rem;color:#f0d060;margin-bottom:.3rem}
+.header p{color:#888;font-size:.9rem}
+.container{max-width:820px;margin:0 auto;padding:2rem 1.5rem}
+.step{background:linear-gradient(145deg,#2e2e2e,#222);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.step-num{display:inline-flex;width:32px;height:32px;background:#f0d060;color:#1a0e00;border-radius:50%;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;margin-right:.6rem;vertical-align:middle}
+.step h2{display:inline;font-size:1.1rem;color:#f0d060;vertical-align:middle}
+.step p{margin-top:.8rem;color:#ccc;font-size:.9rem}
+.step ul{margin-top:.5rem;padding-left:1.5rem;color:#bbb;font-size:.88rem}
+.step ul li{margin-bottom:.3rem}
+code{background:rgba(0,0,0,.4);padding:.15rem .5rem;border-radius:4px;font-size:.83rem;color:#facc15;border:1px solid rgba(255,255,255,.06)}
+.box-note{background:rgba(240,208,96,.08);border-left:3px solid #f0d060;padding:.8rem 1rem;border-radius:6px;margin-top:.8rem;font-size:.85rem;color:#ddd}
+.box-warn{background:rgba(255,100,50,.08);border-left:3px solid #ff6432;padding:.8rem 1rem;border-radius:6px;margin-top:.8rem;font-size:.85rem;color:#ddd}
+.box-success{background:rgba(50,255,100,.08);border-left:3px solid #32ff64;padding:.8rem 1rem;border-radius:6px;margin-top:.8rem;font-size:.85rem;color:#ddd}
+.btn-mega,.btn-wa{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.5rem;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none;transition:all .2s;text-transform:uppercase;letter-spacing:.04em;border:none;cursor:pointer}
+.btn-mega{background:#D9272E;color:#fff;box-shadow:0 0 20px rgba(217,39,46,.35)}
+.btn-mega:hover{background:#c02028;transform:scale(1.03);box-shadow:0 0 30px rgba(217,39,46,.5)}
+.btn-wa{background:#25D366;color:#fff;box-shadow:0 0 20px rgba(37,211,102,.35)}
+.btn-wa:hover{background:#1ebe5a;transform:scale(1.03);box-shadow:0 0 30px rgba(37,211,102,.5)}
+.footer{text-align:center;padding:2rem;color:#555;font-size:.8rem;border-top:1px solid rgba(255,255,255,.04);margin-top:2rem}
+img{max-width:100%;border-radius:8px;margin-top:.8rem;border:1px solid rgba(255,255,255,.08)}
+
+.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:#1e1e1e;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;max-width:420px;width:90%;position:relative}
+.modal h2{color:#f0d060;font-size:1.2rem;margin-bottom:.3rem}
+.modal p{color:#999;font-size:.85rem;margin-bottom:1.5rem}
+.modal label{display:block;color:#ccc;font-size:.8rem;font-weight:600;margin-bottom:.3rem;margin-top:1rem}
+.modal label:first-of-type{margin-top:0}
+.modal input{width:100%;padding:.7rem .9rem;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.3);color:#fff;font-size:.9rem;outline:none;transition:border .2s}
+.modal input:focus{border-color:#f0d060}
+.modal .btn-submit{width:100%;margin-top:1.5rem;padding:.8rem;border-radius:10px;border:none;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;transition:all .2s}
+.modal .btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.modal .btn-submit.mega{background:#D9272E;color:#fff;box-shadow:0 0 20px rgba(217,39,46,.35)}
+.modal .btn-submit.mega:hover:not(:disabled){background:#c02028}
+.modal .btn-submit.wa{background:#25D366;color:#fff;box-shadow:0 0 20px rgba(37,211,102,.35)}
+.modal .btn-submit.wa:hover:not(:disabled){background:#1ebe5a}
+.modal .btn-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:#666;font-size:1.2rem;cursor:pointer;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.modal .btn-close:hover{background:rgba(255,255,255,.05);color:#fff}
+.modal .success-msg{display:none;text-align:center;padding:1rem 0}
+.modal .success-msg.show{display:block}
+.modal .success-msg .icon{font-size:2.5rem;margin-bottom:.5rem}
+.modal .success-msg h3{color:#4ade80;font-size:1rem;margin-bottom:.3rem}
+.modal .success-msg p{color:#999;font-size:.82rem;margin-bottom:1rem}
+.modal .form-fields{display:block}
+.modal .form-fields.hide{display:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>MOTOR QR</h1>
+<p>Sistema de Envío Masivo WhatsApp — Tutorial Completo de Instalación y Activación</p>
+<div class="container">
+
+<!-- PASO 1 -->
+<div class="step">
+<span class="step-num">1</span><h2>Requisitos del Sistema</h2>
+<p>Antes de instalar Motor QR, asegúrate de cumplir con los siguientes requisitos:</p>
+<ul>
+<li><strong>Sistema Operativo:</strong> Windows 10/11 (64 bits)</li>
+<li><strong>Conexión a Internet:</strong> Necesaria para conectar WhatsApp y enviar mensajes</li>
+<li><strong>Memoria RAM:</strong> Mínimo 4 GB (recomendado 8 GB)</li>
+<li><strong>Disco Duro:</strong> 200 MB de espacio libre</li>
+<li><strong>WhatsApp:</strong> Cuenta personal o empresarial activa (no requiere WhatsApp Business API)</li>
+<li><strong>Administrador:</strong> Se requiere permisos de administrador para instalar el programa</li>
+</ul>
+</div>
+
+<!-- PASO 2 -->
+<div class="step">
+<span class="step-num">2</span><h2>Descargar el Instalador</h2>
+<p>Obtén el archivo instalador desde los siguientes enlaces oficiales:</p>
+<ul style="margin-top:1rem">
+<li>El archivo se llama <code>MotorQR_Setup.exe</code></li>
+<li>Guárdalo en una ubicación fácil de encontrar, como el <strong>Escritorio</strong> o <strong>Descargas</strong></li>
+</ul>
+<div class="box-note">⚠️ Asegúrate de descargar el archivo desde una fuente oficial o directamente del administrador. No descargues versiones modificadas de terceros.</div>
+</div>
+
+<!-- PASO 3 -->
+<div class="step">
+<span class="step-num">3</span><h2>Ejecutar el Instalador</h2>
+<p>Haz doble clic en <code>MotorQR_Setup.exe</code> para iniciar el instalador.</p>
+<ul>
+<li>Si aparece una advertencia de "Windows protegió tu PC", haz clic en <strong>"Ejecutar de todas formas"</strong></li>
+<li>Selecciona el <strong>idioma</strong> (Español)</li>
+<li>Lee y acepta los términos de uso</li>
+</ul>
+</div>
+
+<!-- PASO 4 -->
+<div class="step">
+<span class="step-num">4</span><h2>Seleccionar la Carpeta de Instalación</h2>
+<p>El instalador te permitirá elegir <strong>cualquier carpeta</strong> donde quieras instalar Motor QR. Puedes dejar la carpeta predeterminada o seleccionar una diferente.</p>
+<ul>
+<li><strong>Carpeta predeterminada:</strong> <code>C:\MotorQR</code></li>
+<li>Puedes cambiarla haciendo clic en <strong>"Examinar..."</strong></li>
+<li>Ejemplos de otras ubicaciones: <code>D:\Programas\MotorQR</code>, <code>C:\Mis Programas\MotorQR</code></li>
+</ul>
+<div class="box-note">💡 <strong>Recomendación:</strong> Usa la carpeta predeterminada a menos que tengas una razón específica para cambiarla. El programa funciona correctamente desde cualquier ubicación.</div>
+</div>
+
+<!-- PASO 5 -->
+<div class="step">
+<span class="step-num">5</span><h2>Finalizar la Instalación</h2>
+<p>Una vez seleccionada la carpeta, el instalador copiará los archivos necesarios.</p>
+<ul>
+<li>Marca la opción <strong>"Ver tutorial de instalación"</strong> si deseas abrir esta guía al finalizar</li>
+<li>Haz clic en <strong>"Finalizar"</strong></li>
+</ul>
+<p>El instalador habrá creado:</p>
+<ul>
+<li><strong>Acceso directo en el Escritorio:</strong> "Motor QR" — para iniciar la aplicación</li>
+<li><strong>Grupo en el Menú Inicio:</strong> "Motor QR" con accesos a la aplicación y al tutorial</li>
+</ul>
+</div>
+
+<!-- PASO 6 -->
+<div class="step">
+<span class="step-num">6</span><h2>Iniciar la Aplicación</h2>
+<p>Haz doble clic en el acceso directo <strong>"Motor QR"</strong> del escritorio para iniciar la aplicación.</p>
+<p>Se abrirán dos ventanas automáticamente:</p>
+<ul>
+<li>Una <strong>ventana de consola</strong> (fondo negro) con el nombre <code>MOTOR QR - ENVIO MASIVO WHATSAPP</code> — aquí verás los mensajes del sistema</li>
+<li>Tu <strong>navegador web</strong> se abrirá solo mostrando la pantalla de la aplicación</li>
+</ul>
+<div class="box-warn">⚠️ <strong>Importante:</strong> No cierres la ventana de consola. Si la cierras, la aplicación se detendrá. Puedes minimizarla.</div>
+<div class="box-success">✅ No necesitas escribir ninguna dirección en el navegador. Se abrirá automáticamente.</div>
+</div>
+
+<!-- PASO 7 -->
+<div class="step">
+<span class="step-num">7</span><h2>Pantalla de Activación — Activar tu Licencia</p>
+<p>Cuando el navegador se abra, verás la <strong>pantalla de activación</strong> de Motor QR. Aquí solo necesitas el <strong>token</strong> que te entregó el administrador.</p>
+<ol style="margin-top:.8rem;padding-left:1.5rem;color:#bbb;font-size:.88rem">
+<li><strong>Pega el token</strong> que te envió el administrador en el campo "Token de Activación"</li>
+<li>Haz clic en <strong>"ACTIVAR"</strong></li>
+<li>Si el token es válido, verás el mensaje de <span style="color:#4ade80">✅ LICENCIA ACTIVA</span></li>
+<li>Haz clic en <strong>"ENTRAR AL DASHBOARD"</strong> para acceder al panel principal</li>
+</ol>
+<div class="box-note">💡 El token empieza con <code>eyJ...</code>. No necesitas escribir nada más.</div>
+</div>
+
+<!-- PASO 8 -->
+<div class="step">
+<span class="step-num">8</span><h2>Solicitar el Token al Administrador</h2>
+<p>Con los datos copiados en tu portapapeles (<code>NOMBRE:CODIGO_PLACA</code>), envíalos a tu <strong>administrador</strong> por el medio que acordaron (WhatsApp, correo, etc.).</p>
+<p>El administrador:</p>
+<ol style="margin-top:.8rem;padding-left:1.5rem;color:#bbb;font-size:.88rem">
+<li>Abrirá la <strong>Consola Maestra</strong> en su navegador (http://localhost:4000)</li>
+<li>Irá al <strong>Generador Universal → Motor QR</strong></li>
+<li>Pegará tus datos en el campo combinado (ej: <code>CARLOS PEREZ:L1HF62V00SM</code>)</li>
+<li>Seleccionará la cantidad de días de licencia (ej: 365)</li>
+<li>Generará un <strong>token JWT</strong> único para ti</li>
+<li>Te enviará el token de vuelta</li>
+</ol>
+<div class="box-success">✅ El token es un código largo que empieza con <code>eyJ...</code> y contiene toda la información de tu licencia (nombre, placa, días de vigencia).</div>
+</div>
+
+<!-- PASO 9 -->
+<div class="step">
+<span class="step-num">9</span><h2>Activar tu Licencia</h2>
+<p>Una vez que recibas el token del administrador:</p>
+<ol style="margin-top:.8rem;padding-left:1.5rem;color:#bbb;font-size:.88rem">
+<li>En la pantalla de activación de Motor QR, pega el <strong>token completo</strong> en el campo "Token de Activación"</li>
+<li>Haz clic en el botón <strong>"ACTIVAR"</strong></li>
+<li>Si el token es válido, verás un mensaje de <span style="color:#4ade80">✅ LICENCIA ACTIVA</span></li>
+<li>Haz clic en <strong>"ENTRAR AL DASHBOARD"</strong> para acceder al panel principal</li>
+</ol>
+<div class="box-warn">⚠️ Si ves el mensaje <strong>"Token inválido"</strong>, verifica que:
+<ul style="margin-top:.3rem">
+<li>Hayas copiado el token COMPLETO (sin espacios al inicio o final)</li>
+<li>El administrador usó exactamente los mismos datos (nombre + código de placa) que copiaste</li>
+<li>El token no haya expirado (los tokens tienen fecha de vencimiento)</li>
+</ul>
+</div>
+</div>
+
+<!-- PASO 10 -->
+<div class="step">
+<span class="step-num">10</span><h2>Conectar WhatsApp</h2>
+<p>Una vez activada la licencia y dentro del Dashboard, es posible que debas conectar tu cuenta de WhatsApp:</p>
+<ul>
+<li>Si es la primera vez, el sistema generará un <strong>código QR</strong> en el panel</li>
+<li>Abre WhatsApp en tu teléfono → Menú (3 puntos) → <strong>Dispositivos vinculados</strong> → <strong>Vincular un dispositivo</strong></li>
+<li>Apunta la cámara de tu teléfono hacia el código QR en la pantalla</li>
+<li>¡Listo! Tu WhatsApp estará conectado y listo para enviar mensajes</li>
+</ul>
+<div class="box-note">💡 La sesión de WhatsApp se mantiene persistente. No necesitarás escanear el QR cada vez que inicies la aplicación.</div>
+</div>
+
+<!-- PASO 11 -->
+<div class="step">
+<span class="step-num">11</span><h2>Usar el Dashboard — Enviar Campañas</h2>
+<p>El Dashboard de Motor QR te permite gestionar y enviar campañas de mensajes masivos:</p>
+<ul>
+<li><strong>Cargar Base de Datos:</strong> Sube un archivo Excel con los números de teléfono y nombres de tus contactos</li>
+<li><strong>Redactar Mensajes:</strong> Escribe hasta 5 plantillas de mensaje (se rotan automáticamente para evitar bloqueos)</li>
+<li><strong>Usar Spintax:</strong> {Hola|Buen día|Saludos} para variar el texto automáticamente</li>
+<li><strong>Variables Personalizadas:</strong> {nombre}, {empresa}, {saludo} se reemplazan con los datos de tu Excel</li>
+<li><strong>Adjuntar Multimedia:</strong> Hasta 10 imágenes por campaña</li>
+<li><strong>Configurar Delay:</strong> Define el tiempo entre mensajes para simular comportamiento humano</li>
+<li><strong>Ejecutar Campaña:</strong> Haz clic en "Enviar Campaña" y monitorea el progreso en tiempo real</li>
+</ul>
+</div>
+
+<!-- PASO 12 -->
+<div class="step">
+<span class="step-num">12</span><h2>Cerrar Sesión</h2>
+<p>Si deseas desactivar la licencia en este equipo (por ejemplo, para trasladarla a otro computador):</p>
+<ul>
+<li>Dentro del Dashboard, haz clic en <strong>"Cerrar Sesión"</strong></li>
+<li>Esto eliminará la licencia, desconectará WhatsApp y te redirigirá a la pantalla de activación</li>
+<li>La aplicación seguirá funcionando, pero deberás activarla nuevamente con un token nuevo</li>
+</ul>
+<div class="box-warn">⚠️ Al cerrar sesión, la sesión de WhatsApp se desconecta. Deberás volver a vincular tu WhatsApp cuando reactives la licencia.</div>
+</div>
+
+<!-- CONSEJOS FINALES -->
+<div class="step" style="border-color:rgba(240,208,96,.2)">
+<span class="step-num" style="background:#4ade80;color:#1a0e00">★</span><h2 style="color:#4ade80">Consejos y Buenas Prácticas</h2>
+<ul>
+<li><strong>No cierres la ventana de consola:</strong> Motor QR necesita la ventana de consola abierta para funcionar. Puedes minimizarla.</li>
+<li><strong>Delay recomendado:</strong> Usa un delay mínimo de 15-30 segundos entre mensajes para evitar bloqueos de WhatsApp.</li>
+<li><strong>Cantidad de mensajes:</strong> No envíes más de 500 mensajes por hora para mantener tu cuenta segura.</li>
+<li><strong>Excel correcto:</strong> La primera columna del Excel debe ser los números de teléfono (con código de país, sin + ni espacios).</li>
+<li><strong>Soporte:</strong> Si tienes problemas, contacta a tu administrador.</li>
+</ul>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06)">
+<button onclick="openForm('mega')" class="btn-mega">⬇️ Descargar Instalador por MEGA</button>
+<button onclick="openForm('wa')" class="btn-wa">💬 Solicitar Link por WhatsApp</button>
+</div>
+
+</div>
+
+<div class="footer">
+Motor QR v1.0 — Soluciones Digitales IA<br>
+Este tutorial es solo para fines de instalación y uso del software licenciado.
+</div>
+
+<!-- FORMULARIO MODAL -->
+<div id="formOverlay" class="overlay">
+  <div class="modal">
+    <button class="btn-close" onclick="closeForm()">✕</button>
+    <div id="formFields" class="form-fields">
+      <h2>Solicitud de Descarga</h2>
+      <p>Completa tus datos para acceder al enlace de descarga</p>
+
+      <label>Nombre</label>
+      <input type="text" id="fNombre" placeholder="Tu nombre" oninput="checkForm()">
+
+      <label>WhatsApp</label>
+      <input type="text" id="fWhatsapp" placeholder="Tu número de WhatsApp" oninput="checkForm()">
+
+      <label>Empresa</label>
+      <input type="text" id="fEmpresa" placeholder="Nombre de tu empresa" oninput="checkForm()">
+
+      <button id="btnSubmit" class="btn-submit" disabled onclick="submitForm()">SOLICITAR ACCESO</button>
+    </div>
+
+    <div id="successMsg" class="success-msg">
+      <div class="icon">✅</div>
+      <h3>Información enviada</h3>
+      <p>Gracias, en breve recibirás el enlace de descarga.</p>
+      <div id="successLinks" style="display:flex;flex-direction:column;gap:.75rem"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const MEGA_LINK = 'https://mega.nz/file/NRdEUIIA#fZKjJjnPtF2jPWMGe7qLIuOW-hFsiwwOGeH9_54rY7Q';
+const WA_NUMBER = '573115893220';
+const WA_MSG = 'Hola, por favor me das el link de la app de envio masivo de mensajes (MOTOR QR)';
+
+let currentType = null;
+
+function openForm(type) {
+  currentType = type;
+  document.getElementById('fNombre').value = '';
+  document.getElementById('fWhatsapp').value = '';
+  document.getElementById('fEmpresa').value = '';
+  document.getElementById('formFields').classList.remove('hide');
+  document.getElementById('successMsg').classList.remove('show');
+  document.getElementById('successLinks').innerHTML = '';
+  checkForm();
+  document.getElementById('formOverlay').classList.add('show');
+}
+
+function closeForm() {
+  document.getElementById('formOverlay').classList.remove('show');
+}
+
+function checkForm() {
+  const nombre = document.getElementById('fNombre').value.trim();
+  const whatsapp = document.getElementById('fWhatsapp').value.trim();
+  const empresa = document.getElementById('fEmpresa').value.trim();
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = !(nombre && whatsapp && empresa);
+}
+
+function submitForm() {
+  const nombre = document.getElementById('fNombre').value.trim();
+  const whatsapp = document.getElementById('fWhatsapp').value.trim();
+  const empresa = document.getElementById('fEmpresa').value.trim();
+
+  if (!nombre || !whatsapp || !empresa) return;
+
+  const text = 'Nuevo lead - Solicitud de Descarga Motor QR%0A%0ANombre: ' + encodeURIComponent(nombre) + '%0AWhatsApp: ' + encodeURIComponent(whatsapp) + '%0AEmpresa: ' + encodeURIComponent(empresa);
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + text, '_blank', 'noopener,noreferrer');
+
+  document.getElementById('formFields').classList.add('hide');
+  document.getElementById('successMsg').classList.add('show');
+
+  const linksDiv = document.getElementById('successLinks');
+  linksDiv.innerHTML = '';
+
+  if (currentType === 'mega') {
+    const a = document.createElement('a');
+    a.href = MEGA_LINK;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'btn-mega';
+    a.style.cssText = 'justify-content:center';
+    a.textContent = '⬇️ IR A MEGA';
+    linksDiv.appendChild(a);
+    setTimeout(function() {
+      window.open(MEGA_LINK, '_blank', 'noopener,noreferrer');
+    }, 1000);
+  } else {
+    const waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(WA_MSG);
+    const a = document.createElement('a');
+    a.href = waLink;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'btn-wa';
+    a.style.cssText = 'justify-content:center';
+    a.textContent = '💬 ABRIR WHATSAPP';
+    linksDiv.appendChild(a);
+    setTimeout(function() {
+      window.open(waLink, '_blank', 'noopener,noreferrer');
+    }, 1000);
+  }
+}
+</script>
+
+</body>
+</html>

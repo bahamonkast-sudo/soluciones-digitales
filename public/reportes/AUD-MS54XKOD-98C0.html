@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Estratégico - AUD-MS54XKOD-98C0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    
+    /* HEADER PROFESIONAL CON GRADIENTE */
+    .header {
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .audit-id {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      color: white;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* INFO BOX CON GRADIENTE */
+    .info-section {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+      padding: 30px 40px;
+      border-bottom: 4px solid #2962ff;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+    
+    .info-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #2962ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    /* CONTENIDO */
+    .content {
+      padding: 50px 40px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 50px 0 25px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 8px 24px rgba(41,98,255,0.25);
+    }
+    
+    h1:first-of-type {
+      margin-top: 0;
+    }
+    
+    h1 .emoji {
+      font-size: 36px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    
+    h2 {
+      color: #2962ff;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 35px 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #e8f0ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h3 {
+      color: #444;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 28px 0 15px 0;
+    }
+    
+    p {
+      margin: 16px 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+    }
+    
+    ul {
+      margin: 20px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    li {
+      margin: 15px 0;
+      padding-left: 40px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    
+    li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #2962ff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    strong {
+      color: #2962ff;
+      font-weight: 700;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+      background: linear-gradient(to right, rgba(41,98,255,0.1), transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    /* CALL TO ACTION STICKY */
+    .cta-sticky {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      animation: bounceIn 0.6s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .cta-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 18px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37,211,102,0.5);
+    }
+    
+    .cta-icon {
+      font-size: 24px;
+      animation: shake 2s ease-in-out infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+      20%, 40%, 60%, 80% { transform: rotate(10deg); }
+    }
+    
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 50px 40px;
+      text-align: center;
+      color: #999;
+    }
+    
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .footer-contact {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #ccc;
+    }
+    
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .social-icon:hover {
+      background: #2962ff;
+      transform: translateY(-3px);
+      border-color: #2962ff;
+    }
+    
+    .footer-disclaimer {
+      font-size: 12px;
+      color: #666;
+      margin-top: 30px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .header { padding: 40px 20px; }
+      .logo { font-size: 32px; }
+      .header-title { font-size: 22px; }
+      .info-section { padding: 20px; }
+      .content { padding: 30px 20px; }
+      .footer { padding: 30px 20px; }
+      .cta-sticky { bottom: 20px; right: 20px; }
+      .cta-button { padding: 14px 20px; font-size: 14px; }
+      h1 { font-size: 22px; padding: 20px; flex-direction: column; text-align: center; }
+      h1 .emoji { font-size: 32px; }
+    }
+    
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; }
+      .cta-sticky { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER PROFESIONAL -->
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡ Soluciones Digitales IA</div>
+      <div class="header-title">Diagnóstico Estratégico de Conversión</div>
+      <div class="audit-id">ID: AUD-MS54XKOD-98C0</div>
+    </div>
+    
+    <!-- INFO SECTION -->
+    <div class="info-section">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Fecha</div>
+            <div class="info-value">28 de julio de 2026 a las 15:55</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏢</div>
+          <div>
+            <div class="info-label">Categoría</div>
+            <div class="info-value">Trading, Inversiones & Finanzas (Alta Restricción) -> Asesoría Financiera, Fondos & Gestión de Patrimonio</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🌐</div>
+          <div>
+            <div class="info-label">Activos Digitales</div>
+            <div class="info-value">WhatsApp Business / Grupo de WhatsApp</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">Canal de Cierre</div>
+            <div class="info-value">No especificado</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Cliente</div>
+            <div class="info-value">Cliente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CONTENIDO DINÁMICO -->
+    <div class="content">
+      <h1><span class="emoji">�</span><span>� 1. FALLAS CRÍTICAS (Severidad Alta - Detienen las Ventas)</span></h1>
+<ul>
+<li><strong>Falla:</strong> No se ha implementado un sistema de seguimiento y cualificación de prospectos en el Grupo de WhatsApp.</li>
+<li><strong>Impacto:</strong> Según un estudio de <strong>HubSpot 2024</strong>, el 80% de las ventas se pierden debido a la falta de seguimiento adecuado. En el nicho de Asesoría Financiera, Fondos & Gestión de Patrimonio, este porcentaje puede ser aún mayor debido a la naturaleza alta restricción y la necesidad de confianza y relación a largo plazo.</li>
+<li><strong>Solución:</strong> Implementar un sistema de seguimiento y cualificación de prospectos en el Grupo de WhatsApp, utilizando herramientas como <strong>ManyChat</strong> o <strong>Chatfuel</strong> para automatizar el proceso y personalizar la interacción con cada prospecto. Esto incluye:</li>
+<li><strong>Preguntas de filtro:</strong> Para determinar el nivel de interés y la capacidad de inversión de cada prospecto.</li>
+<li><strong>Notificaciones personalizadas:</strong> Para mantener a los prospectos informados y comprometidos con el proceso de venta.</li>
+<li><strong>Seguimiento periódico:</strong> Para asegurarse de que los prospectos estén avanzando en el proceso de venta y para abordar cualquier objeción o inquietud que puedan tener.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� 2. FUGAS SEVERAS (Severidad Media - Malgastan Recursos y Pauta)</span></h1>
+<ul>
+<li><strong>Fuga:</strong> No se ha creado un contenido de valor que eduque y atraiga a los prospectos en el Grupo de WhatsApp.</li>
+<li><strong>Impacto:</strong> Según <strong>Forrester</strong>, el 77% de los consumidores prefieren aprender sobre un producto o servicio a través de contenido de valor en lugar de publicidad directa. En el nicho de Asesoría Financiera, Fondos & Gestión de Patrimonio, el contenido de valor es crucial para establecer confianza y credibilidad con los prospectos.</li>
+<li><strong>Solución:</strong> Crear un calendario de contenido que incluya:</li>
+<li><strong>Análisis de mercado:</strong> Para educar a los prospectos sobre las tendencias y oportunidades en el mercado financiero.</li>
+<li><strong>Consejos de inversión:</strong> Para ofrecer orientación práctica y valiosa a los prospectos.</li>
+<li><strong>Historias de éxito:</strong> Para compartir experiencias de éxito de clientes satisfechos y establecer credibilidad.</li>
+<li><strong>Preguntas y respuestas:</strong> Para abordar las preguntas y objeciones comunes de los prospectos.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� 3. OPORTUNIDADES DE ESCALA (Severidad Baja - Ineficiencia Operativa)</span></h1>
+<ul>
+<li><strong>Oportunidad:</strong> No se ha explorado el potencial de la automatización con IA en el Grupo de WhatsApp para mejorar la eficiencia y personalizar la interacción con los prospectos.</li>
+<li><strong>Impacto:</strong> Según <strong>Gartner</strong>, la automatización con IA puede mejorar la eficiencia en un 30% y reducir los costos en un 20%. En el nicho de Asesoría Financiera, Fondos & Gestión de Patrimonio, la automatización con IA puede ayudar a personalizar la interacción con los prospectos y mejorar la experiencia del cliente.</li>
+<li><strong>Solución:</strong> Explorar herramientas de automatización con IA como <strong>Dialogflow</strong> o <strong>Microsoft Bot Framework</strong> para:</li>
+<li><strong>Crear chatbots:</strong> Para responder a preguntas frecuentes y proporcionar información básica a los prospectos.</li>
+<li><strong>Personalizar la interacción:</strong> Para ofrecer recomendaciones personalizadas y contenido relevante a los prospectos.</li>
+<li><strong>Análisis de datos:</strong> Para analizar el comportamiento de los prospectos y mejorar la estrategia de marketing.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� 4. HOJA DE RUTA DE ASESORÍA (Plan Priorizado)</span></h1>
+<h2>Mes 1: Fundación (Sem 1-4)</h2>
+<ul>
+<li><strong>Semana 1-2:</strong> Implementar sistema de seguimiento y cualificación de prospectos en el Grupo de WhatsApp.</li>
+<li><strong>Semana 3-4:</strong> Crear calendario de contenido de valor y comenzar a publicar.</li>
+<li><strong>KPIs esperados:</strong> Incremento en la participación y compromiso de los prospectos en el Grupo de WhatsApp.</li>
+</ul>
+<br>
+<h2>Mes 2: Escalamiento (Sem 5-8)</h2>
+<ul>
+<li><strong>Semana 5-6:</strong> Explorar herramientas de automatización con IA y comenzar a implementar chatbots.</li>
+<li><strong>Semana 7-8:</strong> Personalizar la interacción con los prospectos y ofrecer recomendaciones personalizadas.</li>
+<li><strong>KPIs esperados:</strong> Mejora en la eficiencia y reducción de costos en la interacción con los prospectos.</li>
+</ul>
+<br>
+<h2>Mes 3: Optimización (Sem 9-12)</h2>
+<ul>
+<li><strong>Semana 9-10:</strong> Analizar datos y mejorar la estrategia de marketing.</li>
+<li><strong>Semana 11-12:</strong> Escalar la estrategia de marketing y explorar nuevas oportunidades.</li>
+<li><strong>KPIs esperados:</strong> Incremento en las ventas y la satisfacción del cliente.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� INVERSIÓN REQUERIDA</span></h1>
+<h2>Opción A: 100% Orgánico ($0-50/mes)</h2>
+<ul>
+<li><strong>Herramientas:</strong> ManyChat, Chatfuel, Dialogflow.</li>
+<li><strong>Tiempo:</strong> 10 hrs/semana.</li>
+<li><strong>Resultados 90 días:</strong> Incremento en la participación y compromiso de los prospectos en el Grupo de WhatsApp.</li>
+</ul>
+<br>
+<h2>Opción B: Orgánico + Ads ($300-500/mes)</h2>
+<ul>
+<li><strong>Distribución:</strong> 70% orgánico, 30% ads.</li>
+<li><strong>Multiplicador:</strong> 2-3 veces el retorno de la inversión en ads.</li>
+<li><strong>ROI esperado:</strong> 20-30% de retorno de la inversión en ads.</li>
+</ul>
+<br>
+<h1><span class="emoji">�</span><span>� FUENTES CONSULTADAS</span></h1>
+<ul>
+<li><strong>HubSpot 2024</strong>: Estudio sobre la importancia del seguimiento en las ventas.</li>
+<li><strong>Forrester</strong>: Estudio sobre la preferencia de los consumidores por el contenido de valor.</li>
+<li><strong>Gartner</strong>: Estudio sobre la automatización con IA y su impacto en la eficiencia y los costos.</li>
+<li><strong>ManyChat</strong>: Herramienta de automatización de chatbots.</li>
+<li><strong>Chatfuel</strong>: Herramienta de automatización de chatbots.</li>
+<li><strong>Dialogflow</strong>: Herramienta de automatización con IA.</li>
+</ul>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-logo">⚡ Soluciones Digitales IA</div>
+      <div class="footer-contact">📱 WhatsApp: +57 311 589 3220</div>
+      <div class="footer-contact">🌐 www.solucionesdigitalesia.com</div>
+      <div class="footer-contact">📧 contacto@solucionesdigitalesia.com</div>
+      
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="WhatsApp">💬</a>
+        <a href="#" class="social-icon" title="Instagram">📸</a>
+        <a href="#" class="social-icon" title="LinkedIn">💼</a>
+        <a href="#" class="social-icon" title="YouTube">🎥</a>
+      </div>
+      
+      <div class="footer-disclaimer">
+        Este diagnóstico es confidencial y exclusivo para Cliente.<br>
+        Prohibida su reproducción total o parcial sin autorización.<br>
+        © 2025 Soluciones Digitales IA - Todos los derechos reservados
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA STICKY WHATSAPP -->
+  <div class="cta-sticky">
+    <a href="https://wa.me/573115893220?text=Hola!%20Leí%20mi%20diagnóstico%20AUD-MS54XKOD-98C0%20y%20quiero%20agendar%20una%20llamada%20estratégica" class="cta-button" target="_blank">
+      <span class="cta-icon">💬</span>
+      <span>Agendar Llamada Estratégica</span>
+    </a>
+  </div>
+  
+  <!-- Analytics -->
+  <script>
+    // Registrar apertura del reporte
+    fetch('/api/audit-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auditId: 'AUD-MS54XKOD-98C0', timestamp: new Date().toISOString() })
+    }).catch(() => {});
+    
+    // Registrar tiempo en página
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      navigator.sendBeacon('/api/audit-time', JSON.stringify({ 
+        auditId: 'AUD-MS54XKOD-98C0', 
+        timeSpent 
+      }));
+    });
+  </script>
+</body>
+</html>

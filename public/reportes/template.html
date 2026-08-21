@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebook - {{CATEGORIA}} - Soluciones Digitales IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      line-height: 1.6;
+    }
+
+    .ebook {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* ===== COVER / HERO ===== */
+    .cover {
+      position: relative;
+      background: linear-gradient(160deg, #0a0e27 0%, #1a1040 40%, #0d1b3e 70%, #0a0e27 100%);
+      padding: 100px 80px 80px;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(41,98,255,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 8px 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+      align-self: flex-start;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 52px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -1px;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 50px;
+      max-width: 550px;
+      position: relative;
+      z-index: 1;
+      line-height: 1.7;
+    }
+
+    .cover-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cover-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cover-meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 6px;
+    }
+
+    .cover-meta-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ===== TABLE OF CONTENTS ===== */
+    .toc {
+      padding: 60px 80px;
+      background: #f8f9fc;
+      border-bottom: 1px solid #e8ecf4;
+    }
+
+    .toc-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #0a0e27;
+      margin-bottom: 8px;
+    }
+
+    .toc-subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+
+    .toc-list {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+
+    .toc-item {
+      counter-increment: toc-counter;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #e8ecf4;
+      cursor: default;
+      transition: all 0.2s;
+    }
+
+    .toc-item:last-child {
+      border-bottom: none;
+    }
+
+    .toc-item:hover {
+      padding-left: 8px;
+    }
+
+    .toc-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #0a0e27;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toc-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a2e;
+    }
+
+    .toc-page {
+      margin-left: auto;
+      font-size: 12px;
+      color: #aaa;
+      font-weight: 400;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ===== CLIENT INFO BAR ===== */
+    .client-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 0 80px;
+      background: #ffffff;
+    }
+
+    .client-bar-item {
+      flex: 1;
+      min-width: 180px;
+      padding: 24px 20px;
+      border-right: 1px solid #f0f2f5;
+      border-bottom: 1px solid #f0f2f5;
+    }
+
+    .client-bar-item:last-child {
+      border-right: none;
+    }
+
+    .client-bar-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .client-bar-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    /* ===== CONTENT ===== */
+    .content {
+      padding: 60px 80px;
+    }
+
+    .content h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #0a0e27;
+      margin: 60px 0 8px 0;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #0a0e27;
+      position: relative;
+    }
+
+    .content h1:first-of-type {
+      margin-top: 0;
+    }
+
+    .content h1::before {
+      content: counter(h1-counter, decimal) '.';
+      counter-increment: h1-counter;
+      margin-right: 12px;
+      color: #2962ff;
+    }
+
+    .content {
+      counter-reset: h1-counter;
+    }
+
+    .content h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2962ff;
+      margin: 40px 0 16px 0;
+      padding: 0 0 0 20px;
+      border-left: 4px solid #2962ff;
+      line-height: 1.4;
+    }
+
+    .content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin: 28px 0 12px 0;
+    }
+
+    .content p {
+      margin: 14px 0;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .content ul {
+      margin: 16px 0 16px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .content li {
+      margin: 10px 0;
+      padding: 0 0 0 28px;
+      position: relative;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .content li::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      background: #2962ff;
+      border-radius: 50%;
+    }
+
+    .content strong {
+      color: #0a0e27;
+      font-weight: 700;
+    }
+
+    .content em {
+      font-style: italic;
+      color: #555;
+    }
+
+    .content blockquote {
+      margin: 24px 0;
+      padding: 24px 32px;
+      background: linear-gradient(135deg, #f8f9fc 0%, #eef2ff 100%);
+      border-left: 4px solid #2962ff;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a2e;
+      font-style: italic;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .content blockquote strong {
+      color: #2962ff;
+    }
+
+    .highlight-box {
+      margin: 28px 0;
+      padding: 28px 32px;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+      border-radius: 12px;
+      border: 1px solid rgba(41,98,255,0.15);
+    }
+
+    .highlight-box-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #2962ff;
+      margin-bottom: 10px;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .data-metric {
+      display: inline-block;
+      background: #0a0e27;
+      color: white;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #0a0e27;
+      padding: 60px 80px;
+      position: relative;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 32px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 32px;
+    }
+
+    .footer-col-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+    }
+
+    .footer-col-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+    }
+
+    .footer-col-text a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col-text a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .footer-bottom a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: white;
+    }
+
+    .cta-section {
+      padding: 40px 80px;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1040 100%);
+      text-align: center;
+    }
+
+    .cta-section p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 16px rgba(41,98,255,0.4);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(41,98,255,0.5);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      body { background: white; }
+      .ebook { margin: 0; box-shadow: none; border-radius: 0; }
+      .cover { padding: 60px 30px 50px; min-height: auto; }
+      .cover-title { font-size: 32px; }
+      .cover-subtitle { font-size: 16px; margin-bottom: 30px; }
+      .cover-meta { gap: 20px; padding-top: 24px; }
+      .toc { padding: 40px 30px; }
+      .content { padding: 40px 30px; }
+      .content h1 { font-size: 24px; }
+      .client-bar { padding: 0; flex-direction: column; }
+      .client-bar-item { border-right: none; padding: 16px 30px; }
+      .footer { padding: 40px 30px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .cta-section { padding: 30px; }
+      .cta-button { width: 100%; justify-content: center; }
+    }
+
+    @media print {
+      body { background: white; }
+      .ebook { margin: 0; box-shadow: none; border-radius: 0; }
+      .cta-section { display: none; }
+      .cover { min-height: auto; padding: 60px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ebook">
+
+    <!-- ===== COVER ===== -->
+    <div class="cover">
+      <div class="cover-badge">Analisis Estrategico</div>
+      <h1 class="cover-title">Ebook de Analisis de Negocio</h1>
+      <p class="cover-subtitle">
+        Diagnostico completo de conversion y cumplimiento publicitario para {{CATEGORIA}}. Este documento contiene las fallas detectadas, oportunidades de escala y una hoja de ruta priorizada.
+      </p>
+      <div class="cover-meta">
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Cliente</span>
+          <span class="cover-meta-value">{{NOMBRE}}</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Fecha</span>
+          <span class="cover-meta-value">{{FECHA}}</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Categoria</span>
+          <span class="cover-meta-value">{{CATEGORIA}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CLIENT INFO BAR ===== -->
+    <div class="client-bar">
+      <div class="client-bar-item">
+        <div class="client-bar-label">Activos Digitales</div>
+        <div class="client-bar-value">{{ACTIVOS}}</div>
+      </div>
+      <div class="client-bar-item">
+        <div class="client-bar-label">Canal de Cierre</div>
+        <div class="client-bar-value">{{CANAL}}</div>
+      </div>
+      <div class="client-bar-item">
+        <div class="client-bar-label">Referencia</div>
+        <div class="client-bar-value">{{AUDIT_ID}}</div>
+      </div>
+    </div>
+
+    <!-- ===== TABLE OF CONTENTS ===== -->
+    <div class="toc">
+      <h2 class="toc-title">Contenido</h2>
+      <p class="toc-subtitle">Navega por las secciones del diagnostico</p>
+      <ul class="toc-list" id="tocList">
+        <li class="toc-item">
+          <span class="toc-number">1</span>
+          <span class="toc-text">Resumen Ejecutivo</span>
+          <span class="toc-page">--</span>
+        </li>
+        <li class="toc-item">
+          <span class="toc-number">2</span>
+          <span class="toc-text">Fallas Criticas Detectadas</span>
+          <span class="toc-page">--</span>
+        </li>
+        <li class="toc-item">
+          <span class="toc-number">3</span>
+          <span class="toc-text">Fugas Severas y Oportunidades</span>
+          <span class="toc-page">--</span>
+        </li>
+        <li class="toc-item">
+          <span class="toc-number">4</span>
+          <span class="toc-text">Analisis de Canales Digitales</span>
+          <span class="toc-page">--</span>
+        </li>
+        <li class="toc-item">
+          <span class="toc-number">5</span>
+          <span class="toc-text">Estrategia de Contenido</span>
+          <span class="toc-page">--</span>
+        </li>
+        <li class="toc-item">
+          <span class="toc-number">6</span>
+          <span class="toc-text">Plan de Accion Priorizado</span>
+          <span class="toc-page">--</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ===== CONTENIDO DINAMICO ===== -->
+    <div class="content">
+      {{CONTENIDO}}
+    </div>
+
+    <!-- ===== CALL TO ACTION ===== -->
+    <div class="cta-section">
+      <p>¿Listo para implementar estos cambios y escalar tu negocio?</p>
+      <a href="https://wa.me/573115893220?text=Hola!%20Lei%20mi%20Ebook%20{{AUDIT_ID}}%20y%20quiero%20agendar%20una%20llamada" class="cta-button" target="_blank">
+        Agendar llamada estrategica
+      </a>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+      <div class="footer-brand">Soluciones Digitales IA</div>
+      <p class="footer-tagline">
+        Infraestructura de software, automatizaciones comerciales e inteligencia artificial para impulsar la productividad de tu organizacion.
+      </p>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-col-title">Contacto</div>
+          <div class="footer-col-text">
+            WhatsApp: +57 311 589 3220<br>
+            Email: contacto@solucionesdigitalesia.com<br>
+            Web: www.solucionesdigitalesia.com
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Confidencialidad</div>
+          <div class="footer-col-text">
+            Este documento es confidencial y exclusivo para {{NOMBRE}}.<br>
+            Prohibida su reproduccion total o parcial sin autorizacion expresa.
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Soluciones Digitales IA. Todos los derechos reservados.</span>
+        <span>Bogota, Colombia &middot; <a href="https://wa.me/573115893220">+57 311 589 3220</a></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Analytics -->
+  <script>
+    fetch('/api/audit-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auditId: '{{AUDIT_ID}}', timestamp: new Date().toISOString() })
+    }).catch(function() {});
+
+    var startTime = Date.now();
+    window.addEventListener('beforeunload', function() {
+      var timeSpent = Math.round((Date.now() - startTime) / 1000);
+      navigator.sendBeacon('/api/audit-time', JSON.stringify({
+        auditId: '{{AUDIT_ID}}',
+        timeSpent: timeSpent
+      }));
+    });
+  </script>
+</body>
+</html>

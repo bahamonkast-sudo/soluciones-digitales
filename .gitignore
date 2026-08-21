@@ -1,0 +1,103 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build
+dist/
+dist-ssr/
+*.local
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+vite.log
+vite.err.log
+vite_out.log
+trace.log
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Testing
+coverage/
+
+# Misc
+*.zip
+*.tar.gz
+
+# Backup/temp files
+*~
+*.bak
+*.backup
+temp*/
+backup*/
+extracted_backup/
+standalone-dist/
+old-nodejs-backend/
+demo-trustflow/
+
+# Internal tooling
+.agents/
+.project-brain/
+.wrangler/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Data files (sensitive)
+leads.json
+audits.json
+storage/
+
+# Build scripts temp
+fix_*.cjs
+fix_*.ps1
+fix_*.py
+clean_*.cjs
+inject.cjs
+inject.js
+identify_apps.cjs
+add_esc.cjs
+make_stubs.py
+restore.py
+sync.cjs
+switch-env.ps1
+start-auditor.bat
+_bindtest.cjs
+integrar-webgobot.ps1
+
+# Internal docs (not for deployment)
+EMPRESA-SOLUCIONES-DIGITALES.md
+ESTADO-FINAL.md
+INTEGRACION-WEBGOBOT-HOSTING.md
+PLAN-ACCION-DESPLIEGUE.md
+RESUMEN-INTEGRACION-COMPLETADA.md
+SEO-OPTIMIZATION-GUIDE.md
+DESPLIEGUE-PRODUCCION.md
+agente.md
+master.md
+biblioteca.txt
+spec.md

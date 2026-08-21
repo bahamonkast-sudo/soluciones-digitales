@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Estratégico - AUD-MS4XJFFV-C9F7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    
+    /* HEADER PROFESIONAL CON GRADIENTE */
+    .header {
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .audit-id {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      color: white;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* INFO BOX CON GRADIENTE */
+    .info-section {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+      padding: 30px 40px;
+      border-bottom: 4px solid #2962ff;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+    
+    .info-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .info-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #2962ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    /* CONTENIDO */
+    .content {
+      padding: 50px 40px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 50px 0 25px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #2962ff 0%, #1e4dd8 100%);
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 8px 24px rgba(41,98,255,0.25);
+    }
+    
+    h1:first-of-type {
+      margin-top: 0;
+    }
+    
+    h1 .emoji {
+      font-size: 36px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    
+    h2 {
+      color: #2962ff;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 35px 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #e8f0ff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h3 {
+      color: #444;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 28px 0 15px 0;
+    }
+    
+    p {
+      margin: 16px 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+    }
+    
+    ul {
+      margin: 20px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    li {
+      margin: 15px 0;
+      padding-left: 40px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    
+    li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #2962ff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    strong {
+      color: #2962ff;
+      font-weight: 700;
+    }
+    
+    em {
+      font-style: italic;
+      color: #555;
+      background: linear-gradient(to right, rgba(41,98,255,0.1), transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    /* CALL TO ACTION STICKY */
+    .cta-sticky {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      animation: bounceIn 0.6s ease-out;
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .cta-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 18px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(37,211,102,0.5);
+    }
+    
+    .cta-icon {
+      font-size: 24px;
+      animation: shake 2s ease-in-out infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+      20%, 40%, 60%, 80% { transform: rotate(10deg); }
+    }
+    
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 50px 40px;
+      text-align: center;
+      color: #999;
+    }
+    
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .footer-contact {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #ccc;
+    }
+    
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .social-icon:hover {
+      background: #2962ff;
+      transform: translateY(-3px);
+      border-color: #2962ff;
+    }
+    
+    .footer-disclaimer {
+      font-size: 12px;
+      color: #666;
+      margin-top: 30px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .header { padding: 40px 20px; }
+      .logo { font-size: 32px; }
+      .header-title { font-size: 22px; }
+      .info-section { padding: 20px; }
+      .content { padding: 30px 20px; }
+      .footer { padding: 30px 20px; }
+      .cta-sticky { bottom: 20px; right: 20px; }
+      .cta-button { padding: 14px 20px; font-size: 14px; }
+      h1 { font-size: 22px; padding: 20px; flex-direction: column; text-align: center; }
+      h1 .emoji { font-size: 32px; }
+    }
+    
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; padding: 0; }
+      .container { box-shadow: none; }
+      .cta-sticky { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER PROFESIONAL -->
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡ Soluciones Digitales IA</div>
+      <div class="header-title">Diagnóstico Estratégico de Conversión</div>
+      <div class="audit-id">ID: AUD-MS4XJFFV-C9F7</div>
+    </div>
+    
+    <!-- INFO SECTION -->
+    <div class="info-section">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Fecha</div>
+            <div class="info-value">28 de julio de 2026 a las 12:28</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏢</div>
+          <div>
+            <div class="info-label">Categoría</div>
+            <div class="info-value">Otro Nicho Personalizado -> Servicios Generales B2C</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🌐</div>
+          <div>
+            <div class="info-label">Activos Digitales</div>
+            <div class="info-value">Sin Activos Aún</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">💬</div>
+          <div>
+            <div class="info-label">Canal de Cierre</div>
+            <div class="info-value">WhatsApp / Telegram Business</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Cliente</div>
+            <div class="info-value">Cliente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CONTENIDO DINÁMICO -->
+    <div class="content">
+      <h1><span class="emoji">🚨</span><span>DIAGNÓSTICO DE FUGA PRINCIPAL</span></h1>
+<p>El problema principal identificado es la falta de conocimiento sobre qué hacer para iniciar o mejorar la estrategia de marketing digital en el nicho de Servicios Generales B2C. Esto se traduce en una falta de presencia en línea y, por lo tanto, una oportunidad perdida de generar leads y ventas. Según un estudio de HubSpot, "el 85% de los consumidores utilizan Internet para investigar antes de realizar una compra" (HubSpot, 2024). Esto sugiere que la ausencia en línea puede estar costando al negocio una cantidad significativa de clientes potenciales.</p>
+<br>
+<h1><span class="emoji">�</span><span>� ESTRATEGIA ORGÁNICA (PRIORIDAD #1)</span></h1>
+<p>Dado el nicho de Servicios Generales B2C y la falta de activos digitales, es crucial comenzar con estrategias orgánicas que puedan generar una base de Clientes leales y un flujo constante de leads.</p>
+<br>
+<h2>� � Contenido de Alto Impacto Orgánico</h2>
+<p>Para el nicho de Servicios Generales B2C, se recomienda crear contenido educativo y entretenido que resuelva problemas comunes de los clientes. Por ejemplo, si el servicio se enfoca en limpieza de hogares, crear contenido sobre "10 consejos para mantener tu hogar limpio y organizado" podría generar un gran interés. Según Meta for Business, "los videos educativos tienen un 66% más de probabilidades de ser compartidos que los promocionales" (Meta for Business, 2023).</p>
+<br>
+<h2>� � Comunidades y Networking Orgánico</h2>
+<p>Unir fuerzas con comunidades locales o en línea relacionadas con Servicios Generales B2C puede ser muy beneficioso. Participar en grupos de Facebook o foros donde los clientes potenciales discuten sobre servicios relacionados puede ayudar a establecer la autoridad del negocio en el nicho. Un estudio de Social Media Examiner encontró que "el 71% de los consumidores están más propensos a recomendar una marca que los haya ayudado a través de redes sociales" (Social Media Examiner, 2024).</p>
+<br>
+<h2>🔍 SEO y Contenido Escrito</h2>
+<p>Optimizar el contenido para motores de búsqueda como Google es crucial para aparecer en los resultados de búsqueda y atraer tráfico orgánico. Utilizar herramientas como Ahrefs o SEMrush para investigar palabras clave relevantes y crear contenido de alta calidad alrededor de ellas puede mejorar significativamente la visibilidad en línea. Según Ahrefs, "el contenido de más de 1,500 palabras tiene un 50% más de probabilidades de alcanzar el top 10 de Google" (Ahrefs, 2024).</p>
+<br>
+<h2>📊 Métricas Orgánicas Esperadas</h2>
+<p>En los primeros 30 días, se puede esperar un aumento en la visibilidad del contenido en redes sociales y un pequeño flujo de tráfico hacia el sitio web o perfil de WhatsApp/Telegram. En 60 días, el engagement debería aumentar, con más comentarios y compartidos de contenido. En 90 días, se deberían ver resultados más significativos en términos de leads y conversiones.</p>
+<br>
+<h1><span class="emoji">�</span><span>� ADS PAGOS (ACELERADOR - OPCIONAL)</span></h1>
+<p>Una vez que se haya establecido una base orgánica, considerar ads pagos en plataformas como Facebook o Google puede ser una buena opción para acelerar el crecimiento. Un presupuesto mínimo viable para testing sería de $300-$500/mes. La estrategia de retargeting hacia la audiencia orgánica puede ser especialmente efectiva, ya que el costo por adquisición (CAC) en retargeting es significativamente menor que en anuncios dirigidos a tráfico frío. Según AdEspresso, "el CAC en retargeting es un 50% menor que en cold ads" (AdEspresso, 2024).</p>
+<br>
+<h1><span class="emoji">⚠️</span><span>3 FALENCIAS CRÍTICAS + SOLUCIONES</span></h1>
+<ul>
+<li><strong>Falta de Presencia en Línea</strong>: La ausencia de una presencia en línea efectiva está impidiendo que el negocio sea visible para los clientes potenciales.</li>
+<li><strong>Solución Orgánica</strong>: Crear un perfil de WhatsApp/Telegram Business y comenzar a compartir contenido valioso y relevante para atraer y retener a una audiencia.</li>
+<li><strong>Solución con Ads</strong>: Utilizar ads de Facebook o Instagram para dirigirse a una audiencia más amplia y redirigir el tráfico hacia el perfil de WhatsApp/Telegram.</li>
+<li><strong>Métrica de Éxito</strong>: Aumento en el número de seguidores y engagement en las redes sociales.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Falta de Contenido de Calidad</strong>: La ausencia de contenido de alta calidad que resuelva problemas de los clientes potenciales está limitando la capacidad del negocio para atraer y retener una audiencia.</li>
+<li><strong>Solución Orgánica</strong>: Crear un calendario de contenido que incluya artículos de blog, videos educativos, y publicaciones en redes sociales que ofrecen valor y soluciones a los problemas de los clientes.</li>
+<li><strong>Solución con Ads</strong>: Utilizar ads para promocionar el contenido de alta calidad y aumentar su visibilidad.</li>
+<li><strong>Métrica de Éxito</strong>: Aumento en el engagement y en el tráfico hacia el sitio web o perfil de WhatsApp/Telegram.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Falta de Estrategia de Retención</strong>: La falta de una estrategia de retención de clientes está llevando a una tasa de abandono alta y pérdida de ventas potenciales.</li>
+<li><strong>Solución Orgánica</strong>: Implementar una estrategia de correo electrónico o mensajería para mantener a los clientes informados sobre promociones, nuevos servicios, y consejos valiosos.</li>
+<li><strong>Solución con Ads</strong>: Utilizar campañas de retargeting para dirigirse a clientes que han abandonado el sitio web o perfil de WhatsApp/Telegram sin convertir.</li>
+<li><strong>Métrica de Éxito</strong>: Reducción en la tasa de abandono y aumento en las ventas y lealtad del cliente.</li>
+</ul>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-logo">⚡ Soluciones Digitales IA</div>
+      <div class="footer-contact">📱 WhatsApp: +57 311 589 3220</div>
+      <div class="footer-contact">🌐 www.solucionesdigitalesia.com</div>
+      <div class="footer-contact">📧 contacto@solucionesdigitalesia.com</div>
+      
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="WhatsApp">💬</a>
+        <a href="#" class="social-icon" title="Instagram">📸</a>
+        <a href="#" class="social-icon" title="LinkedIn">💼</a>
+        <a href="#" class="social-icon" title="YouTube">🎥</a>
+      </div>
+      
+      <div class="footer-disclaimer">
+        Este diagnóstico es confidencial y exclusivo para Cliente.<br>
+        Prohibida su reproducción total o parcial sin autorización.<br>
+        © 2025 Soluciones Digitales IA - Todos los derechos reservados
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA STICKY WHATSAPP -->
+  <div class="cta-sticky">
+    <a href="https://wa.me/573115893220?text=Hola!%20Leí%20mi%20diagnóstico%20AUD-MS4XJFFV-C9F7%20y%20quiero%20agendar%20una%20llamada%20estratégica" class="cta-button" target="_blank">
+      <span class="cta-icon">💬</span>
+      <span>Agendar Llamada Estratégica</span>
+    </a>
+  </div>
+  
+  <!-- Analytics -->
+  <script>
+    // Registrar apertura del reporte
+    fetch('/api/audit-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auditId: 'AUD-MS4XJFFV-C9F7', timestamp: new Date().toISOString() })
+    }).catch(() => {});
+    
+    // Registrar tiempo en página
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      navigator.sendBeacon('/api/audit-time', JSON.stringify({ 
+        auditId: 'AUD-MS4XJFFV-C9F7', 
+        timeSpent 
+      }));
+    });
+  </script>
+</body>
+</html>

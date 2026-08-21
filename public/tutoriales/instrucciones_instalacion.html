@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Instalación - WA Warmer Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.5);
+            --success: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Glassmorphism Cards */
+        .step-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Step Animations delays */
+        .step-card:nth-child(1) { animation-delay: 0.2s; }
+        .step-card:nth-child(2) { animation-delay: 0.4s; }
+        .step-card:nth-child(3) { animation-delay: 0.6s; }
+        .step-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary) 0%, #2563eb 100%);
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-right: 20px;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .step-content {
+            padding-left: 65px;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .step-content ul, .step-content ol {
+            color: var(--text-muted);
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .step-content li {
+            margin-bottom: 10px;
+        }
+
+        .step-content strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Callouts / Info boxes */
+        .info-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 15px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 20px;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #e2e8f0;
+        }
+
+        /* Buttons & Badges styling for text */
+        .ui-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            color: #cbd5e1;
+            font-size: 0.9em;
+        }
+
+        .ui-button {
+            display: inline-block;
+            background: var(--primary);
+            padding: 2px 10px;
+            border-radius: 6px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9em;
+            margin: 0 4px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .step-header { flex-direction: column; align-items: flex-start; }
+            .step-number { margin-bottom: 15px; }
+            .step-content { padding-left: 0; }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: #fff; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(15, 23, 42, 0.5);
+            color: #fff;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: var(--success);
+        }
+        .btn-large {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4);
+        }
+        .btn-small {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4);
+        }
+        .text-center { text-align: center; }
+        .mt-40 { margin-top: 40px; margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-badge">Paso a Paso Oficial</div>
+        <h1>WA Warmer Pro</h1>
+        <p class="subtitle">Sigue estas instrucciones para descargar, instalar y comenzar a calentar tus cuentas de WhatsApp de forma segura.</p>
+    </header>
+
+    <div class="steps-wrapper">
+        
+        <!-- Paso 1 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h2>Descarga e Instalación</h2>
+            </div>
+            <div class="step-content">
+                <p>Primero, necesitamos instalar el sistema en tu ordenador Windows.</p>
+                <ol>
+                    <li>Descarga el archivo <strong>WaWarmer_Premium_Installer.exe</strong> desde el enlace proporcionado.</li>
+                    <li>Haz doble clic sobre el archivo descargado. Si Windows muestra una alerta azul de "SmartScreen", haz clic en <strong>"Más información"</strong> y luego en <strong>"Ejecutar de todas formas"</strong>.</li>
+                    <li>Sigue las instrucciones del instalador (presiona "Siguiente"). Te sugerimos marcar la casilla para crear un acceso directo en tu Escritorio.</li>
+                    <li>Al finalizar, haz doble clic en el ícono de <strong>WA Warmer Pro</strong> en tu escritorio para abrirlo.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h2>Activación de Licencia</h2>
+            </div>
+            <div class="step-content">
+                <p>La primera vez que abras el programa, verás una pantalla de seguridad solicitando tu activación.</p>
+                <ol>
+                    <li>Busca en la pantalla el texto que dice <strong>Tu ID de Máquina</strong> (será un código como <span class="ui-badge">BFEBFBFF...</span>).</li>
+                    <li>Haz clic en el botón <span class="ui-button">Copiar</span> que está justo al lado.</li>
+                    <li>Ve a WhatsApp y envíale ese código copiado a tu administrador o proveedor para solicitar tu acceso.</li>
+                    <li>Tu administrador te responderá con un <strong>Token de Activación</strong> más largo.</li>
+                    <li>Copia ese token, pégalo en la casilla de la aplicación que dice <strong>"Token de Activación"</strong> y presiona el botón azul <span class="ui-button">Activar Aplicación</span>.</li>
+                </ol>
+                <div class="info-box">
+                    <p>✨ <strong>¡Listo!</strong> El sistema se desbloqueará permanentemente en tu ordenador.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <h2>Vincular tus Cuentas de WhatsApp</h2>
+            </div>
+            <div class="step-content">
+                <p>Para que el calentamiento funcione, el sistema necesita conectarse a tus cuentas. <strong>Requiere al menos 2 cuentas</strong> para interactuar entre ellas.</p>
+                <ol>
+                    <li>En el panel principal, en la sección de <strong>"Cuentas Vinculadas"</strong>, haz clic en <span class="ui-button">+ Vincular</span> en el primer espacio (Cuenta 1).</li>
+                    <li>Ingresa tu número de WhatsApp (sin el código del país).</li>
+                    <li>Haz clic en <strong>"Abrir QR"</strong>. Espera unos segundos a que cargue el código QR en pantalla.</li>
+                    <li>En tu celular, abre WhatsApp > Ve a <strong>"Dispositivos Vinculados"</strong> > <strong>"Vincular dispositivo"</strong> y escanea el QR de la pantalla.</li>
+                    <li>Repite el proceso para la Cuenta 2 (y Cuenta 3 si lo deseas).</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <h2>Operación Diaria y Calentamiento</h2>
+            </div>
+            <div class="step-content">
+                <p>Tu rutina diaria se resume en unos simples clics. El programa tiene un medidor de madurez de 14 días.</p>
+                <ul>
+                    <li><strong>Interacción Manual:</strong> Antes de tu primera sesión automática, asegúrate de haber enviado al menos un mensaje a mano (desde el celular) entre las cuentas que vinculaste.</li>
+                    <li><strong>Fase y Turnos:</strong> Revisa en qué fase de "Escalamiento" estás. Ajusta la barra de <strong>Turnos</strong> al número sugerido por la fase (ej: 20-40 turnos).</li>
+                    <li><strong>Iniciar:</strong> Haz clic en el botón <span class="ui-button">▶ Iniciar Calentamiento</span>.</li>
+                    <li><strong>Guion Único:</strong> El software generará una conversación aleatoria única y comenzará a enviar los mensajes respetando tiempos humanos. Puedes minimizarlo y dejarlo trabajar.</li>
+                </ul>
+                <div class="info-box" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+                    <p>⚠️ <strong>Regla de Oro:</strong> No ejecutes más de 2 sesiones diarias para evitar bloqueos por parte de Meta. La constancia durante los 14 días es clave.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-40">
+        <button class="btn-large" onclick="openModal()">DESCARGAR DEMO</button>
+    </div>
+
+    <!-- Modal Formulario -->
+    <div class="modal-overlay" id="demoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 style="margin-bottom: 20px; font-size: 1.3rem;">Solicitud de Demo</h2>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" id="demoName" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+                <label>WhatsApp</label>
+                <input type="text" id="demoPhone" placeholder="Ej: +57 300 0000000" required>
+            </div>
+            <div class="form-group">
+                <label>Empresa</label>
+                <input type="text" id="demoCompany" placeholder="Nombre de tu empresa" required>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn-small" onclick="downloadMega()">⬇️ Descargar de Mega</button>
+                <button class="btn-small" onclick="sendDemoRequest()">💬 Descargar por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 WA Warmer Pro. Sistema avanzado de maduración de cuentas.</p>
+    </footer>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('demoModal').classList.add('active');
+    }
+    
+    function closeModal() {
+        document.getElementById('demoModal').classList.remove('active');
+    }
+
+    function sendDemoRequest() {
+        const name = document.getElementById('demoName').value.trim();
+        const phone = document.getElementById('demoPhone').value.trim();
+        const company = document.getElementById('demoCompany').value.trim();
+
+        if(!name || !phone || !company) {
+            alert('Por favor, completa todos los campos.');
+            return;
+        }
+
+        const message = `*📍 SOLICITUD DE DEMOSTRACIÓN: CALENTADOR DE CUENTAS*\n\n👤 *Nombre:* ${name}\n📱 *WhatsApp:* ${phone}\n🏢 *Empresa:* ${company}\n--------------------------\n✅ Ya revisé el tutorial, entendí el procedimiento y solicito la aplicación en versión demo.`;
+        
+        // ==========================================
+        // REEMPLAZA ESTE NÚMERO POR TU WHATSAPP
+        // Ejemplo: "573001234567" (Sin el signo +)
+        const targetNumber = "573115893220"; 
+        // ==========================================
+
+        const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        closeModal();
+    }
+
+    function downloadMega() {
+        const name = document.getElementById('demoName').value.trim();
+        const phone = document.getElementById('demoPhone').value.trim();
+        const company = document.getElementById('demoCompany').value.trim();
+
+        if(!name || !phone || !company) {
+            alert('Por favor, completa todos los campos.');
+            return;
+        }
+
+        const megaUrl = "https://mega.nz/file/4MskDYhL#RVgWyYyQRl7EHGxJddJlF8R01YPCtDm_PIe8GCcoy7c";
+        window.open(megaUrl, '_blank');
+        closeModal();
+    }
+</script>
+
+</body>
+</html>

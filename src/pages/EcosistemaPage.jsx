@@ -237,7 +237,7 @@ export default function EcosistemaPage() {
                 initial={{ backgroundPosition: 'top' }}
                 animate={{ backgroundPosition: 'bottom' }}
                 transition={{ duration: 2.5, ease: "easeOut", delay: 0.2 }}
-                className="text-[14vw] md:text-[8vw] leading-[0.85] tracking-tighter text-transparent bg-clip-text"
+                className="text-[12vw] md:text-[7vw] leading-[0.85] tracking-tighter text-transparent bg-clip-text"
                 style={{
                   backgroundImage: 'linear-gradient(to top, #ffffff 50%, rgba(255,255,255,0.05) 50%)',
                   backgroundSize: '100% 200%'
@@ -246,7 +246,7 @@ export default function EcosistemaPage() {
                 ARQUITECTURA
               </motion.div>
               
-              <div className="text-[#2962ff] text-2xl md:text-5xl mt-2 drop-shadow-[0_0_15px_rgba(41,98,255,0.5)] font-bold tracking-widest">
+              <div className="text-[#2962ff] text-xl md:text-4xl mt-2 drop-shadow-[0_0_15px_rgba(41,98,255,0.5)] font-bold tracking-widest">
                 DE VENTAS INFALIBLE
               </div>
             </div>

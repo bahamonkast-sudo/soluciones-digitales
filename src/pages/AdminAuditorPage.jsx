@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Lock, Key, LayoutDashboard, FileText, Users, Eye, Clock, CheckCircle, RefreshCw, LogOut, ChevronDown, Search, Bot, X, MessageCircle, Loader2 } from 'lucide-react'
+import Navbar from '../components/Navbar'
 
 const SECRET_STORAGE_KEY = 'admin_auditor_secret';
 const ADMIN_PASS = 'soluciones2026';
@@ -173,6 +174,7 @@ export default function AdminAuditorPage() {
 
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-white">
+      <Navbar activePage="home" />
       {toast && (
         <div className="fixed top-4 right-4 z-50 bg-green-600 text-white px-4 py-3 rounded-xl shadow-lg text-sm">{toast}</div>
       )}

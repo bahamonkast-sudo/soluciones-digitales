@@ -6,8 +6,8 @@ const ENV_DEV = import.meta.env.MODE === 'development';
 
 // Dominio actual del sitio (hosting real). Fallback seguro si no hay navegador.
 export const getSiteUrl = () => {
-  if (typeof window !== 'undefined') return window.location.origin;
-  return '';
+  if (typeof window !== 'undefined' && window.location?.origin) return window.location.origin;
+  return 'https://soluciones-digitales.ai.studio';
 };
 
 // URL del backend webgobot: en dev localhost:3000, en producción VITE_WEBGOBOT_URL
@@ -57,4 +57,19 @@ export const getPageUrl = (slug) => {
   if (ENV_DEV) return `/${slug}.html`;
   if (typeof window !== 'undefined' && window.websdPluginUrl) return `${getWpBase()}${slug}/`;
   return `/${slug}.html`;
+};
+
+// Telegram Bot Mini App URL - Configure BOT_USERNAME in .env
+export const getTelegramBotUrl = () => {
+  const botUsername = import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'solucionesdigitales365_bot';
+  const appName = import.meta.env.VITE_TELEGRAM_APP_NAME || 'auditor';
+  if (ENV_DEV) {
+    return `https://t.me/${botUsername}/${appName}`;
+  }
+  return `https://t.me/${botUsername}/${appName}`;
+};
+
+export const getTelegramChatUrl = () => {
+  const botUsername = import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'solucionesdigitales365_bot';
+  return `https://t.me/${botUsername}`;
 };

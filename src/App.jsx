@@ -1,16 +1,17 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'framer-motion';
 import { 
   CheckCircle2, ChevronDown, User, Phone, Edit3, Search, Code,
   Facebook, Twitter, Youtube, Instagram, ArrowRight, Zap, Globe, MessageCircle, Database, MessageSquare, X,
-  CreditCard, Download, Mail, Smartphone, Layers, Sparkles, Target, TrendingUp
+  CreditCard, Download, Mail, Smartphone, Layers, Sparkles, Target, TrendingUp,
+  BarChart2, Lightbulb, Zap as ZapIcon, ShieldCheck
 } from 'lucide-react';
 
 import Navbar from './components/Navbar';
 import SiteFooter from './components/SiteFooter';
 import ActivityMonitor from './components/ActivityMonitor';
 import { pushGlobalLog } from './hooks/useNetworkStatus';
-import { WEBGOBOT_URL, getDistUrl, getPageUrl } from './utils/env';
+import { WEBGOBOT_URL, getDistUrl, getPageUrl, getTelegramBotUrl, getTelegramChatUrl } from './utils/env';
 import SEO from './components/SEO';
 import { SEO_CONFIG } from './config/seoConfig';
 import ChatBotBrochure from './components/ChatBotBrochure';
@@ -397,12 +398,6 @@ export default function App() {
   };
 
   const videoRef = useRef(null);
-  const videoPlayCount = useRef(0);
-  const handleVideoEnded = () => {
-    videoPlayCount.current += 1;
-    if (videoPlayCount.current >= 2) return;
-    videoRef.current?.play();
-  };
 
   // Typewriter and Sound
   const [line, setLine] = useState("");
@@ -791,17 +786,22 @@ export default function App() {
             autoPlay
             muted
             playsInline
-            onEnded={handleVideoEnded}
-            className="w-full h-full object-cover opacity-100 filter contrast-110 brightness-125"
+            className="w-full h-full object-cover opacity-100 filter contrast-110 brightness-125 pointer-events-none"
             style={{ width: '100%', height: '100dvh' }}
           >
             <source
-              src={getDistUrl('365/el_robot_esta_teclenado_sobre.mp4')}
+              src="https://res.cloudinary.com/b1ozfqjn/video/upload/v1787332603/el_robot_esta_teclenado_sobre.mp4"
               type="video/mp4"
             />
           </video>
-          {/* Subtle gradient overlay to fade edges and ensure legibility, with strong bottom blend to page background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B0B0F]/20 to-[#0B0B0F] opacity-100" />
+          {/* Radial gradient mask: clear center to dark edges + bottom blend */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at 50% 40%, rgba(11, 11, 15, 0) 15%, rgba(11, 11, 15, 0.45) 60%, rgba(11, 11, 15, 0.95) 90%, #0B0B0F 100%)'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B0B0F]/20 to-[#0B0B0F] pointer-events-none" />
         </div>
 
         {/* Hero Heading - Pushed down below the robot's face */}
@@ -957,7 +957,7 @@ export default function App() {
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[#2962ff] font-bold">Nuestra Identidad</span>
               </div>
               
-              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-black text-white leading-[1.05] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[56px] font-black text-white leading-[1.05] tracking-tight">
                 No hacemos webs.<br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-500">
                   Construimos ecosistemas de conversión.
@@ -1313,76 +1313,137 @@ export default function App() {
           </h2>
         </div>
 
-        {/* Sticky stacking cards */}
+        {/* Sticky stacking cards - Aged Metallic Skeuomorphism */}
         <div className="max-w-5xl mx-auto w-full flex flex-col gap-[32vh] md:gap-[38vh]">
           {projectsData.map((project, idx) => {
-            const targetScale = 1 - (projectsData.length - 1 - idx) * 0.035;
             return (
               <div
                 key={project.name}
                 className="sticky w-full"
                 style={{ top: `${idx * 24 + 90}px` }}
               >
-                <div className="case-glass rounded-[40px] sm:rounded-[50px] p-6 sm:p-8 md:p-10 flex flex-col gap-8 md:gap-10 relative overflow-hidden group">
+                <div 
+                  className="rounded-[36px] sm:rounded-[48px] p-7 sm:p-9 md:p-11 flex flex-col gap-8 md:gap-10 relative overflow-hidden group border border-white/[0.14]"
+                  style={{ 
+                    background: 'linear-gradient(140deg, #191b22 0%, #111216 38%, #161820 70%, #0d0e12 100%)',
+                    boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.95), 0 12px 28px -6px rgba(0, 0, 0, 0.85), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -2px 6px 0 rgba(0, 0, 0, 0.9), inset 1px 0 2px 0 rgba(255, 255, 255, 0.08), inset -1px 0 2px 0 rgba(0, 0, 0, 0.75)'
+                  }}
+                >
+                  {/* Aged metallic brushed patina overlay */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none opacity-60 mix-blend-overlay"
+                    style={{
+                      backgroundImage: 'linear-gradient(115deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 35%, rgba(0,0,0,0.65) 65%, rgba(255,255,255,0.04) 100%)'
+                    }}
+                  />
+                  {/* Radial metallic specular highlights */}
+                  <div 
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(0,0,0,0.8) 0%, transparent 60%)'
+                    }}
+                  />
+
+                  {/* Corner Industrial Rivets / Screws */}
+                  <div className="absolute top-5 left-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
+                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] rotate-45" />
+                  </div>
+                  <div className="absolute top-5 right-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
+                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] -rotate-12" />
+                  </div>
+                  <div className="absolute bottom-5 left-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
+                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] rotate-[70deg]" />
+                  </div>
+                  <div className="absolute bottom-5 right-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
+                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] rotate-30" />
+                  </div>
+
                   {/* Shimmer sweep effect */}
                   <span className="card-shimmer" />
-                  {/* Light orb */}
-                  <div className="case-orb -top-24 -right-24" />
 
                   {/* Top row */}
-                  <div className="flex flex-wrap justify-between items-start gap-4">
+                  <div className="flex flex-wrap justify-between items-start gap-4 relative z-10 pb-5 border-b border-white/[0.08] shadow-[0_1px_0_rgba(0,0,0,0.9)]">
                     <div className="flex items-center gap-4">
-                      <span className="font-black text-4xl sm:text-5xl md:text-6xl text-white/10 leading-none select-none">{project.num}</span>
+                      <span 
+                        className="font-black text-4xl sm:text-5xl md:text-6xl text-neutral-500/50 group-hover:text-neutral-300 transition-colors duration-500 leading-none select-none"
+                        style={{ textShadow: '0 1px 0 rgba(255,255,255,0.12), 0 -1px 0 rgba(0,0,0,0.95)' }}
+                      >
+                        {project.num}
+                      </span>
                       <div className="flex flex-col">
-                        <span className="text-[9px] uppercase tracking-widest text-[#2962ff] font-bold mb-0.5">{project.category}</span>
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-wide">{project.name}</h3>
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-bold mb-1 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">
+                          {project.category}
+                        </span>
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                          {project.name}
+                        </h3>
                       </div>
                     </div>
 
-                    {/* Progress gauge */}
-                    <div className="flex flex-col items-end gap-1.5">
-                      <span className="text-[9px] tracking-widest text-neutral-500 font-semibold">{project.progressLabel} — {project.progress}%</span>
-                      <div className="w-28 sm:w-36 h-1.5 rounded-full overflow-hidden neomorph-inset">
+                    {/* Progress gauge with chiseled metal groove */}
+                    <div className="flex flex-col items-end gap-2">
+                      <span className="text-[10px] uppercase tracking-wider text-neutral-400 font-semibold">
+                        {project.progressLabel} — <strong className="text-cyan-400">{project.progress}%</strong>
+                      </span>
+                      <div 
+                        className="w-28 sm:w-36 h-2 rounded-full overflow-hidden p-[1px]"
+                        style={{
+                          background: '#090a0d',
+                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.95), 0 1px 0 rgba(255,255,255,0.08)'
+                        }}
+                      >
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${project.progress}%` }}
                           viewport={{ once: true }}
                           transition={{ duration: 1.4, ease: "easeOut", delay: 0.4 }}
-                          className="h-full bg-gradient-to-r from-blue-500 to-[#2962ff] rounded-full"
-                          style={{ boxShadow: '0 0 12px rgba(41,98,255,0.85)' }}
+                          className="h-full bg-gradient-to-r from-cyan-400 to-[#2962ff] rounded-full"
+                          style={{ boxShadow: '0 0 10px rgba(6,182,212,0.8)' }}
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Content grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-10 gap-6 md:gap-10 items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-10 gap-6 md:gap-10 items-center relative z-10">
 
                     {/* Left: text */}
                     <div className="md:col-span-5 flex flex-col gap-6">
                       <div className="flex flex-col gap-2">
-                        <span className="text-[9px] uppercase tracking-widest text-[#2962ff] font-bold">El reto</span>
-                        <p className="text-sm text-neutral-300 leading-relaxed">{project.challenge}</p>
+                        <span className="text-[10px] uppercase tracking-widest text-cyan-400 font-bold">El reto</span>
+                        <p className="text-sm text-neutral-300 leading-relaxed font-light">{project.challenge}</p>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-[9px] uppercase tracking-widest text-[#2962ff] font-bold">La solución</span>
-                        <p className="text-sm text-neutral-300 leading-relaxed">{project.solution}</p>
+                        <span className="text-[10px] uppercase tracking-widest text-cyan-400 font-bold">La solución</span>
+                        <p className="text-sm text-neutral-300 leading-relaxed font-light">{project.solution}</p>
                       </div>
-                      {/* Metric */}
-                      <div className="rounded-2xl p-5 flex items-center gap-4 border border-[#2962ff]/20 bg-[#2962ff]/[0.06]" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 0 24px rgba(41,98,255,0.08)' }}>
-                        <div className="font-black text-4xl md:text-5xl text-[#2962ff] tracking-tight leading-none" style={{ textShadow: '0 0 20px rgba(41,98,255,0.5)' }}>
+                      {/* Metric - Recuadro troquelado en bajo relieve */}
+                      <div 
+                        className="rounded-2xl p-5 flex items-center gap-5 border border-white/[0.08]" 
+                        style={{ 
+                          background: 'linear-gradient(135deg, #0c0d11 0%, #14161e 100%)',
+                          boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.9), inset 0 -1px 1px rgba(255,255,255,0.06), 0 1px 0 rgba(255,255,255,0.06)' 
+                        }}
+                      >
+                        <div className="font-black text-4xl md:text-5xl text-cyan-400 tracking-tight leading-none drop-shadow-[0_0_16px_rgba(6,182,212,0.5)]">
                           <AnimatedCounter value={project.metricValue} />
                         </div>
-                        <div className="text-xs text-neutral-400 leading-snug">{project.metricLabel}</div>
+                        <div className="text-xs text-neutral-300 leading-snug font-medium">{project.metricLabel}</div>
                       </div>
                     </div>
 
-                    {/* Right: image */}
-                    <div className="md:col-span-5 rounded-3xl overflow-hidden h-[260px] sm:h-[300px] md:h-[340px]" style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.6)' }}>
+                    {/* Right: image in chiseled metal frame */}
+                    <div 
+                      className="md:col-span-5 rounded-[26px] sm:rounded-[34px] p-2 overflow-hidden h-[260px] sm:h-[300px] md:h-[340px] border border-white/10"
+                      style={{ 
+                        background: 'linear-gradient(180deg, #2b2e38 0%, #15171d 60%, #0e0f13 100%)',
+                        boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.22), 0 18px 40px rgba(0,0,0,0.9)' 
+                      }}
+                    >
                       <img
                         src={project.img}
                         alt={project.name}
-                        className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover rounded-[20px] sm:rounded-[26px] filter contrast-105 brightness-95 group-hover:brightness-105 transition-all duration-700"
                       />
                     </div>
                   </div>
@@ -1390,6 +1451,187 @@ export default function App() {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* ── AUDITOR ESTRATÉGICO IA (TELEGRAM BOT) ─────────────────── */}
+      <section id="auditor-ia" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0B0B0F' }}>
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#3b82f6]/5 blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#f97316]/5 blur-[120px]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Hero */}
+          <FadeIn className="text-center mb-16 md:mb-24">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/10 text-[11px] font-bold uppercase tracking-[0.16em] text-[#3b82f6] mb-6">
+              <Zap size={13} className="text-[#3b82f6]" />
+              Auditor Estratégico IA · Gratis · 3 min
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
+              Tu negocio digital, <span className="bg-gradient-to-r from-[#3b82f6] to-[#f97316] bg-clip-text text-transparent">auditado en 3 minutos.</span>
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-neutral-400 leading-relaxed mb-8">
+              Responde catorce preguntas como si fuera un chat. La IA detecta dónde pierdes ventas y te da un plan de acción para esta semana. Se ejecuta con tu propia API Key de Groq: gratuita y sin costos ocultos.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2.5">
+              {[
+                "API Key de Groq gratuita",
+                "Sin tarjeta de crédito",
+                "Diagnóstico sin costos ocultos"
+              ].map((chip) => (
+                <span key={chip} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11.5px] font-medium text-neutral-400 backdrop-blur-sm">
+                  <Sparkles size={11} className="text-[#3b82f6]" /> {chip}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-8 flex items-center justify-center">
+              <a
+                href={getTelegramChatUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full bg-[#3b82f6] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#2563eb] active:scale-[0.98] shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.65)]"
+              >
+                Iniciar Diagnóstico en Telegram
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </FadeIn>
+
+          {/* Stats */}
+          <FadeIn delay={0.1}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 md:mb-24">
+              {[
+                { value: "0.05s", label: "para formarse una opinión sobre tu web", fuente: "Google Research" },
+                { value: "75%", label: "juzga tu credibilidad por el diseño", fuente: "Stanford Web Credibility" },
+                { value: "53%", label: "abandona si la web tarda más de 3 s en móvil", fuente: "Think with Google" },
+                { value: "70%", label: "del viaje de compra ya decidido antes de contactar", fuente: "CEB / Gartner" }
+              ].map((s) => (
+                <div key={s.value} className="rounded-2xl p-5 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] text-center">
+                  <p className="font-black text-3xl md:text-4xl tracking-tight text-[#3b82f6]">{s.value}</p>
+                  <p className="mt-1.5 text-[12.5px] leading-snug text-neutral-400">{s.label}</p>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.14em] text-neutral-500">{s.fuente}</p>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          {/* How it works - API Key */}
+          <FadeIn delay={0.2} className="mb-16 md:mb-24">
+            <div className="mb-10 max-w-xl mx-auto text-center">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">Obtén tu API Key de Groq (es gratis)</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">Necesitas una clave gratuita para que la IA ejecute tu análisis. Nunca la guardamos ni la compartimos.</p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] h-full">
+                <h4 className="text-lg font-bold tracking-tight text-white">¿Por qué necesitas tu propia API Key?</h4>
+                <ul className="mt-4 space-y-3">
+                  {[
+                    "Ejecutamos tu análisis directo con Groq: sin intermediarios, sin costos para ti.",
+                    "La clave es gratuita y nunca la almacenamos en nuestros servidores.",
+                    "Tú controlas cuántas veces ejecutas tu diagnóstico.",
+                    "Entre más información des, más completo y extenso será tu e-book."
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-2.5 text-[13.5px] leading-relaxed text-neutral-400">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3b82f6]" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] h-full">
+                <h4 className="text-lg font-bold tracking-tight text-white">Pasos para obtenerla</h4>
+                <div className="mt-4 space-y-4">
+                  {[
+                    { n: "01", t: "Ve a console.groq.com/keys", d: "Crea una cuenta gratuita o inicia sesión." },
+                    { n: "02", t: "Haz clic en \"Create API Key\"", d: "Cópiala (empieza con gsk_...). No la compartas." },
+                    { n: "03", t: "Pégala en el primer paso del diagnóstico", d: "La usamos solo para tu análisis y listo." }
+                  ].map((p) => (
+                    <div key={p.n} className="flex items-start gap-3">
+                      <span className="font-mono text-xs font-bold tracking-[0.2em] text-[#f97316]">{p.n}</span>
+                      <div>
+                        <p className="text-[14px] font-semibold text-white">{p.t}</p>
+                        <p className="mt-0.5 text-[12.5px] leading-relaxed text-neutral-400">{p.d}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="https://console.groq.com/keys"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/10 px-5 py-2.5 text-[13px] font-semibold text-[#3b82f6] transition-colors hover:bg-[#3b82f6]/15"
+                >
+                  Abrir console.groq.com/keys
+                  <ArrowRight size={14} />
+                </a>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Benefits */}
+          <FadeIn delay={0.3} className="mb-16 md:mb-24">
+            <div className="mb-12 max-w-xl mx-auto text-center">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">Cómo te ayuda a tomar mejores decisiones</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">No es solo un score. Es un espejo de tu ecosistema digital con acciones concretas.</p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                { icon: Search, titulo: "Detecta dónde pierdes clientes", texto: "El auditor analiza tu presencia, marketing, contenido y conversión. Identifica exactamente qué está frenando tus ventas y por qué." },
+                { icon: BarChart2, titulo: "Prioriza por impacto real", texto: "No te da 50 tareas. Te dice cuáles 3 acciones mueven la aguja esta semana. Quick wins de 24 a 72 horas, no proyectos de 6 meses." },
+                { icon: Lightbulb, titulo: "Decide con datos, no con intuición", texto: "Score de 0 a 100, estadísticas verificadas y un plan de 90 días. Sabrás exactamente en qué invertir tu tiempo y dinero." }
+              ].map((b, i) => (
+                <div key={b.titulo} className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] h-full">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#3b82f6]/12 text-[#3b82f6]">
+                    <b.icon size={22} />
+                  </div>
+                  <h4 className="mt-5 text-lg font-bold tracking-tight text-white">{b.titulo}</h4>
+                  <p className="mt-2.5 text-[14px] leading-relaxed text-neutral-400">{b.texto}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] relative overflow-hidden">
+                <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-[#f97316]/10 blur-3xl" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f97316]/15 text-[#f97316]">
+                  <ZapIcon size={18} />
+                </div>
+                <h4 className="mt-4 text-lg font-bold tracking-tight text-white">Quick wins esta semana</h4>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-neutral-400">Acciones de 24 a 72 horas que puedes implementar hoy mismo. No necesitas contratar a nadie ni gastar en publicidad.</p>
+              </div>
+              <div className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] relative overflow-hidden">
+                <div className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-[#3b82f6]/10 blur-3xl" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#3b82f6]/15 text-[#3b82f6]">
+                  <ShieldCheck size={18} />
+                </div>
+                <h4 className="mt-4 text-lg font-bold tracking-tight text-white">Cumplimiento con anuncios</h4>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-neutral-400">Nicho sensible (trading, multinivel, suplementos)? Te decimos cómo comunicar sin que bloqueen tus cuentas en Meta o Google.</p>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* CTA Final */}
+          <FadeIn delay={0.4} className="text-center">
+            <div className="rounded-3xl p-8 md:p-12 lg:p-16 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] relative overflow-hidden">
+              <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[560px] -translate-x-1/2 rounded-full bg-[#3b82f6]/10 blur-[100px]" />
+              <h3 className="mx-auto max-w-2xl text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white">
+                Descubre dónde está tu fuga de ventas
+              </h3>
+              <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-neutral-400">Menos de 3 minutos, catorce preguntas y un informe con tu próximo movimiento.</p>
+              <div className="mt-9 flex items-center justify-center">
+                <a
+                  href={getTelegramChatUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 rounded-full bg-[#3b82f6] px-8 py-4 text-[15px] font-bold text-white transition-all hover:bg-[#2563eb] active:translate-y-[1px] active:scale-[0.98] shadow-[0_0_24px_rgba(59,130,246,0.45)] hover:shadow-[0_0_32px_rgba(59,130,246,0.7)]"
+                >
+                  Iniciar Auditoría Estratégica en Telegram
+                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 

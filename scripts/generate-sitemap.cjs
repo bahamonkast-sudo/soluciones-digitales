@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuración base
-const BASE_URL = 'https://solucionesdigitalesia.com';
+const BASE_URL = 'https://soluciones-digitales.ai.studio';
 const OUTPUT_PATH = path.join(__dirname, '../public/sitemap.xml');
 const TODAY = new Date().toISOString().split('T')[0];
 

@@ -11,7 +11,7 @@ const path = require('path');
 // Paths
 const SITEMAP_PATH = path.join(__dirname, '../public/sitemap.xml');
 const ROBOTS_PATH = path.join(__dirname, '../public/robots.txt');
-const BASE_URL = 'https://solucionesdigitalesia.com';
+const BASE_URL = 'https://soluciones-digitales.ai.studio';
 
 // Colores para consola
 const colors = {

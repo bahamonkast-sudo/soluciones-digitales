@@ -3,6 +3,7 @@ import { ShoppingCart, Star, ShieldCheck, Truck, Check, ChevronRight, CreditCard
 import { motion, AnimatePresence } from 'framer-motion';
 import { CATALOGO } from '../data/catalogo';
 import SlideButton from '../components/SlideButton';
+import Navbar from '../components/Navbar';
 import SiteFooter from '../components/SiteFooter';
 import { getPageUrl } from '../utils/env';
 
@@ -18,7 +19,9 @@ export default function ProductoPage() {
   const isReservedPrice = product.price === 'A consultar' || product.price === 'Próximamente';
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white font-sans pb-20">
+    <div className="min-h-screen bg-[#0B0B0F] text-white font-sans pb-20">
+      
+      <Navbar activePage="tienda" />
       
       {/* HEADER TIPO E-COMMERCE */}
       <header className="sticky top-0 z-40 bg-[#0A0A0F] border-b border-[#1f1f2e] shadow-xl">

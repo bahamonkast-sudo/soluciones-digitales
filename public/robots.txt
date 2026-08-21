@@ -79,4 +79,4 @@ Disallow: /
 Crawl-delay: 1
 
 # Sitemap XML
-Sitemap: https://solucionesdigitalesia.com/sitemap.xml
+Sitemap: https://soluciones-digitales.ai.studio/sitemap.xml

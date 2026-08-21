@@ -2,16 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, MessageCircle, Globe, Zap, Database, Phone, Target, X } from 'lucide-react';
-import { getDistUrl, getPageUrl, getFrontPageUrl } from '../utils/env';
+import { getDistUrl, getPageUrl, getFrontPageUrl, getTelegramChatUrl } from '../utils/env';
 
-const TELEGRAM_URL = getDistUrl('telegram/index.html');
+const TELEGRAM_URL = getTelegramChatUrl();
 
   const navCategories = [
     { name: 'Sitios Web', icon: Globe, sub: ['Vitrina de Conversión', 'Ecosistema de Autoridad', 'Hub de Negocios', 'Tarjeta Profesional de Negocios'] },
     { name: 'Inteligencia Artificial', icon: MessageCircle, sub: ['Probador Virtual IA', 'Piloto Pro - Agente IA Autónomo', 'Chatbot Multicanal Inteligente', 'Mini Apps en Telegram'] },
     { name: 'WhatsApp Automation', icon: Zap, sub: ['Plataforma de Envío Masivo', 'Calentador Inteligente de Cuentas'] },
-    { name: 'Minería en WhatsApp', icon: Database, sub: ['Extractor de datos de WhatsApp'] },
-    { name: 'Auditoría', icon: Target, sub: ['Auditor Estratégico'] }
+    { name: 'Minería en WhatsApp', icon: Database, sub: ['Extractor de datos de WhatsApp'] }
   ];
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, BrainCircuit, Search, ChevronRight, CheckCircle2, Shield, Bot, User, Phone, Mail, FileText, AlertTriangle, Building, Target, Globe, DollarSign, TrendingUp, Presentation, Megaphone, Building2, Key, Loader2, MapPin } from 'lucide-react';
+import { Sparkles, ArrowRight, BrainCircuit, Search, ChevronRight, CheckCircle2, Shield, Bot, User, Phone, Mail, FileText, AlertTriangle, Building, Target, Globe, DollarSign, TrendingUp, Presentation, Megaphone, Building2, Key, Loader2, MapPin, Download } from 'lucide-react';
 import { fetchGroqCompletion } from '../services/groqService';
 import { buildSystemInstruction, buildUserPrompt } from '../services/auditorPromptService';
 import Navbar from '../components/Navbar';
@@ -9,6 +9,7 @@ import SlideButton from '../components/SlideButton';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
 import { SEO_CONFIG } from '../config/seoConfig';
+import GroqTutorialModal from '../components/GroqTutorialModal';
 
 const API_BASE_URL = import.meta.env.VITE_AUDITOR_URL || 'http://localhost:3006/api';
 const ADMIN_WHATSAPP = '573115893220'; // Número del admin
@@ -322,16 +323,25 @@ export default function AuditorEstrategicoPage() {
               <div>
                 <label className="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2 flex justify-between items-center gap-2">
                   <span>Groq API Key *</span>
-                  <span className="flex items-center gap-3">
-                    <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer" className="text-[#2962ff] hover:underline text-[10px]">console.groq.com/keys</a>
-                    <button type="button" onClick={() => setShowApiKeyModal(true)} className="text-[#2962ff] hover:underline text-[10px] whitespace-nowrap">Cómo obtenerla</button>
-                  </span>
+                  <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer" className="text-[#2962ff] hover:underline text-[10px] hidden sm:inline">console.groq.com/keys</a>
                 </label>
                 <div className="relative">
                   <Key size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
                   <input type="password" required value={lead.apiKey} onChange={e => setLead({...lead, apiKey: e.target.value})} className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-[#2962ff] transition-colors" placeholder="gsk_..." />
                 </div>
-                <p className="text-[11px] text-neutral-500 mt-1">Usarás tu propia API Key para ejecutar el análisis (Gratuita en Groq). Cada usuario puede descargar el ebook una sola vez.</p>
+                <div className="mt-2 relative">
+                  <motion.div
+                    animate={{ x: [0, 6, 0] }}
+                    transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -right-1 -top-1 hidden sm:flex w-7 h-7 bg-red-600 rounded-full items-center justify-center shadow-lg shadow-red-600/30 z-10 pointer-events-none"
+                  >
+                    <ArrowRight size={14} className="text-white" />
+                  </motion.div>
+                  <button type="button" onClick={() => setShowApiKeyModal(true)} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-xs font-black tracking-wide py-3 px-3 rounded-xl transition-all shadow-[0_8px_24px_rgba(220,38,38,0.35)] border border-red-500/50 ring-2 ring-red-500/20 hover:ring-red-500/30 animate-pulse">
+                    <Sparkles size={14} className="text-white" /> Ver tutorial con pantallazos — 30 seg <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 0.9, repeat: Infinity }} className="inline-flex"><ChevronRight size={14} /></motion.span>
+                  </button>
+                </div>
+                <p className="text-[11px] text-neutral-500 mt-2 text-center">Gratis, sin tarjeta. Te llevamos paso a paso <span className="text-neutral-400">con capturas reales</span>.</p>
               </div>
 
               <label className="flex items-start gap-3 p-4 bg-black/30 rounded-xl border border-white/5 cursor-pointer hover:border-white/10 transition-colors">
@@ -694,72 +704,7 @@ export default function AuditorEstrategicoPage() {
         {renderStep()}
       </div>
 
-      <AnimatePresence>
-        {showApiKeyModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-            onClick={() => setShowApiKeyModal(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              onClick={e => e.stopPropagation()}
-              className="w-full max-w-lg bg-[#13131b] border border-white/10 rounded-2xl p-8 shadow-2xl"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Key size={20} className="text-[#2962ff]" />
-                  Obtén tu API Key Gratis
-                </h3>
-                <button onClick={() => setShowApiKeyModal(false)} className="text-neutral-500 hover:text-white text-2xl leading-none">×</button>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex gap-3">
-                  <span className="w-7 h-7 shrink-0 bg-[#2962ff]/20 text-[#2962ff] rounded-full flex items-center justify-center text-sm font-bold">1</span>
-                  <p className="text-sm text-neutral-300">Ingresa a <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer" className="text-[#2962ff] hover:underline">console.groq.com/keys</a> (la clave es gratuita).</p>
-                </div>
-                <div className="flex gap-3">
-                  <span className="w-7 h-7 shrink-0 bg-[#2962ff]/20 text-[#2962ff] rounded-full flex items-center justify-center text-sm font-bold">2</span>
-                  <p className="text-sm text-neutral-300">Crea una cuenta o inicia sesión con Google/GitHub. Sin tarjeta de crédito.</p>
-                </div>
-                <div className="flex gap-3">
-                  <span className="w-7 h-7 shrink-0 bg-[#2962ff]/20 text-[#2962ff] rounded-full flex items-center justify-center text-sm font-bold">3</span>
-                  <p className="text-sm text-neutral-300">Haz clic en <strong className="text-white">"Create API Key"</strong> para generar tu clave.</p>
-                </div>
-                <div className="flex gap-3">
-                  <span className="w-7 h-7 shrink-0 bg-[#2962ff]/20 text-[#2962ff] rounded-full flex items-center justify-center text-sm font-bold">4</span>
-                  <p className="text-sm text-neutral-300">Copia la clave que empieza con <code className="text-[#2962ff] font-mono bg-black/40 px-1.5 py-0.5 rounded">gsk_</code> y pégala en el campo de arriba.</p>
-                </div>
-
-                <div className="bg-[#2962ff]/10 border border-[#2962ff]/20 rounded-xl p-4 text-xs text-neutral-400 leading-relaxed">
-                  <strong className="text-white">Consejo:</strong> Tu API Key se usa solo para ejecutar este análisis y Groq ofrece un plan gratuito con cuota diaria, no pagas nada.
-                </div>
-              </div>
-
-              <div className="mt-8 space-y-3">
-                <a
-                  href="https://console.groq.com/keys"
-                  target="_blank" rel="noreferrer"
-                  className="w-full bg-[#2962ff] hover:bg-[#2962ff]/90 text-white font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition-all"
-                >
-                  Ir a Groq Console <ArrowRight size={18} />
-                </a>
-                <button
-                  onClick={() => setShowApiKeyModal(false)}
-                  className="w-full text-neutral-400 hover:text-white text-sm py-2"
-                >
-                  Ya tengo mi API Key
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <GroqTutorialModal isOpen={showApiKeyModal} onClose={() => setShowApiKeyModal(false)} />
       <SiteFooter />
     </div>
   );

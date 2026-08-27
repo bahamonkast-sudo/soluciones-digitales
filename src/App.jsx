@@ -15,6 +15,7 @@ import { WEBGOBOT_URL, getDistUrl, getPageUrl, getTelegramBotUrl, getTelegramCha
 import SEO from './components/SEO';
 import { SEO_CONFIG } from './config/seoConfig';
 import ChatBotBrochure from './components/ChatBotBrochure';
+import GroqTutorialModal from './components/GroqTutorialModal';
 import caseWhatsapp from './assets/case-whatsapp.webp';
 import caseB2bMining from './assets/case-b2b-mining.webp';
 import caseWebUx from './assets/case-web-ux.webp';
@@ -378,6 +379,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [whatsappOpen, setWhatsappOpen] = useState(false);
+  const [showGroqTutorial, setShowGroqTutorial] = useState(false);
   const [cookieConsent, setCookieConsent] = useState(() => {
     return localStorage.getItem('websd-cookie-consent');
   });
@@ -1541,7 +1543,7 @@ export default function App() {
                 </ul>
               </div>
               <div className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] h-full">
-                <h4 className="text-lg font-bold tracking-tight text-white">Pasos para obtenerla</h4>
+                <h4 className="text-lg font-bold tracking-tight text-white">Pasos para obtenerla <span className="ml-2 inline-flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">30 seg</span></h4>
                 <div className="mt-4 space-y-4">
                   {[
                     { n: "01", t: "Ve a console.groq.com/keys", d: "Crea una cuenta gratuita o inicia sesión." },
@@ -1557,15 +1559,32 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-                <a
-                  href="https://console.groq.com/keys"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/10 px-5 py-2.5 text-[13px] font-semibold text-[#3b82f6] transition-colors hover:bg-[#3b82f6]/15"
-                >
-                  Abrir console.groq.com/keys
-                  <ArrowRight size={14} />
-                </a>
+                <div className="mt-6 flex flex-col gap-2.5 relative">
+                  <motion.div
+                    animate={{ x: [0, 8, 0] }}
+                    transition={{ duration: 1.0, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -right-2 -top-3 hidden md:flex items-center gap-1 bg-red-600 text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-lg shadow-red-600/30 z-10 pointer-events-none"
+                  >
+                    <span>👉</span> ¡Haz clic aquí!
+                  </motion.div>
+                  <button
+                    onClick={() => setShowGroqTutorial(true)}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-3.5 text-[13px] font-black tracking-wide transition-all shadow-[0_10px_28px_rgba(220,38,38,0.4)] border border-red-500/50 ring-2 ring-red-500/20 hover:ring-red-500/30 animate-pulse"
+                  >
+                    <Sparkles size={15} className="text-white" /> Ver tutorial con pantallazos
+                    <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 0.9, repeat: Infinity }} className="inline-flex"><ArrowRight size={16} /></motion.span>
+                  </button>
+                  <a
+                    href="https://console.groq.com/keys"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] hover:bg-white/[0.07] px-5 py-2.5 text-[13px] font-semibold text-neutral-300 transition-colors"
+                  >
+                    O abrir console.groq.com/keys directo
+                    <ArrowRight size={14} />
+                  </a>
+                </div>
+                <p className="mt-3 text-center text-[11px] text-neutral-500">Con capturas reales, sin tecnicismos. Gratis.</p>
               </div>
             </div>
           </FadeIn>
@@ -1876,6 +1895,7 @@ export default function App() {
       {/* ── FOOTER ──────────────────────────────────────────────── */}
       <SiteFooter />
       <BackToTop />
+      <GroqTutorialModal isOpen={showGroqTutorial} onClose={() => setShowGroqTutorial(false)} />
     </main>
   );
 }

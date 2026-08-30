@@ -219,45 +219,65 @@ export default function DigitalBusinessCard({ onClose }) {
           <p style={{ color: '#c8c0b4', fontSize: 12, lineHeight: 1.6, marginBottom: 16 }}>
             Expertos en aceleración digital y ventas automatizadas.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-3">
             <div
-              className="flex-1 flex items-center gap-2 px-3 py-2.5 rounded-xl"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl"
               style={{ background: '#1f1e24', border: '1px solid #2e2e3a' }}
             >
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4caf50' }} />
               <span style={{ fontSize: 10, fontWeight: 600, color: '#7a7060', letterSpacing: '0.5px' }}>Bogotá, Colombia</span>
             </div>
-            <button
-              onClick={() => {
-                const vcard = [
-                  'BEGIN:VCARD',
-                  'VERSION:3.0',
-                  'FN:Guillermo Castellanos - Soluciones Digitales IA',
-                  'ORG:Soluciones Digitales IA',
-                  'TEL;TYPE=WORK:+57 311 589 3220',
-                  'EMAIL:info@solucionesdigitalesia.co',
-                  'URL:${window.location.origin}',
-                  'ADR:;;Bogotá;;;Colombia',
-                  'END:VCARD',
-                ].join('\n');
-                const blob = new Blob([vcard], { type: 'text/vcard' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'soluciones-digitales-ia.vcf';
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all"
-              style={{ background: '#c1963c', color: '#1a1a1f', border: 'none' }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Guardar
-            </button>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => {
+                  const vcard = [
+                    'BEGIN:VCARD',
+                    'VERSION:3.0',
+                    'FN:Guillermo Castellanos - Soluciones Digitales IA',
+                    'ORG:Soluciones Digitales IA',
+                    'TEL;TYPE=WORK:+57 311 589 3220',
+                    'EMAIL:info@solucionesdigitalesia.co',
+                    `URL:${window.location.origin}`,
+                    'ADR:;;Bogotá;;;Colombia',
+                    'END:VCARD',
+                  ].join('\n');
+                  const blob = new Blob([vcard], { type: 'text/vcard' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'soluciones-digitales-ia.vcf';
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all"
+                style={{ background: '#c1963c', color: '#1a1a1f', border: 'none' }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Contacto
+              </button>
+              <button
+                onClick={() => {
+                  const url = window.location.href;
+                  const content = `[InternetShortcut]\r\nURL=${url}\r\n`;
+                  const blob = new Blob([content], { type: 'application/x-ms-shortcut' });
+                  const a = document.createElement('a');
+                  a.href = URL.createObjectURL(blob);
+                  a.download = 'Soluciones-Digitales.url';
+                  a.click();
+                  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+                  alert('Acceso directo descargado.\n\nPC: se guarda en Descargas, arrástralo al escritorio.\nMóvil Android: Menú ⋮ → Añadir a pantalla de inicio\nMóvil iPhone: Compartir → Añadir a pantalla de inicio');
+                }}
+                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all"
+                style={{ background: '#fff', color: '#1a1a1f', border: '1px solid #2e2e3a' }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M3 9h18"/></svg>
+                Acceso
+              </button>
+            </div>
           </div>
         </div>
       </div>

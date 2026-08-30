@@ -17,11 +17,48 @@ const MULTIDRINK_MIME = {
   '.ico': 'image/x-icon'
 }
 
+// Plugin: cache-busting para WhatsApp/Facebook + assets con hash
+// - Inyecta og:updated_time y versiona og:image con timestamp de build
+// - Evita que WhatsApp muestre preview viejo del mismo URL
+function cacheBustingPlugin() {
+  const buildTime = new Date().toISOString()
+  const version = Date.now().toString(36)
+  return {
+    name: 'cache-busting',
+    transformIndexHtml(html) {
+      // 1. Insertar meta Cache-Control / Pragma / Expires si no existen
+      let out = html
+      if (!out.includes('http-equiv="Cache-Control"')) {
+        out = out.replace('</title>', `</title>\n  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n  <meta http-equiv="Pragma" content="no-cache">\n  <meta http-equiv="Expires" content="0">`)
+      }
+      // 2. Insertar/actualizar og:updated_time
+      if (out.includes('og:updated_time')) {
+        out = out.replace(/<meta property="og:updated_time" content="[^"]*">/, `<meta property="og:updated_time" content="${buildTime}">`)
+      } else {
+        out = out.replace('</head>', `  <meta property="og:updated_time" content="${buildTime}">\n  <meta name="version" content="${version}">\n</head>`)
+      }
+      // 3. Versionar og:image y twitter:image para forzar re-scrape (solo si es ruta local)
+      out = out.replace(/(<meta property="og:image" content=")([^"]+)(")/, (m, a, url, c) => {
+        if (url.startsWith('http')) return m
+        const sep = url.includes('?') ? '&' : '?'
+        return `${a}${url}${sep}v=${version}${c}`
+      })
+      out = out.replace(/(<meta name="twitter:image" content=")([^"]+)(")/, (m, a, url, c) => {
+        if (url.startsWith('http')) return m
+        const sep = url.includes('?') ? '&' : '?'
+        return `${a}${url}${sep}v=${version}${c}`
+      })
+      return out
+    }
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   plugins: [
     react(),
-    tailwindcss()
+    tailwindcss(),
+    cacheBustingPlugin()
   ],
   server: {
     proxy: {
@@ -88,6 +125,7 @@ export default defineConfig(({ command }) => ({
         'sitios-web': 'sitios-web.html',
         'probador-virtual': 'probador-virtual.html',
         'fanpage-envio-masivo': 'fanpage-envio-masivo.html',
+        'autopublisher': 'autopublisher.html',
         'solucionesdigitales': 'solucionesdigitales.html',
         'tarjeta-digital': 'tarjeta-digital.html',
         'ecosistema': 'ecosistema.html',
@@ -105,9 +143,9 @@ export default defineConfig(({ command }) => ({
         'politica-privacidad': 'politica-privacidad.html'
       },
       output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`
+        entryFileNames: `assets/[name]-[hash].js`,
+        chunkFileNames: `assets/[name]-[hash].js`,
+        assetFileNames: `assets/[name]-[hash].[ext]`
       }
     }
   }

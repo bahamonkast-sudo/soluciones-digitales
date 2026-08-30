@@ -407,7 +407,7 @@ export default function App() {
   const audioCtxRef = useRef(null);
 
   useEffect(() => {
-    const text = "SOLUCIONES\nDIGITALES IA";
+    const text = "SOLUCIONES\nDIGITALES";
     let index = 0;
     let active = true;
     setLine("");
@@ -809,61 +809,52 @@ export default function App() {
         {/* Hero Heading - Pushed down below the robot's face */}
         <div className="w-full flex flex-col items-center justify-start relative px-4 md:px-8 overflow-visible mt-[32vh] md:mt-[40vh]" style={{ zIndex: 30 }}>
           <div className="w-full text-center">
-            <h1 className="hero-heading text-[clamp(2.3rem,12vw,5.5rem)] sm:text-[clamp(2.6rem,11vw,6rem)] md:text-[clamp(3rem,10.5vw,7rem)] font-black uppercase tracking-tighter leading-[0.82] w-full select-none break-words">
+            <h1 className="hero-heading text-[clamp(2.3rem,12vw,5.5rem)] sm:text-[clamp(2.6rem,11vw,6rem)] md:text-[clamp(3rem,10.5vw,7rem)] font-black uppercase tracking-normal leading-[0.78] w-full select-none break-words" style={{ letterSpacing: '0.02em', fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", textTransform: 'uppercase', fontWeight: 400 }}>
               {line ? (
                 line.split("\n").map((lineText, idx, arr) => {
                   const isLastLine = idx === arr.length - 1;
-                  let prevLength = 0;
-                  for (let i = 0; i < idx; i++) prevLength += arr[i].length + 1;
                   return (
                     <React.Fragment key={idx}>
                       {idx > 0 && <br />}
-                      <span className={`relative inline-block ${isLastLine && showCursor ? 'hero-cursor pr-1' : ''}`}>
-                        {lineText.split("").map((char, charIdx) => {
-                          const globalIdx = prevLength + charIdx;
-                          const isIA = globalIdx >= 21;
-                          
-                          if (isIA) {
-                            return (
-                              <span 
-                                key={charIdx} 
-                                className="inline-block" 
-                                style={{ 
-                                  color: '#2962ff',
-                                  WebkitTextFillColor: '#2962ff',
-                                  filter: 'drop-shadow(0 0 18px rgba(41,98,255,0.9))'
-                                }}
-                              >
-                                {char === " " ? "\u00A0" : char}
-                              </span>
-                            );
-                          }
-
-                          // SOLUCIONES DIGITALES - Solid with border + shadow
-                          return (
-                            <span 
-                              key={charIdx} 
-                              className="inline-block"
-                              style={{ 
-                                color: '#ffffff',
-                                WebkitTextFillColor: '#ffffff',
-                                WebkitTextStroke: '4px #ffffff',
-                                textShadow: '0 0 8px rgba(0,0,0,0.9)',
-                                display: 'inline-block',
-                              }}
-                            >
-                              {char === " " ? <span style={{ display: 'inline-block', width: '0.6em' }}>&nbsp;</span> : char}
-                            </span>
-                          );
-                        })}
+                      <span className={`relative inline-flex items-baseline justify-center gap-[0.28em] flex-wrap ${isLastLine && showCursor ? 'hero-cursor pr-1' : ''}`} style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", fontWeight: 400, letterSpacing: '0.04em', color: '#ffffff', WebkitTextFillColor: '#ffffff', WebkitTextStroke: '1.8px #ffffff', textShadow: '0 0 10px rgba(0,0,0,0.85)', textTransform: 'uppercase' }}>
+                        {lineText}
+                        {isLastLine && line.length >= 20 && (
+                          <span
+                            className="inline-flex items-center"
+                            style={{
+                              fontFamily: "'JetBrains Mono','Space Mono',monospace",
+                              fontSize: '0.28em',
+                              lineHeight: 1,
+                              fontWeight: 600,
+                              letterSpacing: '0.14em',
+                              textTransform: 'lowercase',
+                              color: '#7ee8ff',
+                              background: 'linear-gradient(180deg, rgba(126,232,255,0.14), rgba(126,232,255,0.04))',
+                              border: '1px solid rgba(126,232,255,0.32)',
+                              padding: '0.22em 0.45em 0.18em',
+                              borderRadius: '0.35em',
+                              boxShadow: '0 0 0 1px rgba(126,232,255,0.08) inset, 0 4px 14px rgba(41,98,255,0.18), 0 0 10px rgba(126,232,255,0.22)',
+                              textShadow: '0 0 8px rgba(126,232,255,0.75), 0 0 14px rgba(41,98,255,0.45)',
+                              WebkitTextStroke: '0',
+                              position: 'relative',
+                              top: '-0.05em',
+                              verticalAlign: 'baseline',
+                            }}
+                          >
+                            ai.studio
+                          </span>
+                        )}
                       </span>
                     </React.Fragment>
                   );
                 })
               ) : (
-                <span>
-                  SOLUCIONES<br />
-                  DIGITALES <span className="text-transparent" style={{ WebkitTextFillColor: 'transparent', WebkitTextStroke: '2px #2962ff', filter: 'drop-shadow(0 0 10px rgba(41,98,255,1))' }}>IA</span>
+                <span className="inline-flex flex-col items-center" style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 400 }}>
+                  <span>SOLUCIONES</span>
+                  <span className="inline-flex items-baseline gap-[0.28em] justify-center flex-wrap">
+                    <span style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", fontWeight: 400, letterSpacing: '0.04em' }}>DIGITALES</span>
+                    <span style={{ fontFamily: "'JetBrains Mono','Space Mono',monospace", fontSize: '0.28em', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'lowercase', color: '#7ee8ff', background: 'linear-gradient(180deg, rgba(126,232,255,0.14), rgba(126,232,255,0.04))', border: '1px solid rgba(126,232,255,0.32)', padding: '0.22em 0.45em 0.18em', borderRadius: '0.35em', boxShadow: '0 0 0 1px rgba(126,232,255,0.08) inset, 0 4px 14px rgba(41,98,255,0.18)', textShadow: '0 0 8px rgba(126,232,255,0.75)', position: 'relative', top: '-0.12em' }}>ai.studio</span>
+                  </span>
                 </span>
               )}
             </h1>

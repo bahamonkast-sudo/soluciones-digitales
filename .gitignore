@@ -89,6 +89,9 @@ start-auditor.bat
 _bindtest.cjs
 integrar-webgobot.ps1
 
+# External clones (no deploy)
+postiz-app/
+
 # Internal docs (not for deployment)
 EMPRESA-SOLUCIONES-DIGITALES.md
 ESTADO-FINAL.md

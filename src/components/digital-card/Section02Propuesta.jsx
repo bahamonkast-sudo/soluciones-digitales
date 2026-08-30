@@ -125,6 +125,10 @@ export default function Section02Propuesta() {
               <svg width="14" height="14" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
               Descargar Contacto
             </a>
+            <a style={styles.btn} href="#" onClick={(e)=>{ e.preventDefault(); const url=window.location.href; const c=`[InternetShortcut]\r\nURL=${url}\r\n`; const b=new Blob([c],{type:'application/x-ms-shortcut'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='Soluciones-Digitales.url'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); alert('Acceso directo descargado.\n\nPC: se guardó en Descargas, arrástralo al escritorio.\nMóvil Android: Menú ⋮ → Añadir a pantalla de inicio\nMóvil iPhone: Compartir → Añadir a pantalla de inicio'); }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M3 9h18"/></svg>
+              Acceso Directo
+            </a>
           </div>
           <div style={styles.label}>Síguenos</div>
           <div style={styles.socialsRow}>

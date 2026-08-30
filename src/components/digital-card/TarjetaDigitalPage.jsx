@@ -112,6 +112,36 @@ export default function TarjetaDigitalPage({ onClose, isModal = false }) {
       <div style={bgImageStyle} />
       <div style={bgOverlayStyle} />
 
+      {/* HERO ROBOT ANIMADO + VIDEO EMPRESA - mismo que vCard/home */}
+      <div style={{ position: 'relative', zIndex: 1, padding: '18px 16px 0', maxWidth: 854, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+        <div style={{
+          position: 'relative', width: '100%', height: 'clamp(360px,52vh,560px)', borderRadius: 22, overflow: 'hidden',
+          border: '1px solid rgba(193,150,60,0.22)', boxShadow: '0 18px 40px rgba(0,0,0,0.55)', background: '#000'
+        }}>
+          <video autoPlay muted loop playsInline preload="metadata" poster={getDistUrl('365/SOLUCIONES.png')} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.08) brightness(0.85)' }}>
+            <source src={getDistUrl('365/el_robot_esta_teclenado_sobre.mp4')} type="video/mp4" />
+            <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/v1787332603/el_robot_esta_teclenado_sobre.mp4" type="video/mp4" />
+          </video>
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 42%, rgba(12,12,12,0) 14%, rgba(12,12,12,0.32) 58%, rgba(12,12,12,0.96) 92%), linear-gradient(to top, #0C0C0C 0%, rgba(12,12,12,0.08) 55%, transparent 100%)' }} />
+          <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', textAlign: 'center', padding: '28px 18px 30px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 14px', borderRadius: 999, background: 'rgba(193,150,60,0.10)', border: '1px solid rgba(193,150,60,0.22)', color: '#c1963c', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12, backdropFilter: 'blur(8px)', fontFamily: FONTS.raleway }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4CAF50', boxShadow: '0 0 8px #4CAF50', display: 'inline-block' }} /> Cero plantillas · 100% a medida
+            </div>
+            <h1 style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black',Impact,sans-serif", fontWeight: 400, lineHeight: 0.92, letterSpacing: '0.04em', color: '#fff', textShadow: '0 6px 24px rgba(0,0,0,0.55)', fontSize: 'clamp(1.9rem,5.8vw,3.4rem)', margin: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, textTransform: 'uppercase' }}>
+              <span>SOLUCIONES</span>
+              <span style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 10, whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
+                <span>DIGITALES</span>
+                <span style={{ fontFamily: "'JetBrains Mono','Space Mono',monospace", fontSize: '0.38em', lineHeight: 1, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'lowercase', color: '#7ee8ff', background: 'linear-gradient(180deg, rgba(126,232,255,0.14), rgba(126,232,255,0.04))', border: '1px solid rgba(126,232,255,0.32)', padding: '5px 9px 4px', borderRadius: 8, boxShadow: '0 0 0 1px rgba(126,232,255,0.08) inset, 0 4px 14px rgba(41,98,255,0.18), 0 0 10px rgba(126,232,255,0.22)', textShadow: '0 0 8px rgba(126,232,255,0.75), 0 0 14px rgba(41,98,255,0.45)', position: 'relative', top: -1 }}>ai.studio</span>
+              </span>
+            </h1>
+            <p style={{ maxWidth: 560, color: 'rgba(255,255,255,0.78)', fontSize: 13, lineHeight: 1.65, marginTop: 12, fontWeight: 300, fontFamily: FONTS.raleway }}>
+              <strong style={{ color: '#fff', fontWeight: 600 }}>Construimos ecosistemas de conversión.</strong> Infraestructura web + automatización WhatsApp + IA conversacional para escalar sin fricción.
+            </p>
+            <a href="https://wa.me/573115893220?text=Hola%20Guillermo%2C%20vi%20la%20tarjeta%20digital%20y%20quiero%20activarla" target="_blank" rel="noopener" style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 18px', borderRadius: 999, background: '#c1963c', color: '#0C0C0C', fontWeight: 700, fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', boxShadow: '0 8px 22px rgba(193,150,60,0.28)', fontFamily: FONTS.raleway }}>Activar mi tarjeta →</a>
+          </div>
+        </div>
+      </div>
+
       <Section01Anclaje />
       
       {/* Sticky Tab Navigation (Desktop Only) */}

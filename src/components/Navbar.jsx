@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, MessageCircle, Globe, Zap, Database, Phone, Target, X } from 'lucide-react';
+import { ChevronDown, MessageCircle, Globe, Zap, Database, Phone, Target, X, Users } from 'lucide-react';
 import { getDistUrl, getPageUrl, getFrontPageUrl, getTelegramChatUrl } from '../utils/env';
 
 const TELEGRAM_URL = getTelegramChatUrl();
@@ -10,7 +10,8 @@ const TELEGRAM_URL = getTelegramChatUrl();
     { name: 'Sitios Web', icon: Globe, sub: ['Vitrina de Conversión', 'Ecosistema de Autoridad', 'Hub de Negocios', 'Tarjeta Profesional de Negocios'] },
     { name: 'Inteligencia Artificial', icon: MessageCircle, sub: ['Probador Virtual IA', 'Piloto Pro - Agente IA Autónomo', 'Chatbot Multicanal Inteligente', 'Mini Apps en Telegram'] },
     { name: 'WhatsApp Automation', icon: Zap, sub: ['Plataforma de Envío Masivo', 'Calentador Inteligente de Cuentas'] },
-    { name: 'Minería en WhatsApp', icon: Database, sub: ['Extractor de datos de WhatsApp'] }
+    { name: 'Minería en WhatsApp', icon: Database, sub: ['Extractor de datos de WhatsApp'] },
+    { name: 'Facebook Automation', icon: Users, sub: ['AutoPublisher Pro - Grupos FB'] }
   ];
 
 
@@ -111,6 +112,8 @@ export default function Navbar({ activePage = 'home' }) {
     if (subName === 'Calentador Inteligente de Cuentas') return isDev ? '/calentador-cuentas.html' : getPageUrl('calentador-cuentas');
     if (subName === 'Extractor de datos de WhatsApp' || subName === 'Extractor PLUS') return isDev ? '/extractor.html' : getPageUrl('extractor');
     if (subName === 'Plataforma de Envío Masivo') return isDev ? '/guardian-difusion.html' : getPageUrl('guardian-difusion');
+    if (subName === 'AutoPublisher Pro - Grupos FB') return isDev ? '/autopublisher.html' : getPageUrl('autopublisher');
+    if (subName === 'Fanpage Envío Masivo') return isDev ? '/fanpage-envio-masivo.html' : getPageUrl('fanpage-envio-masivo');
     if (subName === 'Auditor Estratégico') return isDev ? '/auditor-estrategico.html' : getPageUrl('auditor-estrategico');
     return prodPath;
   };

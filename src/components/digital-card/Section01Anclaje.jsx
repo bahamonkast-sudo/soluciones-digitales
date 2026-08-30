@@ -186,6 +186,29 @@ export default function Section01Anclaje() {
             </p>
           </div>
         </div>
+
+        {/* Video institucional - inicio */}
+        <div style={{ marginTop: 22, ...glowCardStyle(), padding: 0, overflow: 'hidden', borderRadius: 18 }} className="anclaje-video-wrap">
+          <div style={{ position: 'relative', width: '100%', background: '#0a0a0f' }}>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              preload="metadata"
+              style={{ width: '100%', height: 'auto', display: 'block', maxHeight: 420, objectFit: 'cover' }}
+              poster={getDistUrl('365/SOLUCIONES.png')}
+            >
+              <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/q_auto/f_auto/Escena_inicial_-_2026-08-03_202608021911.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div style={{ padding: '12px 16px', textAlign: 'center', borderTop: '1px solid rgba(193,150,60,0.12)' }}>
+            <span style={{ fontFamily: FONTS.raleway, fontSize: 10, letterSpacing: 2, color: '#8a8378', fontWeight: 600, textTransform: 'uppercase' }}>
+              Video institucional — Infraestructura a medida · 0 plantillas
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

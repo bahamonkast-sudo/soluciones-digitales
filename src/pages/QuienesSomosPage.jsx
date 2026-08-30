@@ -331,7 +331,8 @@ export default function QuienesSomosPage() {
             variants={letterContainer}
             initial="hidden"
             animate="visible"
-            className="hero-heading text-[clamp(2.5rem,10vw,100px)] font-black leading-[0.88] select-none"
+            className="hero-heading text-[clamp(1.65rem,8.2vw,100px)] font-black leading-[0.88] select-none whitespace-nowrap tracking-tight max-[380px]:text-[clamp(1.35rem,7.5vw,100px)]"
+            style={{ letterSpacing: '-0.02em' }}
           >
             {"QUIÉNES SOMOS".split("").map((char, i) => (
               <motion.span
@@ -370,6 +371,35 @@ export default function QuienesSomosPage() {
           <span className="text-[8px] tracking-widest text-neutral-400 font-semibold uppercase">Deslizar</span>
           <ChevronDown size={14} className="text-[#2962ff]" />
         </motion.div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════
+          VIDEO SOLUCIONES DIGITALES - Showcase
+          ════════════════════════════════════════════════════════ */}
+      <section className="relative z-20 py-10 sm:py-14 px-5 sm:px-8 md:px-10" style={{ backgroundColor: '#0B0B0F' }}>
+        <div className="max-w-5xl mx-auto">
+          <FadeIn>
+            <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] bg-black">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                className="w-full h-auto max-h-[560px] object-cover"
+                poster={getDistUrl('365/SOLUCIONES.png')}
+              >
+                <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/q_auto/f_auto/Escena_inicial_-_2026-08-03_202608021911.mp4" type="video/mp4" />
+                Tu navegador no soporta video.
+              </video>
+              <div className="absolute inset-0 pointer-events-none border border-white/5 rounded-3xl" />
+            </div>
+            <p className="text-center text-[11px] uppercase tracking-[0.2em] text-neutral-500 mt-4 font-semibold">
+              Soluciones Digitales IA — Video institucional · Infraestructura a medida
+            </p>
+          </FadeIn>
+        </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════

@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import SiteFooter from './components/SiteFooter';
 import ActivityMonitor from './components/ActivityMonitor';
 import { pushGlobalLog } from './hooks/useNetworkStatus';
-import { WEBGOBOT_URL, getDistUrl, getPageUrl, getTelegramBotUrl, getTelegramChatUrl } from './utils/env';
+import { WEBGOBOT_URL, getDistUrl, getPageUrl, getTelegramBotUrl } from './utils/env';
 import SEO from './components/SEO';
 import { SEO_CONFIG } from './config/seoConfig';
 import { SCHEMAS } from './config/schemas';
@@ -1346,7 +1346,7 @@ export default function App() {
 
             <div className="mt-8 flex items-center justify-center">
               <a
-                href={getTelegramChatUrl()}
+                href={getTelegramBotUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full bg-[#3b82f6] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#2563eb] active:scale-[0.98] shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.65)]"
@@ -1503,27 +1503,6 @@ export default function App() {
             </div>
           </FadeIn>
 
-          {/* CTA Final */}
-          <FadeIn delay={0.4} className="text-center">
-            <div className="rounded-3xl p-8 md:p-12 lg:p-16 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] relative overflow-hidden">
-              <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[560px] -translate-x-1/2 rounded-full bg-[#3b82f6]/10 blur-[100px]" />
-              <h3 className="mx-auto max-w-2xl text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-[#FDE68A]">
-                Descubre dónde está tu fuga de ventas
-              </h3>
-              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-neutral-300">En menos de 3 minutos conocerás qué está frenando tus ventas, cuáles son tus oportunidades más importantes y qué puedes mejorar primero. Recibirás un diagnóstico claro y un plan de acción para empezar a hacer evolucionar tu negocio.</p>
-              <div className="mt-9 flex items-center justify-center">
-                <a
-                  href={getTelegramChatUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-full bg-[#3b82f6] px-8 py-4 text-[15px] font-bold text-white transition-all hover:bg-[#2563eb] active:translate-y-[1px] active:scale-[0.98] shadow-[0_0_24px_rgba(59,130,246,0.45)] hover:shadow-[0_0_32px_rgba(59,130,246,0.7)]"
-                >
-                  Iniciar Auditoría Estratégica en Telegram
-                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
-                </a>
-              </div>
-            </div>
-          </FadeIn>
         </div>
       </section>
 

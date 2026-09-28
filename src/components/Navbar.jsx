@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, MessageCircle, Globe, Zap, Phone, Target, X, Users } from 'lucide-react';
-import { getDistUrl, getPageUrl, getFrontPageUrl, getTelegramChatUrl } from '../utils/env';
+import { getDistUrl, getPageUrl, getFrontPageUrl, getTelegramBotUrl } from '../utils/env';
 
-const TELEGRAM_URL = getTelegramChatUrl();
+const TELEGRAM_URL = getTelegramBotUrl();
 
   const navCategories = [
     { name: 'Sitios Web', icon: Globe, sub: ['Vitrina de Conversión', 'Ecosistema de Autoridad', 'Hub de Negocios', 'Tarjeta Profesional de Negocios'] },

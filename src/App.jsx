@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import SiteFooter from './components/SiteFooter';
 import ActivityMonitor from './components/ActivityMonitor';
 import { pushGlobalLog } from './hooks/useNetworkStatus';
-import { WEBGOBOT_URL, getDistUrl, getPageUrl, getTelegramBotUrl } from './utils/env';
+import { WEBGOBOT_URL, getDistUrl, getPageUrl } from './utils/env';
 import SEO from './components/SEO';
 import { SEO_CONFIG } from './config/seoConfig';
 import { SCHEMAS } from './config/schemas';
@@ -1346,12 +1346,12 @@ export default function App() {
 
             <div className="mt-8 flex items-center justify-center">
               <a
-                href={getTelegramBotUrl()}
+                href={getPageUrl('auditor-estrategico')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full bg-[#3b82f6] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#2563eb] active:scale-[0.98] shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.65)]"
               >
-                Iniciar Diagnóstico en Telegram
+                Iniciar Auditoría Estratégica en la web
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>

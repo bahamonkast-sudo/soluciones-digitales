@@ -2,9 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, MessageCircle, Globe, Zap, Phone, Target, X, Users } from 'lucide-react';
-import { getDistUrl, getPageUrl, getFrontPageUrl, getTelegramBotUrl } from '../utils/env';
-
-const TELEGRAM_URL = getTelegramBotUrl();
+import { getDistUrl, getPageUrl, getFrontPageUrl } from '../utils/env';
 
   const navCategories = [
     { name: 'Sitios Web', icon: Globe, sub: ['Vitrina de Conversión', 'Ecosistema de Autoridad', 'Hub de Negocios', 'Tarjeta Profesional de Negocios'] },
@@ -109,7 +107,7 @@ export default function Navbar({ activePage = 'home' }) {
     if (subName.includes('IA Autónomo')) return isDev ? '/chatbot.html' : getPageUrl('chatbot');
     if (subName.includes('Multicanal')) return isDev ? '/canal1-chatbot.html' : getPageUrl('canal1-chatbot');
     if (subName.includes('Probador Virtual')) return isDev ? '/probador-virtual.html' : getPageUrl('probador-virtual');
-    if (subName.includes('Mini Apps en Telegram')) return isDev ? '/telegram/index.html' : TELEGRAM_URL;
+    if (subName.includes('Mini Apps en Telegram')) return '/telegram/index.html';
     if (subName === 'AutoPublisher Pro - Grupos FB') return isDev ? '/autopublisher.html' : getPageUrl('autopublisher');
     if (subName === 'Fanpage Envío Masivo') return isDev ? '/fanpage-envio-masivo.html' : getPageUrl('fanpage-envio-masivo');
     if (subName === 'Auditor Estratégico') return isDev ? '/auditor-estrategico.html' : getPageUrl('auditor-estrategico');

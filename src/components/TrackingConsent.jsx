@@ -138,12 +138,16 @@ export default function TrackingConsent({ pagePath }) {
     return (
       <>
         {showPreferences ? (
-          <section role="dialog" aria-label="Preferencias de medición" className="fixed bottom-4 left-4 z-[140] w-[min(94vw,440px)] rounded-2xl border border-white/15 bg-[#10131b] p-5 text-white shadow-2xl">
-            <h2 className="text-base font-bold">Preferencias de medición</h2>
-            <p className="mt-2 text-sm leading-relaxed text-neutral-300">Google Analytics y el Pixel de Meta ayudan a medir visitas e interacciones con campañas. Puedes aceptar o rechazar; la decisión se guarda en este navegador.</p>
-            <div className="mt-4 flex gap-3">
-              <button onClick={() => saveConsent('rejected')} className="min-h-10 rounded-lg border border-white/15 px-4 text-sm font-semibold hover:bg-white/5">Rechazar</button>
-              <button onClick={() => saveConsent('accepted')} className="min-h-10 rounded-lg bg-blue-600 px-4 text-sm font-semibold hover:bg-blue-500">Aceptar medición</button>
+          <section role="dialog" aria-label="Preferencias de medición" className="fixed inset-x-0 bottom-0 z-[140] border-t border-white/10 bg-[#0d1018]/[0.98] p-4 text-white shadow-2xl backdrop-blur-xl sm:p-5">
+            <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="max-w-3xl">
+                <h2 className="text-sm font-bold">Preferencias de medición</h2>
+                <p className="mt-1 text-xs leading-relaxed text-neutral-300 sm:text-sm">Google Analytics y el Pixel de Meta ayudan a medir visitas e interacciones con campañas. Puedes aceptar o rechazar; la decisión se guarda en este navegador.</p>
+              </div>
+              <div className="flex shrink-0 gap-3">
+                <button onClick={() => saveConsent('rejected')} className="min-h-11 rounded-lg border border-white/15 px-4 text-xs font-bold uppercase text-neutral-200 hover:bg-white/5 sm:text-sm">Rechazar</button>
+                <button onClick={() => saveConsent('accepted')} className="min-h-11 rounded-lg bg-blue-600 px-4 text-xs font-bold uppercase text-white hover:bg-blue-500 sm:text-sm">Aceptar medición</button>
+              </div>
             </div>
           </section>
         ) : (

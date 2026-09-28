@@ -1,8 +1,66 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { existsSync, renameSync, createReadStream, statSync } from 'fs'
+import { existsSync, renameSync, createReadStream, statSync, readFileSync, writeFileSync, readdirSync } from 'fs'
 import { resolve, join, extname } from 'path'
+
+const CONTEXT_MENU_GUARD = '<script data-websd-context-menu-guard>document.addEventListener("contextmenu", event => event.preventDefault());</script>'
+
+function protectHtml(html) {
+  if (html.includes('data-websd-context-menu-guard')) return html
+  return html.replace(/<\/head>/i, `${CONTEXT_MENU_GUARD}</head>`)
+}
+
+function protectHtmlPlugin() {
+  const publicDir = resolve('public')
+  const distDir = resolve('dist')
+
+  return {
+    name: 'protect-html-context-menu',
+    transformIndexHtml: protectHtml,
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.method !== 'GET') return next()
+
+        let pathname
+        try {
+          pathname = decodeURIComponent((req.url || '').split('?')[0])
+        } catch {
+          return next()
+        }
+
+        if (!pathname.toLowerCase().endsWith('.html')) return next()
+
+        const filePath = resolve(publicDir, `.${pathname}`)
+        if (!filePath.toLowerCase().startsWith(`${publicDir.toLowerCase()}${process.platform === 'win32' ? '\\' : '/'}`)) return next()
+
+        let html
+        try {
+          html = readFileSync(filePath, 'utf8')
+        } catch {
+          return next()
+        }
+
+        res.setHeader('Content-Type', 'text/html; charset=utf-8')
+        res.end(protectHtml(html))
+      })
+    },
+    closeBundle() {
+      const protectDirectory = directory => {
+        if (!existsSync(directory)) return
+        for (const entry of readdirSync(directory, { withFileTypes: true })) {
+          const filePath = join(directory, entry.name)
+          if (entry.isDirectory()) protectDirectory(filePath)
+          else if (entry.isFile() && extname(entry.name).toLowerCase() === '.html') {
+            writeFileSync(filePath, protectHtml(readFileSync(filePath, 'utf8')))
+          }
+        }
+      }
+
+      protectDirectory(distDir)
+    }
+  }
+}
 
 const MULTIDRINK_DIR = 'C:/consola_maestra/Proyectos/multidrink'
 const MULTIDRINK_MIME = {
@@ -58,6 +116,7 @@ export default defineConfig(({ command }) => ({
   plugins: [
     react(),
     tailwindcss(),
+    protectHtmlPlugin(),
     cacheBustingPlugin()
   ],
   server: {

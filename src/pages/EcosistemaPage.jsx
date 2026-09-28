@@ -1,10 +1,13 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
-  Search, Shield, Send, MessageCircle, Globe,
+  Search, Send, MessageCircle, Globe,
   ArrowRight, CheckCircle2, Zap, Monitor, Rocket
 } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
+import { SCHEMAS } from '../config/schemas';
 import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
 import { getPageUrl } from '../utils/env';
@@ -83,6 +86,7 @@ function TimelineStep({ num, icon: Icon, title, product, desc, side = 'left', in
 
                 <a
                   href={href}
+                  {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="inline-flex items-center gap-3 text-sm font-bold tracking-widest uppercase text-white hover:text-[#2962ff] transition-colors group/link"
                 >
                   Explorar Solución
@@ -163,34 +167,34 @@ export default function EcosistemaPage() {
 
   const steps = [
     {
-      num: '01', icon: Shield, product: 'TrustFlow',
-      title: 'Calentamiento Inteligente',
-      desc: 'Preparamos y maduramos las cuentas de WhatsApp por un tiempo amplio. Activamos el Calentador Inteligente para asegurar una reputación impecable ante los servidores y evitar cualquier riesgo de bloqueo.',
-      side: 'left', href: getPageUrl('calentador-cuentas')
+      num: '01', icon: Search, product: 'Estrategia',
+      title: 'Define a quién quieres ayudar',
+      desc: 'Identifica un nicho, una necesidad concreta y el beneficio que puedes ofrecer. Antes de publicar, prepara mensajes útiles que despierten interés sin prometer resultados imposibles ni presionar a las personas.',
+      side: 'left', href: getPageUrl('auditor-estrategico')
     },
     {
-      num: '02', icon: Search, product: 'ExtraData',
-      title: 'Minería de Prospectos',
-      desc: 'Dejamos de adivinar y usamos nuestra Minería de Datos para localizar por nicho y zona a los negocios que nos necesitan. Rescatamos contactos de grupos y extraemos datos clave de internet para ampliar nuestras bases.',
-      side: 'right', href: getPageUrl('extractor')
+      num: '02', icon: Send, product: 'Contenido y difusión',
+      title: 'Comparte contenido donde está tu público',
+      desc: 'Organiza una parrilla de mensajes con consejos, ejemplos y beneficios para tu nicho. Difúndela en los canales y grupos adecuados, respetando sus reglas y evitando mensajes irrelevantes o no solicitados.',
+      side: 'right', href: 'https://soluciones-wa.ai.studio/'
     },
     {
-      num: '03', icon: Send, product: 'Guardián',
-      title: 'Difusión a Gran Escala',
-      desc: 'Con la infraestructura segura, preparamos el contenido y enviamos campañas masivas a grupos y contactos. Usamos mensajes hiper-personalizados llamándolos por su nombre para que captar su atención sea inevitable.',
-      side: 'left', href: getPageUrl('guardian-difusion')
+      num: '03', icon: MessageCircle, product: 'Conversación',
+      title: 'Invita a conversar por WhatsApp',
+      desc: 'Cada publicación debe facilitar el siguiente paso: que la persona interesada pueda preguntarte, contarte qué necesita y recibir orientación directa. La conversación ayuda a entender antes de ofrecer.',
+      side: 'left', href: 'https://wa.me/573115893220?text=Hola%2C%20quiero%20conversar%20sobre%20mi%20negocio'
     },
     {
-      num: '04', icon: MessageCircle, product: 'Piloto Pro',
-      title: 'Atención y Perfilamiento',
-      desc: 'Los interesados son recibidos al instante por nuestro Chatbot Multicanal y Agente IA Autónomo. Escucha sus dudas, los analiza, perfila y filtra con sutileza, entregando solo los contactos listos y calificados.',
-      side: 'right', href: getPageUrl('chatbot')
+      num: '04', icon: Globe, product: 'Presencia digital',
+      title: 'Muestra tu propuesta con claridad',
+      desc: 'Cuando ya sabes qué busca la persona, comparte el portafolio, el sitio web o la tarjeta digital que mejor explique tu oferta. Así puede revisar servicios, ejemplos y formas de contacto a su ritmo.',
+      side: 'right', href: getPageUrl('sitios-web')
     },
     {
-      num: '05', icon: Globe, product: 'Hub Digital',
-      title: 'Auditoría y Conversión',
-      desc: 'Finalmente, hacemos el contacto personal para la auditoría y los dirigimos a nuestro Ecosistema Web (Vitrinas o Tarjetas Digitales). Navegan con total claridad y descubren las soluciones sin sentir la presión de una venta.',
-      side: 'left', href: getPageUrl('sitios-web')
+      num: '05', icon: CheckCircle2, product: 'Seguimiento',
+      title: 'Resuelve dudas y acuerda el siguiente paso',
+      desc: 'Retoma la conversación con contexto, responde las preguntas pendientes y propone una acción concreta. Si necesitas detectar oportunidades de mejora en tu presencia digital, el Auditor Estratégico puede guiarte.',
+      side: 'left', href: getPageUrl('auditor-estrategico')
     },
   ];
 
@@ -214,6 +218,7 @@ export default function EcosistemaPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0B0B0F_90%)]" />
       </motion.div>
 
+            <SEO {...SEO_CONFIG.ecosistema} structuredData={SCHEMAS.ecosistema} />
       <Navbar activePage="ecosistema" />
 
       {/* HERO SECTION */}
@@ -243,16 +248,16 @@ export default function EcosistemaPage() {
                   backgroundSize: '100% 200%'
                 }}
               >
-                ARQUITECTURA
+                ESTRATEGIA
               </motion.div>
               
               <div className="text-[#2962ff] text-xl md:text-4xl mt-2 drop-shadow-[0_0_15px_rgba(41,98,255,0.5)] font-bold tracking-widest">
-                DE VENTAS INFALIBLE
+                PARA CRECER CON MÉTODO
               </div>
             </div>
 
             <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-12">
-              No es solo software. Es un ecosistema interconectado donde cada herramienta cumple un propósito vital: Extraer, Preparar, Difundir, Atender y Cerrar.
+              Un proceso práctico para atraer interés con contenido útil, conversar con las personas adecuadas y presentarles la solución que responde a su necesidad.
             </p>
 
             <a
@@ -271,8 +276,8 @@ export default function EcosistemaPage() {
         <div className="max-w-7xl mx-auto">
           
           <div className="text-center mb-20 md:mb-32">
-            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">El Motor de Crecimiento</h2>
-            <p className="text-neutral-400 max-w-2xl mx-auto">Cinco fases modulares. Impleméntalas todas para un flujo automatizado completo, o elige solo la pieza que le falta a tu negocio.</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">Un recorrido que puedes poner en práctica</h2>
+            <p className="text-neutral-400 max-w-2xl mx-auto">Cinco etapas conectadas. Empieza por la que más necesita tu negocio y avanza con objetivos claros, conversación humana y herramientas adecuadas.</p>
           </div>
 
           <div className="relative">
@@ -297,11 +302,11 @@ export default function EcosistemaPage() {
               </div>
               
               <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
-                El ciclo se cierra. <br />El lead es tuyo.
+                Acompaña cada interés <br />hasta una decisión informada.
               </h2>
               
               <p className="text-neutral-400 max-w-xl mx-auto mb-10 text-lg">
-                Miles de empresas ya están extrayendo, contactando y cerrando ventas en piloto automático. ¿Estás listo para integrarlo en tu negocio?
+                Construye un proceso coherente para atraer, atender y orientar a tus clientes. Podemos ayudarte a elegir las herramientas que encajan con tu negocio.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

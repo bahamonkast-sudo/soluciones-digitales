@@ -6,7 +6,6 @@ User-agent: *
 Allow: /
 
 # Bloquear directorios administrativos y sensibles
-Disallow: /admin-auditor
 Disallow: /reportes/
 Disallow: /api/
 Disallow: /*.json$
@@ -14,7 +13,6 @@ Disallow: /*.cjs$
 Disallow: /*.bat$
 
 # Bloquear archivos temporales y de configuración
-Disallow: /temp*.js
 Disallow: /*.log
 Disallow: /*.md$
 Disallow: /node_modules/
@@ -39,7 +37,6 @@ Allow: /*.woff2$
 # Configuración específica para Google
 User-agent: Googlebot
 Allow: /
-Disallow: /admin-auditor
 Disallow: /reportes/
 
 # Configuración para Googlebot Images

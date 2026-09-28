@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, ShoppingCart, Tag, Check, Globe, MessageCircle, Zap, Database, Target } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import { ArrowRight, Star, ShoppingCart, Tag, Check, Globe, MessageCircle, Target, Users } from 'lucide-react';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
+import { SCHEMAS } from '../config/schemas';
 import SiteFooter from '../components/SiteFooter';
 import { CATALOGO } from '../data/catalogo';
 import { getPageUrl } from '../utils/env';
@@ -9,10 +12,11 @@ import { getPageUrl } from '../utils/env';
 const CATEGORIES = [
   { name: 'Sitios Web', icon: Globe },
   { name: 'Inteligencia Artificial', icon: MessageCircle },
-  { name: 'WhatsApp Automation', icon: Zap },
-  { name: 'Minería de Datos B2B', icon: Database },
+  { name: 'Facebook Automation', icon: Users },
   { name: 'Auditoría', icon: Target },
 ];
+
+const WHATSAPP_PLATFORM_URL = 'https://soluciones-wa.ai.studio/';
 
 function FadeIn({ children, delay = 0, y = 30, className = '' }) {
   return (
@@ -118,6 +122,7 @@ export default function TiendaPage() {
     <div className="min-h-screen bg-[#050508] text-white font-sans selection:bg-[#2962ff] selection:text-white pb-20">
       
       {/* Barra de navegación genérica (opcional) */}
+            <SEO {...SEO_CONFIG.tienda} structuredData={SCHEMAS.tienda} />
       <Navbar activePage="productos" />
 
       {/* HERO SECTION (Estilo Blog) */}
@@ -147,10 +152,28 @@ export default function TiendaPage() {
             </h1>
             
             <p className="max-w-2xl mx-auto text-base md:text-lg text-neutral-400 leading-relaxed">
-              Explora nuestro catálogo de soluciones reales: sitios web, inteligencia artificial, automatización de WhatsApp, minería de datos B2B y auditoría. Cada uno con su landing y su propuesta de valor.
+              Explora las soluciones de este sitio: desarrollo web, inteligencia artificial, automatización para grupos de Facebook y auditoría estratégica.
             </p>
           </motion.div>
         </div>
+      </section>
+
+      <section className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 -mt-4 mb-16">
+        <a
+          href={WHATSAPP_PLATFORM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.04] p-5 sm:p-6 hover:border-emerald-400/40 hover:bg-emerald-400/[0.07] transition-colors"
+        >
+          <div>
+            <span className="text-[10px] uppercase tracking-[0.18em] font-bold text-emerald-400">Plataforma independiente</span>
+            <h2 className="text-lg sm:text-xl font-bold text-white mt-1">WhatsApp Marketing tiene su propio sitio</h2>
+            <p className="text-sm text-neutral-400 mt-1">Conoce allí la plataforma multifuncional y sus herramientas especializadas para WhatsApp.</p>
+          </div>
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 shrink-0">
+            Ir a la plataforma <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </span>
+        </a>
       </section>
 
       {/* CATEGORÍAS + GRID DE PRODUCTOS */}

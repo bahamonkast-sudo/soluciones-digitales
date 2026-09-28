@@ -11,7 +11,12 @@ const path = require('path');
 // Configuración base
 const BASE_URL = 'https://soluciones-digitales.ai.studio';
 const OUTPUT_PATH = path.join(__dirname, '../public/sitemap.xml');
-const TODAY = new Date().toISOString().split('T')[0];
+const TODAY = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/Bogota',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+}).format(new Date());
 
 /**
  * Estructura de URLs del sitio con metadata SEO
@@ -53,18 +58,6 @@ const SITE_STRUCTURE = [
     category: 'Producto Principal'
   },
   {
-    loc: '/guardian-difusion',
-    priority: 0.95,
-    changefreq: 'weekly',
-    category: 'Producto Principal'
-  },
-  {
-    loc: '/extractor',
-    priority: 0.95,
-    changefreq: 'weekly',
-    category: 'Producto Principal'
-  },
-  {
     loc: '/auditor-estrategico',
     priority: 0.95,
     changefreq: 'weekly',
@@ -97,13 +90,13 @@ const SITE_STRUCTURE = [
     category: 'Producto Secundario'
   },
   {
-    loc: '/calentador-cuentas',
+    loc: '/fanpage-envio-masivo',
     priority: 0.8,
     changefreq: 'monthly',
     category: 'Producto Secundario'
   },
   {
-    loc: '/fanpage-envio-masivo',
+    loc: '/autopublisher',
     priority: 0.8,
     changefreq: 'monthly',
     category: 'Producto Secundario'
@@ -111,6 +104,12 @@ const SITE_STRUCTURE = [
   {
     loc: '/probador-virtual',
     priority: 0.75,
+    changefreq: 'monthly',
+    category: 'Producto Secundario'
+  },
+  {
+    loc: '/solucionesdigitales',
+    priority: 0.8,
     changefreq: 'monthly',
     category: 'Producto Secundario'
   },
@@ -137,32 +136,18 @@ const SITE_STRUCTURE = [
     category: 'Tutorial'
   },
   {
-    loc: '/tutorial-guardian-difusion',
-    priority: 0.7,
-    changefreq: 'monthly',
-    category: 'Tutorial'
-  },
-  {
     loc: '/tutorial-ia',
     priority: 0.7,
     changefreq: 'monthly',
     category: 'Tutorial'
   },
 
-  // Páginas legales
+  // Página legal pública.
   {
     loc: '/politica-privacidad',
     priority: 0.3,
     changefreq: 'yearly',
     category: 'Legal'
-  },
-
-  // Admin (low priority)
-  {
-    loc: '/admin-auditor',
-    priority: 0.1,
-    changefreq: 'yearly',
-    category: 'Admin'
   }
 ];
 
@@ -170,8 +155,9 @@ const SITE_STRUCTURE = [
  * Genera una entrada de URL para el sitemap
  */
 function generateUrlEntry(url) {
+  const loc = url.loc === '/' ? '/' : `${url.loc.replace(/\/$/, '')}.html`;
   return `  <url>
-    <loc>${BASE_URL}${url.loc}</loc>
+    <loc>${BASE_URL}${loc}</loc>
     <lastmod>${TODAY}</lastmod>
     <priority>${url.priority}</priority>
     <changefreq>${url.changefreq}</changefreq>

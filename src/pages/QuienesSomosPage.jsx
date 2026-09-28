@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Cpu, Brain, RefreshCw, Heart, Quote, ArrowRight, MessageCircle, Phone, Search, Code, MessageSquare, X, Target, Lightbulb, Layers, Users } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import { getFrontPageUrl, getDistUrl } from '../utils/env';
 
@@ -268,13 +270,11 @@ export default function QuienesSomosPage() {
       "name": "Soluciones Digitales IA",
       "url": window.location.origin,
       "description": "Estudio de ingeniería digital y arquitectura tecnológica. Investigación continua, herramientas de vanguardia y verdadero interés en los usuarios.",
-      "foundingDate": "2022",
-      "founder": { "@type": "Person", "name": "Antigravity" },
       "sameAs": ["https://wa.me/573115893220"],
       "knowsAbout": [
         "Ingeniería Digital", "Arquitectura Tecnológica", "Inteligencia Artificial",
-        "Automatización", "Desarrollo Web", "Minería de Datos B2B",
-        "IA Conversacional", "WhatsApp Automation"
+        "Automatización", "Desarrollo Web", "Experiencia de usuario",
+        "IA Conversacional", "Marketing digital"
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -282,8 +282,7 @@ export default function QuienesSomosPage() {
         "itemListElement": [
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo Web UX/UI" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Suite Conversacional con IA" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WhatsApp Automation" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Minería de Datos B2B" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auditoría estratégica de presencia digital" } }
         ]
       }
     });
@@ -298,6 +297,7 @@ export default function QuienesSomosPage() {
       </a>
       <ScrollProgressBar />
 
+            <SEO {...SEO_CONFIG.quienesSomos} />
       <Navbar activePage="quienes-somos" />
 
       {/* ════════════════════════════════════════════════════════

@@ -4,6 +4,7 @@ import { Download, MessageCircle, X, AlertTriangle, Key, MonitorPlay, CheckCircl
 import Navbar from '../components/Navbar';
 import SiteFooter from '../components/SiteFooter';
 import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import { getPageUrl } from '../utils/env';
 
 const GREEN = '#1a8f55';
@@ -168,7 +169,7 @@ export default function TutorialGuardianDifusionPage() {
 
   return (
     <div className="min-h-screen bg-[#050508] text-[#D7E2EA]">
-      <SEO title="Tutorial de Instalación - Guardián de Difusión" description="Manual paso a paso para instalar y activar la demo de Guardián de Difusión." />
+      <SEO {...SEO_CONFIG.tutorialGuardian} />
       
       <LeadModal 
         isOpen={modalState.isOpen} 

@@ -129,62 +129,23 @@ export const CATALOGO = [
     landing: 'canal1-chatbot'
   },
 
-  // ── WHATSAPP AUTOMATION ─────────────────────────────────────
+  // ── AUTOMATIZACIÓN PARA FACEBOOK ────────────────────────────
   {
-    id: 8,
-    title: 'Plataforma de Envío Masivo',
-    category: 'WhatsApp Automation',
-    price: PRECIOS.envioMasivo.display,
-    priceNote: PRECIOS.envioMasivo.nota,
-    image: getDistUrl('tienda/Desk_with_smartphone_and_laptop_202608031746.jpeg'),
-    desc: 'Difusión a gran escala con infraestructura segura. Escudo anti-baneo, envíos escalonados en ventanas naturales, psicología aplicada y mensajes hiper-personalizados.',
-    features: ['1 línea WhatsApp protegida', 'Envíos ilimitados con rotación inteligente', 'Varianza lexical + mutación de hashes', 'Calentamiento progresivo de cuenta', 'Dashboard de monitoreo en tiempo real', 'Soporte prioritario 24/7'],
-    details: [
-      'Infraestructura rota firmas digitales y simula comportamiento humano.',
-      'Micro-conversaciones: el bot saluda, espera y responde como persona real.',
-      'Rampas de volumen algorítmicas que escalan progresivamente.',
-      'Cada mensaje lleva nombre, cargo o dato personalizado.',
-      'Difusión segmentada para bases calientes y frías.'
-    ],
-    landing: 'guardian-difusion'
-  },
-  {
-    id: 9,
-    title: 'Calentador Inteligente de Cuentas',
-    category: 'WhatsApp Automation',
-    price: PRECIOS.calentador.display,
-    priceNote: PRECIOS.calentador.nota,
-    image: getDistUrl('tienda/Smartphone_on_quiet_morning_desk_202608031746.jpeg'),
-    desc: 'Madura y prepara tus cuentas de WhatsApp por un tiempo amplio para asegurar una reputación impecable ante los servidores y evitar cualquier riesgo de bloqueo.',
-    features: ['Calentamiento progresivo', 'Historial de confianza', 'Simulación de interacciones humanas', 'Ritmo ajustable por días'],
-    details: [
-      'Analiza la madurez de tu número ante los servidores.',
-      'Construye historial de confianza de forma estrictamente progresiva.',
-      'Inicia con interacciones humanas ligeras y aumenta el ritmo suavemente.',
-      'Evita el bloqueo por comportamiento anómalo.'
-    ],
-    landing: 'calentador-cuentas'
-  },
-
-  // ── MINERÍA DE DATOS B2B ────────────────────────────────────
-  {
-    id: 10,
-    title: 'Extractor de WhatsApp',
-    category: 'Minería de Datos B2B',
-    price: PRECIOS.extradata.display,
-    priceNote: PRECIOS.extradata.nota,
+    id: 12,
+    title: 'AutoPublisher Pro — Publicación en Grupos de Facebook',
+    category: 'Facebook Automation',
+    price: 'A consultar',
+    priceNote: 'Licencia privada v2.0 · pago único · consulta disponibilidad',
     image: getDistUrl('tienda/Data_analysis_desk_with_laptop_202608031746.jpeg'),
-    desc: 'Extrae miles de prospectos B2B calificados desde fuentes públicas en segundos. Barrido por nicho y zona, minería de grupos activos y exportación directa a Excel.',
-    features: ['Datos por zona y nicho', 'Extracción de grupos WhatsApp', 'Contactos de grupos', 'Exportación a Excel', 'Extracción discreta'],
-    components: ['Barrido Comercial por Nicho', 'Minería de Grupos Activos', 'Recuperación de Grupos Abandonados'],
+    desc: 'Organiza y programa publicaciones en grupos de Facebook desde una extensión privada. Incluye variaciones de texto con Spintax, pausas configurables y controles para detener la actividad ante señales de riesgo.',
+    features: ['Publicación asistida en grupos', 'Variaciones de texto con Spintax', 'Organización de campañas', 'Pausas y controles de actividad', 'Licencia privada v2.0', 'Pago único'],
     details: [
-      'Segmenta por ubicación geográfica y categoría de negocio.',
-      'Escanea grupos activos de WhatsApp filtrados por nicho o palabra clave.',
-      'Extrae números de participantes dentro de los grupos.',
-      'Todos los datos se exportan a Excel sin procesamiento adicional.',
-      'Opera de forma gradual y no invasiva.'
+      'Prepara publicaciones y variaciones de texto para tus campañas.',
+      'Organiza grupos y contenidos para simplificar tareas repetitivas.',
+      'Incluye pausas y un control para detener la actividad si aparece una señal de riesgo.',
+      'La disponibilidad, compatibilidad y condiciones de licencia se confirman antes de la compra.'
     ],
-    landing: 'extractor'
+    landing: 'autopublisher'
   },
 
   // ── AUDITORÍA ───────────────────────────────────────────────

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useReducedMotion } from 'framer-motion';
 import { 
   CheckCircle2, ChevronDown, User, Phone, Edit3, Search, Code,
   Facebook, Twitter, Youtube, Instagram, ArrowRight, Zap, Globe, MessageCircle, Database, MessageSquare, X,
@@ -14,6 +14,8 @@ import { pushGlobalLog } from './hooks/useNetworkStatus';
 import { WEBGOBOT_URL, getDistUrl, getPageUrl, getTelegramBotUrl, getTelegramChatUrl } from './utils/env';
 import SEO from './components/SEO';
 import { SEO_CONFIG } from './config/seoConfig';
+import { SCHEMAS } from './config/schemas';
+import { trackLead } from './services/trackingEvents';
 import ChatBotBrochure from './components/ChatBotBrochure';
 import GroqTutorialModal from './components/GroqTutorialModal';
 import caseWhatsapp from './assets/case-whatsapp.webp';
@@ -49,13 +51,15 @@ const HERO_PORTRAIT = 'https://shrug-person-78902957.figma.site/_components/v2/d
 
 // ─── REUSABLE COMPONENTS ────────────────────────────────────────
 
-function FadeIn({ children, delay = 0, duration = 0.7, x = 0, y = 30, className = "" }) {
+function FadeIn({ children, delay = 0, duration = 0.55, x = 0, y = 20, className = "" }) {
+  const reduceMotion = useReducedMotion();
+  const restingState = { opacity: 1, x: 0, y: 0 };
   return (
     <motion.div
-      initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      initial={reduceMotion ? restingState : { opacity: 0, x, y }}
+      whileInView={restingState}
       viewport={{ once: true, margin: "50px", amount: 0 }}
-      transition={{ delay, duration, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay: reduceMotion ? 0 : delay, duration: reduceMotion ? 0 : duration, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -166,6 +170,7 @@ function AnimatedText({ text, className = "" }) {
 
 // Premium CTA Button
 function CTAButton({ label = "Acción", onClick, href, size = "md" }) {
+  const reduceMotion = useReducedMotion();
   const sizes = {
     sm: "px-6 py-2.5 text-[11px]",
     md: "px-6 py-3 text-[10.5px] whitespace-nowrap sm:px-10 sm:py-4 sm:text-sm",
@@ -197,11 +202,11 @@ function CTAButton({ label = "Acción", onClick, href, size = "md" }) {
       }
       if (onClick) onClick(e);
     },
-    whileHover: {
+    whileHover: reduceMotion ? undefined : {
       y: -3,
       scale: 1.02
     },
-    whileTap: {
+    whileTap: reduceMotion ? undefined : {
       y: 1,
       scale: 0.97
     }
@@ -273,6 +278,7 @@ function ScrollProgressBar() {
 
 // ─── CUSTOM CURSOR ───────────────────────────────────────────────
 function CustomCursor() {
+  const reduceMotion = useReducedMotion();
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
 
@@ -289,6 +295,8 @@ function CustomCursor() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  if (reduceMotion) return null;
 
   return (
     <motion.div
@@ -374,31 +382,14 @@ const nosotrosLetterVariants = {
 
 // ─── MAIN APP ────────────────────────────────────────────────────
 export default function App() {
+  const reduceMotion = useReducedMotion();
   const [activeFaq, setActiveFaq] = useState(null);
   const [formSent, setFormSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [whatsappOpen, setWhatsappOpen] = useState(false);
   const [showGroqTutorial, setShowGroqTutorial] = useState(false);
-  const [cookieConsent, setCookieConsent] = useState(() => {
-    return localStorage.getItem('websd-cookie-consent');
-  });
-  const [showCookieBanner, setShowCookieBanner] = useState(() => {
-    return !localStorage.getItem('websd-cookie-consent');
-  });
-
-  const acceptCookies = () => {
-    localStorage.setItem('websd-cookie-consent', 'accepted');
-    setCookieConsent('accepted');
-    setShowCookieBanner(false);
-  };
-
-  const rejectCookies = () => {
-    localStorage.setItem('websd-cookie-consent', 'rejected');
-    setCookieConsent('rejected');
-    setShowCookieBanner(false);
-  };
-
+  const [apiKeyAccordionOpen, setApiKeyAccordionOpen] = useState(false);
   const videoRef = useRef(null);
 
   // Typewriter and Sound
@@ -527,6 +518,7 @@ export default function App() {
     e.preventDefault();
     if (!nombre.trim() || !whatsapp.trim() || !mensaje.trim()) return;
     setLoading(true);
+    trackLead('whatsapp_contact_form');
     const textMsg = `Quiero coordinar una sesión.\n\n*Nombre:* ${nombre.trim()}\n*WhatsApp de contacto:* ${whatsapp.trim()}\n*Detalles del negocio:* ${mensaje.trim()}`;
     window.open(`https://wa.me/573115893220?text=${encodeURIComponent(textMsg)}`, '_blank');
     setLoading(false);
@@ -543,6 +535,47 @@ export default function App() {
     { num: "03", icon: Zap, name: "WhatsApp Automation", desc: "Infraestructura que escala y prospeta emulando comportamiento humano —con delays y pausas— para proteger tus líneas y maximizar el alcance." },
     { num: "04", icon: Database, name: "Minería de Datos B2B", desc: "Descubrimiento automatizado de oportunidades comerciales. Recopila registros públicos en tiempo real por nicho y zona geográfica." },
     { num: "05", icon: CreditCard, name: "Tarjeta Digital Profesional", desc: "Sustituye el papel por una experiencia interactiva que guarda tus datos directamente en la agenda de tus clientes." }
+  ];
+
+  const modulosData = [
+    {
+      num: "01",
+      icon: Zap,
+      span: "md:col-span-4",
+      title: "Módulos de Envío y Despacho",
+      image: "https://res.cloudinary.com/ddp6ychwi/image/upload/v1786063225/descarga_1_qwe7sp.png",
+      cols: "grid-cols-1",
+      items: [
+        { icon: MessageSquare, name: "Envío Masivo de Mensajes a Grupos de WhatsApp", desc: "Distribuye un mismo mensaje en miles de grupos seleccionados de forma automática, secuencial y con control de pausas." },
+        { icon: Layers, name: "Despacho Multicuenta Round-Robin", desc: "Rota el despacho entre varias cuentas conectadas para equilibrar la carga y evitar concentraciones por línea." },
+        { icon: Smartphone, name: "Envío Masivo de Mensajes a Contactos", desc: "Envía mensajes a tu lista de contactos sustituyendo variables como nombre, ciudad o empresa." }
+      ]
+    },
+    {
+      num: "02",
+      icon: Search,
+      span: "md:col-span-2",
+      title: "Extracción, Minería y Validación",
+      cols: "grid-cols-1",
+      items: [
+        { icon: Globe, name: "Extractor Google Maps", desc: "Extrae fichas de negocios —nombre, categoría, dirección, teléfono y web— por nicho y zona geográfica." },
+        { icon: MessageCircle, name: "Extractor de Grupos de WhatsApp", desc: "Recopila y cataloga grupos de WhatsApp desde fuentes públicas para incorporarlos a tu base de segmentación." },
+        { icon: Target, name: "Filtro Grupos y Comunidades", desc: "Depura la lista extraída por actividad, tamaño, región o temática y descarta los grupos que no cumplen el perfil." },
+        { icon: Database, name: "Extractor Miembros de Grupos de WhatsApp", desc: "Obtiene la lista de integrantes de un grupo específico para construir tu propia base de contactos." }
+      ]
+    },
+    {
+      num: "03",
+      icon: ShieldCheck,
+      span: "md:col-span-6",
+      title: "Gestión de Cuentas, Reputación y Audiencias",
+      cols: "grid-cols-1 sm:grid-cols-3",
+      items: [
+        { icon: ZapIcon, name: "Calentador de Números WhatsApp", desc: "Endurece tus líneas con conversaciones progresivas y comportamiento humano para construir reputación y evitar bloqueos." },
+        { icon: ShieldCheck, name: "Validador / Filtro de Líneas", desc: "Verifica el estado real de cada número —activa, de registro reciente o restringida— antes de operar con ella." },
+        { icon: User, name: "Agregar Contactos a Mis Grupos", desc: "Carga de forma automática tus contactos validados dentro de tus propios grupos y comunidades." }
+      ]
+    }
   ];
 
   const projectsData = [
@@ -598,13 +631,8 @@ export default function App() {
   ];
 
   return (
-    <main className="relative w-full text-[#D7E2EA] font-sans pb-20 overflow-x-clip" style={{ backgroundColor: '#0B0B0F' }}>
-      <SEO {...SEO_CONFIG.home} structuredData={{
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Soluciones Digitales IA",
-        "url": window.location.origin
-      }} />
+    <main className="relative w-full text-[#E2E8F0] font-sans pb-20 overflow-x-clip" style={{ backgroundColor: '#0F172A' }}>
+      <SEO {...SEO_CONFIG.home} structuredData={SCHEMAS.home} />
 
       {/* ── GLOBAL EFFECTS ──────────────────────────────────────── */}
       <CustomCursor />
@@ -616,8 +644,8 @@ export default function App() {
         {/* Chat Button */}
         <motion.button
           onClick={() => setChatOpen(!chatOpen)}
-          whileHover={{ scale: 1.08, y: -2 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={reduceMotion ? undefined : { scale: 1.04, y: -2 }}
+          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
           className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#2962ff] shadow-[0_10px_25px_rgba(41,98,255,0.45)] cursor-pointer relative"
           style={{
             background: 'linear-gradient(135deg, #2962ff 0%, #1532cb 100%)',
@@ -700,13 +728,13 @@ export default function App() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 240 }}
-              className="fixed inset-0 h-full w-full bg-[#0F0F12] z-50 flex flex-col shadow-[0_0_80px_rgba(0,0,0,0.95)]"
+              className="fixed inset-0 h-full w-full bg-[#0F0F12] z-50 flex flex-col shadow-[0_0_80px_rgba(0,0,0,0.95)] lg:inset-y-0 lg:left-auto lg:right-0 lg:w-[min(100%,480px)] lg:border-l lg:border-white/10"
             >
               {/* Header */}
               <div className="p-4 border-b border-white/5 flex items-center justify-between bg-[#13131b]">
                 <div className="flex items-center gap-2.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#2962ff] animate-pulse" />
-                  <span className="font-bold text-sm tracking-wide text-white">Asistente Virtual</span>
+                  <span className="font-bold text-sm tracking-wide text-white">Conversemos sobre tu proyecto</span>
                 </div>
                 <button
                   onClick={() => setChatOpen(false)}
@@ -724,52 +752,6 @@ export default function App() {
           </>
         )}
       </AnimatePresence>
-
-      {/* ── COOKIE CONSENT BANNER ───────────────────────────────────── */}
-      <AnimatePresence>
-        {showCookieBanner && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 left-0 right-0 z-[115] p-4 sm:p-5 sm:pb-6 pb-[110px]"
-          >
-            <div className="max-w-7xl mx-auto neomorph-relief rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-              <div className="flex-1">
-                <p className="text-[11px] sm:text-xs leading-relaxed text-neutral-300">
-                  Usamos cookies y tecnologías similares para mejorar tu experiencia, analizar tráfico y personalizar contenido.
-                  Al hacer clic en "Aceptar", consientes su uso. Puedes personalizar o rechazar en cualquier momento desde nuestra{' '}
-                  <button onClick={() => { window.dispatchEvent(new CustomEvent('websd:openLegalModal', { detail: 'cookiePolicy' })); setShowCookieBanner(false); }} className="text-[#2962ff] underline hover:no-underline">
-                    Política de Cookies
-                  </button>
-                  . Consulta nuestra{' '}
-                  <button onClick={() => { window.dispatchEvent(new CustomEvent('websd:openLegalModal', { detail: 'dataPolicy' })); setShowCookieBanner(false); }} className="text-[#2962ff] underline hover:no-underline">
-                    Política de Datos
-                  </button>
-                  .
-                </p>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <button
-                  onClick={rejectCookies}
-                  className="px-4 py-2 rounded-lg text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 border border-white/10 hover:bg-white/5 transition-colors"
-                >
-                  Rechazar
-                </button>
-                <button
-                  onClick={acceptCookies}
-                  className="px-5 py-2 rounded-lg text-[10px] sm:text-[11px] uppercase tracking-wider text-white font-semibold border border-[#2962ff] bg-[#2962ff]/10 hover:bg-[#2962ff]/20 transition-colors"
-                >
-                  Aceptar
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-
-
 
       <Navbar activePage="home" />
 
@@ -800,10 +782,10 @@ export default function App() {
           <div 
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse at 50% 40%, rgba(11, 11, 15, 0) 15%, rgba(11, 11, 15, 0.45) 60%, rgba(11, 11, 15, 0.95) 90%, #0B0B0F 100%)'
+              background: 'radial-gradient(ellipse at 50% 40%, rgba(15, 23, 42, 0) 15%, rgba(15, 23, 42, 0.42) 60%, rgba(15, 23, 42, 0.92) 90%, #0F172A 100%)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B0B0F]/20 to-[#0B0B0F] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0F172A]/15 to-[#0F172A] pointer-events-none" />
         </div>
 
         {/* Hero Heading - Pushed down below the robot's face */}
@@ -829,7 +811,7 @@ export default function App() {
                               letterSpacing: '0.14em',
                               textTransform: 'lowercase',
                               color: '#7ee8ff',
-                              background: 'linear-gradient(180deg, rgba(126,232,255,0.14), rgba(126,232,255,0.04))',
+                              background: 'rgba(14,116,144,0.28)',
                               border: '1px solid rgba(126,232,255,0.32)',
                               padding: '0.22em 0.45em 0.18em',
                               borderRadius: '0.35em',
@@ -853,7 +835,7 @@ export default function App() {
                   <span>SOLUCIONES</span>
                   <span className="inline-flex items-baseline gap-[0.28em] justify-center flex-wrap">
                     <span style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", fontWeight: 400, letterSpacing: '0.04em' }}>DIGITALES</span>
-                    <span style={{ fontFamily: "'JetBrains Mono','Space Mono',monospace", fontSize: '0.28em', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'lowercase', color: '#7ee8ff', background: 'linear-gradient(180deg, rgba(126,232,255,0.14), rgba(126,232,255,0.04))', border: '1px solid rgba(126,232,255,0.32)', padding: '0.22em 0.45em 0.18em', borderRadius: '0.35em', boxShadow: '0 0 0 1px rgba(126,232,255,0.08) inset, 0 4px 14px rgba(41,98,255,0.18)', textShadow: '0 0 8px rgba(126,232,255,0.75)', position: 'relative', top: '-0.12em' }}>ai.studio</span>
+                    <span style={{ fontFamily: "'JetBrains Mono','Space Mono',monospace", fontSize: '0.28em', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'lowercase', color: '#a5f3fc', background: 'rgba(14,116,144,0.28)', border: '1px solid rgba(126,232,255,0.32)', padding: '0.22em 0.45em 0.18em', borderRadius: '0.35em', position: 'relative', top: '-0.12em' }}>ai.studio</span>
                   </span>
                 </span>
               )}
@@ -886,12 +868,20 @@ export default function App() {
                 className="font-light tracking-wide leading-relaxed text-neutral-300 mx-auto max-w-[700px]" 
                 style={{ fontSize: '15px', fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif' }}
               >
-                <strong className="text-white font-black uppercase tracking-wider mr-1">Cero Plantillas.</strong>
-                <strong className="text-cyan-400 font-bold uppercase tracking-wider mr-2">100% Libertad Creativa.</strong> 
-                Dominamos el código desde cero para construir entornos digitales que se adaptan exactamente a la identidad de tu marca, sin limitaciones. <strong className="text-cyan-400 font-semibold">Si puedes imaginarlo, podemos programarlo.</strong>
+                <strong className="text-white font-black">Diseño y tecnología a la medida de tu negocio.</strong>{' '}
+                Creamos páginas web, automatizaciones e inteligencia artificial para ayudarte a atraer clientes y simplificar tu trabajo.
               </p>
             </div>
           </motion.div>
+
+          <div className="flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
+            <a href="#encuentra-solucion" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#2962ff] px-7 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(41,98,255,0.3)] transition-colors hover:bg-[#1f53e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
+              Encuentra tu solución <ArrowRight size={16} />
+            </a>
+            <a href="#registro" className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
+              Habla con el equipo
+            </a>
+          </div>
           
           <FadeIn delay={0.5} y={20} className="flex flex-col items-center gap-6 self-center md:self-end">
             {/* Scroll Indicator */}
@@ -899,9 +889,9 @@ export default function App() {
               animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
               className="hidden sm:flex flex-col items-center gap-1 opacity-45 cursor-pointer hover:opacity-80 transition-opacity"
-              onClick={() => document.getElementById('quienes-somos').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('encuentra-solucion').scrollIntoView({ behavior: 'smooth' })}
             >
-              <span className="text-[9px] tracking-widest text-neutral-400 font-semibold uppercase">Deslizar</span>
+              <span className="text-[9px] tracking-widest text-neutral-400 font-semibold uppercase">Ver soluciones</span>
               <ChevronDown size={14} className="text-[#2962ff]" />
             </motion.div>
           </FadeIn>
@@ -910,10 +900,10 @@ export default function App() {
       </section>
 
       {/* ── MARQUEE ─────────────────────────────────────────────── */}
-      <section ref={marqueeRef} className="pt-20 sm:pt-28 pb-8 overflow-hidden relative z-10" style={{ backgroundColor: '#0B0B0F' }}>
+      <section ref={marqueeRef} className="pt-20 sm:pt-28 pb-8 overflow-hidden relative z-10" style={{ backgroundColor: '#0F172A' }}>
         {/* Fade masks */}
-        <div className="absolute inset-y-0 left-0 w-32 z-10" style={{ background: 'linear-gradient(90deg, #0B0B0F 0%, transparent 100%)' }} />
-        <div className="absolute inset-y-0 right-0 w-32 z-10" style={{ background: 'linear-gradient(-90deg, #0B0B0F 0%, transparent 100%)' }} />
+        <div className="absolute inset-y-0 left-0 w-32 z-10" style={{ background: 'linear-gradient(90deg, #0F172A 0%, transparent 100%)' }} />
+        <div className="absolute inset-y-0 right-0 w-32 z-10" style={{ background: 'linear-gradient(-90deg, #0F172A 0%, transparent 100%)' }} />
 
         <div className="flex gap-3 mb-3 whitespace-nowrap transition-transform duration-100 ease-out" style={{ transform: `translateX(${scrollOffset - 300}px)`, willChange: 'transform' }}>
           {[...GIFS.slice(0, 11), ...GIFS.slice(0, 11), ...GIFS.slice(0, 11)].map((gif, idx) => (
@@ -927,11 +917,48 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── ORIENTACIÓN RÁPIDA ─────────────────────────────────── */}
+      <section id="encuentra-solucion" className="relative z-20 scroll-mt-20 bg-[#F1F5F9] px-5 py-20 text-[#0F172A] sm:px-8 sm:py-24 md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <FadeIn className="mb-10 max-w-3xl">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#0E7490]">Empieza por tu necesidad</p>
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-[#0F172A] sm:text-4xl md:text-5xl">¿Qué quieres resolver?</h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">Elige un objetivo para ver una solución relacionada. Si todavía no lo tienes claro, podemos ayudarte a definir el primer paso.</p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: 'Atraer más clientes', detail: 'Una web clara y preparada para convertir visitas en consultas.', href: getPageUrl('sitios-web'), icon: Globe },
+              { title: 'Automatizar tareas', detail: 'Herramientas para organizar campañas y procesos repetitivos.', href: '#modulos', icon: Zap },
+              { title: 'Atender con inteligencia artificial', detail: 'Asistentes que responden preguntas y acompañan a tus clientes.', href: getPageUrl('chatbot'), icon: MessageCircle },
+              { title: 'Necesito orientación', detail: 'Cuéntanos qué necesita tu negocio y te recomendamos por dónde empezar.', href: '#registro', icon: MessageSquare },
+            ].map(({ title, detail, href, icon: Icon }, index) => (
+              <motion.a
+                key={title}
+                href={href}
+                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: reduceMotion ? 0 : index * 0.06, duration: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={reduceMotion ? undefined : { y: -4, scale: 1.01, transition: { type: 'spring', stiffness: 300, damping: 24 } }}
+                whileTap={reduceMotion ? undefined : { y: -1, scale: 0.99 }}
+                className="group flex min-h-[210px] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-[#0E7490]/40 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E7490]"
+              >
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-[#0E7490]/15 bg-[#0E7490]/[0.07] text-[#0E7490]"><Icon size={20} aria-hidden="true" /></span>
+                <h3 className="text-lg font-bold text-[#0F172A]">{title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{detail}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#0E7490]">Ver opción <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></span>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Glow divider */}
       <div className="glow-divider my-0" />
 
       {/* ── NOSOTROS (REDESIGNED) ────────────────────────────────────────────── */}
-      <section id="quienes-somos" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0B0B0F' }}>
+      <section id="quienes-somos" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#111C2E' }}>
         
         {/* Dynamic Background */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -952,7 +979,7 @@ export default function App() {
               
               <h2 className="text-3xl sm:text-4xl lg:text-[56px] font-black text-white leading-[1.05] tracking-tight">
                 No hacemos webs.<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-500">
+                <span className="text-cyan-100">
                   Construimos ecosistemas de conversión.
                 </span>
               </h2>
@@ -1029,9 +1056,9 @@ export default function App() {
           filter: 'contrast(1.25) brightness(0.65)'
         }} />
         <div className="absolute inset-0 pointer-events-none" style={{ 
-          background: 'rgba(11,11,15,0.6)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)'
+          background: 'rgba(15,23,42,0.48)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)'
         }} />
         <div className="orb-blob w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] bg-blue-600/10" style={{ top: '20%', right: '-10%' }} />
         <div className="architectural-lines opacity-30" />
@@ -1095,170 +1122,20 @@ export default function App() {
       </section>
 
       {/* ── PRODUCTOS ───────────────────────────────────────────── */}
-      <section id="productos" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0B0B0F' }}>
+      <section id="productos" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0F172A' }}>
         {/* Animated Background Blob */}
         <div className="orb-blob w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-cyan-500/05" style={{ bottom: '-10%', left: '-15%', filter: 'blur(130px)' }} />
         <div className="architectural-lines opacity-50" />
         <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-16 sm:gap-20 md:gap-24">
 
-          <FadeIn delay={0} className="text-center">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#2962ff] mb-4 font-semibold">Nuestros servicios</p>
-            <h2 className="productos-heading text-[clamp(2.5rem,8vw,85px)] leading-none">
-              Productos
-            </h2>
-          </FadeIn>
-
           {/* Bento Grid layout */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-[minmax(280px,auto)]">
-            
-            {/* Bento Card 1: Web Dev UX/UI (Col span 4, Row span 2) */}
-            <FadeIn delay={0.1} className="md:col-span-4 md:row-span-2">
-              <motion.a
-                href={getPageUrl('sitios-web')}
-                className="product-glass rounded-3xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden h-full group"
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
-                variants={{
-                  rest: { y: 0, boxShadow: "0 0 20px rgba(0,255,255,0.04), 0 24px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.09)", borderColor: "rgba(0,255,255,0.16)" },
-                  hover: { y: -8, boxShadow: "0 30px 60px rgba(0,0,0,0.95), 0 0 0 2px rgba(0,255,255,0.45), 0 0 40px rgba(0,255,255,0.18), inset 0 1px 0 rgba(255,255,255,0.12)", borderColor: "rgba(0,255,255,0.6)", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }
-                }}>
-                <span className="card-shimmer" />
-                
-                {/* Hyper-realistic Background Image Layer */}
-                <div 
-                  className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                  style={{ backgroundImage: `url(${getDistUrl('web_dev_bento_bg.webp')})`, filter: 'contrast(1.1) brightness(1.1)' }}
-                />
-                <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0B0B0F] via-[#0B0B0F]/40 to-transparent" />
-                <div className="absolute inset-0 z-0 bg-[#0B0B0F]/10" />
-
-                <div className="flex justify-between items-start relative z-10">
-                  <span className="font-black text-5xl md:text-6xl text-white/35 select-none transition-all duration-300 group-hover:text-white/70">01</span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-[#2962ff]/35 bg-[#2962ff]/10 group-hover:bg-[#2962ff] group-hover:shadow-[0_0_20px_rgba(41,98,255,0.6)] transition-all duration-300">
-                    <Globe size={18} className="text-[#2962ff] group-hover:text-white" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 relative z-10 mt-auto">
-                  <h3 className="font-bold text-xl md:text-3xl text-white tracking-wide">{productsList[0].name}</h3>
-                  <p className="font-light leading-relaxed text-sm md:text-base text-neutral-300 max-w-xl">{productsList[0].desc}</p>
-                </div>
-              </motion.a>
-            </FadeIn>
-
-            {/* Bento Card 2: Suite Conversacional IA (Col span 2) */}
-            <FadeIn delay={0.2} className="md:col-span-2">
-              <motion.a
-                href={getPageUrl('chatbot')}
-                className="product-glass rounded-3xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden h-full group"
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
-                variants={{
-                  rest: { y: 0, boxShadow: "0 0 20px rgba(0,255,255,0.04), 0 24px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.09)", borderColor: "rgba(0,255,255,0.16)" },
-                  hover: { y: -8, boxShadow: "0 30px 60px rgba(0,0,0,0.95), 0 0 0 2px rgba(0,255,255,0.45), 0 0 40px rgba(0,255,255,0.18), inset 0 1px 0 rgba(255,255,255,0.12)", borderColor: "rgba(0,255,255,0.6)", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }
-                }}
-              >
-                <span className="card-shimmer" />
-                <div className="flex justify-between items-start relative z-10">
-                  <span className="font-black text-5xl md:text-6xl text-white/35 select-none transition-all duration-300 group-hover:text-white/70">02</span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-[#2962ff]/35 bg-[#2962ff]/10 group-hover:bg-[#2962ff] group-hover:shadow-[0_0_20px_rgba(41,98,255,0.6)] transition-all duration-300">
-                    <MessageCircle size={18} className="text-[#2962ff] group-hover:text-white" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 relative z-10 mt-auto">
-                  <h3 className="font-bold text-xl md:text-2xl text-white tracking-wide">{productsList[1].name}</h3>
-                  <p className="font-light leading-relaxed text-sm text-neutral-400">{productsList[1].desc}</p>
-                </div>
-              </motion.a>
-            </FadeIn>
-
-            {/* Bento Card 3: WhatsApp Automation (Col span 2) */}
-            <FadeIn delay={0.3} className="md:col-span-2">
-              <motion.a
-                href={getPageUrl('fanpage-envio-masivo')}
-                className="product-glass rounded-3xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden h-full group"
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
-                variants={{
-                  rest: { y: 0, boxShadow: "0 0 20px rgba(0,255,255,0.04), 0 24px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.09)", borderColor: "rgba(0,255,255,0.16)" },
-                  hover: { y: -8, boxShadow: "0 30px 60px rgba(0,0,0,0.95), 0 0 0 2px rgba(0,255,255,0.45), 0 0 40px rgba(0,255,255,0.18), inset 0 1px 0 rgba(255,255,255,0.12)", borderColor: "rgba(0,255,255,0.6)", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }
-                }}
-              >
-                <span className="card-shimmer" />
-                <div className="flex justify-between items-start relative z-10">
-                  <span className="font-black text-5xl md:text-6xl text-white/35 select-none transition-all duration-300 group-hover:text-white/70">03</span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-[#2962ff]/35 bg-[#2962ff]/10 group-hover:bg-[#2962ff] group-hover:shadow-[0_0_20px_rgba(41,98,255,0.6)] transition-all duration-300">
-                    <Zap size={18} className="text-[#2962ff] group-hover:text-white" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 relative z-10 mt-auto">
-                  <h3 className="font-bold text-xl md:text-2xl text-white tracking-wide">{productsList[2].name}</h3>
-                  <p className="font-light leading-relaxed text-sm text-neutral-400">{productsList[2].desc}</p>
-                </div>
-              </motion.a>
-            </FadeIn>
-
-            {/* Bento Card 4: Mineria de Datos B2B (Col span 2) */}
-            <FadeIn delay={0.4} className="md:col-span-2">
-              <motion.a
-                href={getPageUrl('guardian-difusion')}
-                className="product-glass rounded-3xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden h-full group"
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
-                variants={{
-                  rest: { y: 0, boxShadow: "0 0 20px rgba(0,255,255,0.04), 0 24px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.09)", borderColor: "rgba(0,255,255,0.16)" },
-                  hover: { y: -8, boxShadow: "0 30px 60px rgba(0,0,0,0.95), 0 0 0 2px rgba(0,255,255,0.45), 0 0 40px rgba(0,255,255,0.18), inset 0 1px 0 rgba(255,255,255,0.12)", borderColor: "rgba(0,255,255,0.6)", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }
-                }}
-              >
-                <span className="card-shimmer" />
-                <div className="flex justify-between items-start relative z-10">
-                  <span className="font-black text-5xl md:text-6xl text-white/35 select-none transition-all duration-300 group-hover:text-white/70">04</span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-[#2962ff]/35 bg-[#2962ff]/10 group-hover:bg-[#2962ff] group-hover:shadow-[0_0_20px_rgba(41,98,255,0.6)] transition-all duration-300">
-                    <Database size={18} className="text-[#2962ff] group-hover:text-white" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 relative z-10 mt-auto">
-                  <h3 className="font-bold text-xl md:text-2xl text-white tracking-wide">{productsList[3].name}</h3>
-                  <p className="font-light leading-relaxed text-sm text-neutral-400">{productsList[3].desc}</p>
-                </div>
-              </motion.a>
-            </FadeIn>
-
-            {/* Bento Card 5: Tarjeta Digital Profesional (Col span 4) */}
-            <FadeIn delay={0.5} className="md:col-span-4">
-              <motion.a
-                href={getPageUrl('solucionesdigitales')}
-                className="product-glass rounded-3xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden h-full group"
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
-                variants={{
-                  rest: { y: 0, boxShadow: "0 0 20px rgba(0,255,255,0.04), 0 24px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.09)", borderColor: "rgba(0,255,255,0.16)" },
-                  hover: { y: -8, boxShadow: "0 30px 60px rgba(0,0,0,0.95), 0 0 0 2px rgba(0,255,255,0.45), 0 0 40px rgba(0,255,255,0.18), inset 0 1px 0 rgba(255,255,255,0.12)", borderColor: "rgba(0,255,255,0.6)", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }
-                }}
-              >
-                <span className="card-shimmer" />
-                <div className="flex justify-between items-start relative z-10">
-                  <span className="font-black text-5xl md:text-6xl text-white/35 select-none transition-all duration-300 group-hover:text-white/70">05</span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center border border-[#2962ff]/35 bg-[#2962ff]/10 group-hover:bg-[#2962ff] group-hover:shadow-[0_0_20px_rgba(41,98,255,0.6)] transition-all duration-300">
-                    <CreditCard size={18} className="text-[#2962ff] group-hover:text-white" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3 relative z-10 mt-auto">
-                  <h3 className="font-bold text-xl md:text-2xl text-white tracking-wide">{productsList[4].name}</h3>
-                  <p className="font-light leading-relaxed text-sm text-neutral-400">{productsList[4].desc}</p>
-                </div>
-              </motion.a>
-            </FadeIn>
 
             {/* Bento Card 6: 'Tu idea es el punto de partida' Large Bento Card (Col span 6) */}
             <FadeIn delay={0.6} className="md:col-span-6 mt-4">
               <motion.div
                 className="glass rounded-3xl p-8 sm:p-12 md:p-16 flex flex-col md:flex-row gap-10 items-center justify-between cursor-default border border-white/5 relative overflow-hidden"
-                whileHover={{ borderColor: "rgba(41,98,255,0.3)", boxShadow: "0 20px 50px rgba(0,0,0,0.8)" }}
+                whileHover={reduceMotion ? undefined : { y: -3, borderColor: "rgba(41,98,255,0.28)", boxShadow: "0 18px 40px rgba(2,6,23,0.3)" }}
               >
                 {/* Highlight Glow orbe inside */}
                 <div className="absolute -right-20 -top-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
@@ -1289,6 +1166,27 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── PLATAFORMA INDEPENDIENTE DE WHATSAPP ─────────────────── */}
+      <section id="modulos" className="relative z-20 py-20 sm:py-28 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#111C2E' }}>
+        <div className="max-w-5xl mx-auto text-center">
+          <FadeIn>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#2962ff] mb-4 font-semibold">Proyecto independiente</p>
+            <h2 className="productos-heading text-[clamp(2.5rem,8vw,72px)] leading-none">WhatsApp Marketing</h2>
+            <p className="max-w-2xl mx-auto mt-6 text-base sm:text-lg text-neutral-300 leading-relaxed">
+              Nuestras herramientas de WhatsApp ahora viven en una plataforma especializada, con su propia información, funciones y acceso. El chatbot multicanal de este sitio sigue disponible en la sección de Inteligencia Artificial.
+            </p>
+            <a
+              href="https://soluciones-wa.ai.studio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#2962ff] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1f53e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              Visitar la plataforma de WhatsApp <ArrowRight size={16} aria-hidden="true" />
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Glow divider */}
       <div className="glow-divider" />
 
@@ -1297,7 +1195,7 @@ export default function App() {
         ref={projectContainerRef}
         id="casos"
         className="relative z-30 pt-24 pb-48 px-5 sm:px-8 md:px-10 flex flex-col gap-20"
-        style={{ backgroundColor: '#0B0B0F' }}
+        style={{ backgroundColor: '#0F172A' }}
       >
         <div className="text-center relative z-10">
           <p className="text-[10px] uppercase tracking-[0.3em] text-[#2962ff] mb-4 font-semibold">Resultados reales</p>
@@ -1306,7 +1204,7 @@ export default function App() {
           </h2>
         </div>
 
-        {/* Sticky stacking cards - Aged Metallic Skeuomorphism */}
+        {/* Casos en tarjetas sencillas */}
         <div className="max-w-5xl mx-auto w-full flex flex-col gap-[32vh] md:gap-[38vh]">
           {projectsData.map((project, idx) => {
             return (
@@ -1315,59 +1213,26 @@ export default function App() {
                 className="sticky w-full"
                 style={{ top: `${idx * 24 + 90}px` }}
               >
-                <div 
-                  className="rounded-[36px] sm:rounded-[48px] p-7 sm:p-9 md:p-11 flex flex-col gap-8 md:gap-10 relative overflow-hidden group border border-white/[0.14]"
+                <motion.div
+                  className="rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col gap-8 md:gap-10 relative overflow-hidden group border border-white/10"
                   style={{ 
-                    background: 'linear-gradient(140deg, #191b22 0%, #111216 38%, #161820 70%, #0d0e12 100%)',
-                    boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.95), 0 12px 28px -6px rgba(0, 0, 0, 0.85), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -2px 6px 0 rgba(0, 0, 0, 0.9), inset 1px 0 2px 0 rgba(255, 255, 255, 0.08), inset -1px 0 2px 0 rgba(0, 0, 0, 0.75)'
+                    background: '#1E293B',
+                    boxShadow: '0 18px 48px rgba(2, 6, 23, 0.35)'
                   }}
                 >
-                  {/* Aged metallic brushed patina overlay */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none opacity-60 mix-blend-overlay"
-                    style={{
-                      backgroundImage: 'linear-gradient(115deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 35%, rgba(0,0,0,0.65) 65%, rgba(255,255,255,0.04) 100%)'
-                    }}
-                  />
-                  {/* Radial metallic specular highlights */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(0,0,0,0.8) 0%, transparent 60%)'
-                    }}
-                  />
-
-                  {/* Corner Industrial Rivets / Screws */}
-                  <div className="absolute top-5 left-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
-                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] rotate-45" />
-                  </div>
-                  <div className="absolute top-5 right-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
-                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] -rotate-12" />
-                  </div>
-                  <div className="absolute bottom-5 left-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
-                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] rotate-[70deg]" />
-                  </div>
-                  <div className="absolute bottom-5 right-5 w-3.5 h-3.5 rounded-full bg-gradient-to-b from-[#3a3e4c] to-[#14151a] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_2px_4px_rgba(0,0,0,0.9)] flex items-center justify-center pointer-events-none z-20">
-                    <div className="w-2 h-[1.5px] bg-[#0a0b0e] shadow-[0_1px_0_rgba(255,255,255,0.2)] rotate-30" />
-                  </div>
-
-                  {/* Shimmer sweep effect */}
-                  <span className="card-shimmer" />
-
                   {/* Top row */}
-                  <div className="flex flex-wrap justify-between items-start gap-4 relative z-10 pb-5 border-b border-white/[0.08] shadow-[0_1px_0_rgba(0,0,0,0.9)]">
+                  <div className="flex flex-wrap justify-between items-start gap-4 relative z-10 pb-5 border-b border-white/[0.1]">
                     <div className="flex items-center gap-4">
                       <span 
-                        className="font-black text-4xl sm:text-5xl md:text-6xl text-neutral-500/50 group-hover:text-neutral-300 transition-colors duration-500 leading-none select-none"
-                        style={{ textShadow: '0 1px 0 rgba(255,255,255,0.12), 0 -1px 0 rgba(0,0,0,0.95)' }}
+                        className="font-bold text-3xl sm:text-4xl md:text-5xl text-slate-500 group-hover:text-slate-300 transition-colors duration-300 leading-none select-none"
                       >
                         {project.num}
                       </span>
                       <div className="flex flex-col">
-                        <span className="text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-bold mb-1 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">
+                        <span className="text-xs uppercase tracking-wider text-cyan-300 font-semibold mb-1">
                           {project.category}
                         </span>
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-wide">
                           {project.name}
                         </h3>
                       </div>
@@ -1440,7 +1305,7 @@ export default function App() {
                       />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             );
           })}
@@ -1448,10 +1313,10 @@ export default function App() {
       </section>
 
       {/* ── AUDITOR ESTRATÉGICO IA (TELEGRAM BOT) ─────────────────── */}
-      <section id="auditor-ia" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0B0B0F' }}>
+      <section id="auditor-ia" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#111C2E' }}>
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#3b82f6]/5 blur-[120px]" />
-          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#f97316]/5 blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-400/10 blur-[120px]" />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
@@ -1462,7 +1327,7 @@ export default function App() {
               Auditor Estratégico IA · Gratis · 3 min
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Tu negocio digital, <span className="bg-gradient-to-r from-[#3b82f6] to-[#f97316] bg-clip-text text-transparent">auditado en 3 minutos.</span>
+              Tu negocio digital, <span className="text-cyan-300">auditado en 3 minutos.</span>
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-400 leading-relaxed mb-8">
               Responde catorce preguntas como si fuera un chat. La IA detecta dónde pierdes ventas y te da un plan de acción para esta semana. Se ejecuta con tu propia API Key de Groq: gratuita y sin costos ocultos.
@@ -1512,11 +1377,34 @@ export default function App() {
 
           {/* How it works - API Key */}
           <FadeIn delay={0.2} className="mb-16 md:mb-24">
-            <div className="mb-10 max-w-xl mx-auto text-center">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">Obtén tu API Key de Groq (es gratis)</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-neutral-400">Necesitas una clave gratuita para que la IA ejecute tu análisis. Nunca la guardamos ni la compartimos.</p>
+            <div className="mb-5 max-w-3xl mx-auto">
+              <h3>
+                <button
+                  id="groq-api-key-trigger"
+                  type="button"
+                  aria-expanded={apiKeyAccordionOpen}
+                  aria-controls="groq-api-key-details"
+                  onClick={() => setApiKeyAccordionOpen((open) => !open)}
+                  className="flex w-full items-center justify-between gap-5 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-5 text-left transition-colors hover:bg-white/[0.07] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:px-7"
+                >
+                  <span className="text-2xl font-black tracking-tight text-white sm:text-3xl">Obtén tu API Key de Groq (es gratis)</span>
+                  <ChevronDown size={22} aria-hidden="true" className={`shrink-0 text-cyan-300 transition-transform duration-200 ${apiKeyAccordionOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </h3>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <motion.div
+              id="groq-api-key-details"
+              role="region"
+              aria-labelledby="groq-api-key-trigger"
+              aria-hidden={!apiKeyAccordionOpen}
+              inert={!apiKeyAccordionOpen}
+              initial={false}
+              animate={{ height: apiKeyAccordionOpen ? 'auto' : 0, opacity: apiKeyAccordionOpen ? 1 : 0 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+            <p className="mx-auto mb-5 max-w-3xl px-2 text-sm leading-relaxed text-neutral-300">Necesitas una clave gratuita para ejecutar el análisis. Nunca la guardamos ni la compartimos.</p>
+            <div className="grid gap-4 pb-1 md:grid-cols-2">
               <div className="rounded-2xl p-7 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] h-full">
                 <h4 className="text-lg font-bold tracking-tight text-white">¿Por qué necesitas tu propia API Key?</h4>
                 <ul className="mt-4 space-y-3">
@@ -1550,20 +1438,13 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 flex flex-col gap-2.5 relative">
-                  <motion.div
-                    animate={{ x: [0, 8, 0] }}
-                    transition={{ duration: 1.0, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -right-2 -top-3 hidden md:flex items-center gap-1 bg-red-600 text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-lg shadow-red-600/30 z-10 pointer-events-none"
-                  >
-                    <span>👉</span> ¡Haz clic aquí!
-                  </motion.div>
+                <div className="mt-6 flex flex-col gap-2.5">
                   <button
                     onClick={() => setShowGroqTutorial(true)}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-3.5 text-[13px] font-black tracking-wide transition-all shadow-[0_10px_28px_rgba(220,38,38,0.4)] border border-red-500/50 ring-2 ring-red-500/20 hover:ring-red-500/30 animate-pulse"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-3.5 text-[13px] font-semibold tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                   >
                     <Sparkles size={15} className="text-white" /> Ver tutorial con pantallazos
-                    <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 0.9, repeat: Infinity }} className="inline-flex"><ArrowRight size={16} /></motion.span>
+                    <ArrowRight size={16} />
                   </button>
                   <a
                     href="https://console.groq.com/keys"
@@ -1578,6 +1459,7 @@ export default function App() {
                 <p className="mt-3 text-center text-[11px] text-neutral-500">Con capturas reales, sin tecnicismos. Gratis.</p>
               </div>
             </div>
+            </motion.div>
           </FadeIn>
 
           {/* Benefits */}
@@ -1625,10 +1507,10 @@ export default function App() {
           <FadeIn delay={0.4} className="text-center">
             <div className="rounded-3xl p-8 md:p-12 lg:p-16 border border-white/10 bg-gradient-to-b from-white/[0.035] to-white/[0.012] relative overflow-hidden">
               <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[560px] -translate-x-1/2 rounded-full bg-[#3b82f6]/10 blur-[100px]" />
-              <h3 className="mx-auto max-w-2xl text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white">
+              <h3 className="mx-auto max-w-2xl text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-[#FDE68A]">
                 Descubre dónde está tu fuga de ventas
               </h3>
-              <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-neutral-400">Menos de 3 minutos, catorce preguntas y un informe con tu próximo movimiento.</p>
+              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-neutral-300">En menos de 3 minutos conocerás qué está frenando tus ventas, cuáles son tus oportunidades más importantes y qué puedes mejorar primero. Recibirás un diagnóstico claro y un plan de acción para empezar a hacer evolucionar tu negocio.</p>
               <div className="mt-9 flex items-center justify-center">
                 <a
                   href={getTelegramChatUrl()}
@@ -1649,7 +1531,7 @@ export default function App() {
       <div className="glow-divider" />
 
       {/* ── TECH STACK ──────────────────────────────────────────── */}
-      <section className="relative z-20 py-20 sm:py-28 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0B0B0F' }}>
+      <section className="relative z-20 py-20 sm:py-28 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#111C2E' }}>
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col gap-10">
           <FadeIn className="text-center">
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#2962ff] mb-3 font-semibold">Stack tecnológico</p>

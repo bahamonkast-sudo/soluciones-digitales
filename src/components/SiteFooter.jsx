@@ -51,8 +51,8 @@ export default function SiteFooter() {
       links: [
         { label: 'Desarrollo Web', href: servLink('/sitios-web.html', getPageUrl('sitios-web')) },
         { label: 'IA Conversacional', href: servLink('/chatbot.html', getPageUrl('chatbot')) },
-        { label: 'WhatsApp Automation', href: servLink('/guardian-difusion.html', getPageUrl('guardian-difusion')) },
-        { label: 'Minería B2B', href: servLink('/extractor.html', getPageUrl('extractor')) },
+        { label: 'WhatsApp Marketing', href: 'https://soluciones-wa.ai.studio/' },
+        { label: 'Auditor Estratégico', href: servLink('/auditor-estrategico.html', getPageUrl('auditor-estrategico')) },
       ],
     },
     {
@@ -223,34 +223,24 @@ export default function SiteFooter() {
               <p className="text-[10px] text-neutral-500 mb-6 tracking-wider">Última actualización: Junio 2026</p>
 
               <div className="space-y-5 text-[11px] sm:text-xs leading-relaxed text-neutral-300">
-                <p>En <strong className="text-white">SOLUCIONES DIGITALES IA</strong> utilizamos cookies y tecnologías de seguimiento para garantizar el correcto funcionamiento del sitio web, analizar el tráfico, mejorar la experiencia del usuario y personalizar contenidos. Esta política explica qué son las cookies, cómo las usamos y cómo puede gestionar sus preferencias.</p>
+                <p>En <strong className="text-white">SOLUCIONES DIGITALES IA</strong> usamos tecnologías esenciales para el sitio y, únicamente con tu aceptación, Google Analytics y el Pixel de Meta para medir visitas y resultados de campañas. Puedes cambiar o retirar tu decisión con el botón “Privacidad” que aparece en el sitio.</p>
 
                 <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">1. ¿Qué son las Cookies?</h3>
                 <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo (computador, tableta, teléfono móvil) cuando visita un sitio web. Permiten que el sitio recuerde sus acciones y preferencias durante un período de tiempo, para que no tenga que volver a configurarlas cada vez que nos visite.</p>
 
-                <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">2. Tipos de Cookies que Utilizamos</h3>
+                <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">2. Tecnologías utilizadas</h3>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li><strong className="text-white">Cookies Esenciales:</strong> necesarias para el funcionamiento básico del sitio. Permiten la navegación y el acceso a áreas seguras. Sin estas cookies, el sitio no puede funcionar correctamente.</li>
-                  <li><strong className="text-white">Cookies de Rendimiento:</strong> recopilan información anónima sobre cómo los visitantes usan el sitio (páginas más visitadas, tiempo de permanencia, errores). Nos ayudan a mejorar el funcionamiento del sitio.</li>
-                  <li><strong className="text-white">Cookies de Funcionalidad:</strong> permiten recordar sus preferencias (idioma, región, inicio de sesión) para ofrecerle una experiencia personalizada.</li>
-                  <li><strong className="text-white">Cookies de Publicidad y Segmentación:</strong> rastrean sus hábitos de navegación para mostrarle contenido relevante y medir la efectividad de nuestras campañas publicitarias.</li>
-                  <li><strong className="text-white">Cookies de Redes Sociales:</strong> permiten compartir contenido en plataformas como Facebook, Instagram y LinkedIn, y rastrear la interacción con nuestros perfiles sociales.</li>
+                  <li><strong className="text-white">Preferencia de privacidad:</strong> guardamos en este navegador si aceptaste o rechazaste la medición publicitaria, para respetar tu elección.</li>
+                  <li><strong className="text-white">Medición de Google y Meta:</strong> Google Analytics mide el uso del sitio y el Pixel de Meta ayuda a medir visitas e interacciones con campañas; ambos se activan solo después de que aceptes.</li>
                 </ul>
 
                 <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">3. Cookies de Terceros</h3>
-                <p>En algunas páginas podemos incorporar servicios de terceros (Google Analytics, Facebook Pixel, YouTube, Vimeo, WhatsApp Business API) que pueden establecer sus propias cookies. No tenemos control sobre estas cookies. Le recomendamos revisar las políticas de privacidad de estos terceros para obtener información detallada.</p>
+                <p>Google Analytics y el Pixel de Meta se cargan solo después de que aceptes la medición. Google y Meta pueden tratar identificadores del navegador, información del dispositivo, páginas visitadas e interacciones para medir el uso del sitio y las campañas, conforme a sus propias políticas.</p>
 
                 <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">4. Gestión de Preferencias</h3>
-                <p>Al ingresar al sitio por primera vez, se le presenta un banner de consentimiento donde puede aceptar, rechazar o configurar sus preferencias de cookies. Puede cambiar sus preferencias en cualquier momento desde la configuración de su navegador. A continuación, le indicamos cómo hacerlo en los navegadores más comunes:</p>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li><strong className="text-white">Google Chrome:</strong> Configuración → Privacidad y seguridad → Cookies y otros datos de sitios</li>
-                  <li><strong className="text-white">Mozilla Firefox:</strong> Opciones → Privacidad y seguridad → Cookies y datos del sitio</li>
-                  <li><strong className="text-white">Microsoft Edge:</strong> Configuración → Cookies y permisos de sitio → Cookies</li>
-                  <li><strong className="text-white">Safari:</strong> Preferencias → Privacidad → Cookies</li>
-                </ul>
-
-                <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">5. Base Legal</h3>
-                <p>El uso de cookies se fundamenta en el consentimiento del usuario (Artículo 6.1.a del Reglamento General de Protección de Datos - GDPR) y en la Ley 1581 de 2012 de Colombia. El consentimiento se obtiene mediante el banner de cookies y puede ser retirado en cualquier momento.</p>
+                <p>Al ingresar al sitio puedes aceptar o rechazar la medición de Google Analytics y Meta. La elección queda guardada en este navegador. Puedes cambiarla en cualquier momento con el botón “Privacidad” del sitio; borrar los datos del navegador también elimina la preferencia guardada.</p>
+                <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">5. Autorización y tratamiento</h3>
+                <p>La medición publicitaria se activa solo después de una decisión afirmativa y puede rechazarse o retirarse desde “Privacidad”. El tratamiento de datos personales se informa conforme a la política de datos personales y a la normativa colombiana aplicable, incluida la Ley 1581 de 2012.</p>
 
                 <h3 className="text-white font-semibold text-xs sm:text-sm mt-5">6. Actualizaciones</h3>
                 <p>Podemos actualizar esta política de cookies en cualquier momento. Le notificaremos cualquier cambio publicando la nueva política en esta página. Le recomendamos revisar periódicamente esta política para mantenerse informado.</p>

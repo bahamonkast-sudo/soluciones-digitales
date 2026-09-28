@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
 import Lenis from 'lenis';
@@ -7,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Phone, Mail, Globe, MapPin, Sparkles } from 'lucide-react';
 import TarjetaDigitalPage from '../components/digital-card/TarjetaDigitalPage';
 import { getDistUrl } from '../utils/env';
+import { trackContact } from '../services/trackingEvents';
 
 /* ── Reveal Text ────────────────────────────────────────────── */
 function RevealText({ children, className, delay = 0 }) {
@@ -228,6 +231,7 @@ export default function SolucionesDigitalesPage() {
   }, [showBusinessCard, lenisInst]);
 
   const openWa = useCallback((text) => {
+    trackContact('tarjeta_digital_whatsapp');
     window.open(`https://wa.me/573115893220?text=${encodeURIComponent(text)}`, '_blank');
   }, []);
 
@@ -243,6 +247,7 @@ export default function SolucionesDigitalesPage() {
           100% { transform: scale(1.6); opacity: 0; }
         }
       `}</style>
+            <SEO {...SEO_CONFIG.solucionesDigitales} />
       <Navbar activePage="productos" />
 
       {/* ══════════════════════════════════════════════════════════
@@ -312,7 +317,7 @@ export default function SolucionesDigitalesPage() {
 
             <RevealText delay={0.2}>
               <div className="flex flex-wrap gap-x-6 gap-y-3 mt-9 text-[11px] md:text-xs font-semibold text-neutral-500 uppercase tracking-wider">
-                {['Pago único', 'Sin mensualidades', 'Instalación rápida'].map((t) => (
+                {['Pago anual claro', '2 meses de mantenimiento incluido', 'Diseño a tu medida'].map((t) => (
                   <span key={t} className="inline-flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#f51b1b]" />
                     {t}
@@ -401,7 +406,7 @@ export default function SolucionesDigitalesPage() {
               style={{ animation: 'float 4.5s ease-in-out 1.2s infinite' }}
             >
               <p className="text-[10px] font-black uppercase tracking-wider">$</p>
-              <p className="text-[9px] font-semibold opacity-90">Pago único · 1 vez</p>
+              <p className="text-[9px] font-semibold opacity-90">Plan anual</p>
             </div>
           </div>
         </div>
@@ -441,7 +446,7 @@ export default function SolucionesDigitalesPage() {
               Tres modelos, <span className="text-[#f51b1b]">un solo propósito</span>
             </h2>
             <p className="text-neutral-500 text-sm md:text-base mt-3">
-              Pago único · De por vida · Diseño personalizado
+              Inversión anual · Mantenimiento incluido · Diseño personalizado
             </p>
           </div>
         </RevealText>
@@ -449,14 +454,14 @@ export default function SolucionesDigitalesPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[
             {
-              nombre: 'Básico',
+              nombre: 'Básica',
               precio: '$280.000',
               url: 'tarjeta-digital.html',
               destacado: false,
               nota: 'Tu tarjeta de presentación digital lista en módulos esenciales.'
             },
             {
-              nombre: 'Estándar',
+              nombre: 'Media',
               precio: '$360.000',
               url: 'vcard/index.html',
               destacado: true,
@@ -483,12 +488,28 @@ export default function SolucionesDigitalesPage() {
                     Recomendado
                   </div>
                 )}
-                <h3 className="text-sm font-black tracking-[0.25em] text-neutral-500 uppercase mb-3">{plan.nombre}</h3>
+                <a
+                  href={getDistUrl(plan.url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Abrir demo del modelo ${plan.nombre}`}
+                  className="text-sm font-black tracking-[0.25em] text-neutral-500 uppercase mb-3 hover:text-[#f51b1b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#f51b1b] rounded"
+                >
+                  {plan.nombre}
+                </a>
                 <div className="text-[1.5rem] md:text-[1.75rem] font-black text-black mb-2 tracking-tight leading-none whitespace-nowrap">{plan.precio}</div>
                 <p className="text-[10px] font-bold tracking-[0.12em] text-[#f51b1b] uppercase mb-5">
-                  Pago único · De por vida
+                  Pago anual
                 </p>
                 <p className="text-xs text-neutral-500 leading-relaxed flex-1 mb-6 max-w-full">{plan.nota}</p>
+                  {plan.nombre === 'Premium' && (
+                  <p className="text-xs text-neutral-600 leading-relaxed mb-5 rounded-xl bg-[#f51b1b]/5 border border-[#f51b1b]/15 p-3">
+                    Incluye <strong className="text-[#c11213]">1 mes gratis</strong> de la plataforma de{' '}
+                    <a href="https://soluciones-wa.ai.studio/" target="_blank" rel="noopener noreferrer" className="font-bold text-[#c11213] underline underline-offset-2 hover:text-[#8f0d0e]">
+                      WhatsApp Marketing
+                    </a>{' '}para explorar sus herramientas de difusión y gestión.
+                  </p>
+                )}
                 <a
                   href={getDistUrl(plan.url)}
                   target="_blank"
@@ -508,9 +529,9 @@ export default function SolucionesDigitalesPage() {
         <RevealText delay={0.1}>
           <div className="mt-8 rounded-2xl bg-neutral-50 border border-neutral-200 p-6 text-center">
             <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">
-              <strong className="text-black">Todos los modelos:</strong> pago único de por vida · no incluye hosting ni
-              dominio · <strong className="text-black">mantenimiento gratuito los primeros 2 meses</strong> · diseño
-              100% personalizado.
+              <strong className="text-black">Tu presencia digital, diseñada para destacar:</strong> cada plan se paga
+              anualmente e incluye diseño 100% personalizado y <strong className="text-black">2 meses de
+              mantenimiento sin costo</strong> para acompañar el inicio. Hosting y dominio se contratan por separado.
             </p>
           </div>
         </RevealText>
@@ -647,12 +668,12 @@ export default function SolucionesDigitalesPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 12, scale: 0.9 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-full left-0 mb-3 overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-[0_15px_40px_rgba(0,0,0,0.18)]"
+                className="absolute bottom-full left-0 mb-3 w-[min(21rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-white/10 bg-[#0c1420] p-2 shadow-[0_24px_70px_rgba(0,0,0,0.48)]"
               >
                 {[
-                  { nombre: 'Básico', precio: '$280.000', url: 'tarjeta-digital.html' },
-                  { nombre: 'Estándar', precio: '$360.000', url: 'vcard/index.html' },
-                  { nombre: 'Premium', precio: '$420.000', url: 'multidrink/index.html' }
+                  { nombre: 'Básica', precio: '$280.000', url: 'tarjeta-digital.html', descripcion: 'Identidad, contacto y redes en una tarjeta digital lista para compartir.' },
+                  { nombre: 'Media', precio: '$360.000', url: 'vcard/index.html', descripcion: 'Perfil profesional interactivo con portafolio, servicios y contacto.' },
+                  { nombre: 'Premium', precio: '$420.000', url: 'multidrink/index.html', descripcion: 'Catálogo de 10 productos con pedidos por WhatsApp o PSE.' }
                 ].map((plan) => (
                   <a
                     key={plan.nombre}
@@ -660,20 +681,19 @@ export default function SolucionesDigitalesPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setTimeout(() => setDemoOpen(false), 300)}
-                    className="w-64 flex items-center gap-3 px-4 py-3.5 text-left hover:bg-neutral-50 transition-colors"
+                    className="flex items-center gap-3 rounded-xl px-3 py-3.5 text-left transition-colors hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"
                   >
-                    <span className="w-9 h-9 rounded-lg bg-[#f51b1b] text-white flex items-center justify-center shrink-0 text-xs font-black">
-                      {plan.nombre.charAt(0)}
+                    <span className="w-10 h-10 rounded-xl border border-cyan-300/20 bg-cyan-300/10 text-cyan-200 flex items-center justify-center shrink-0 text-xs font-black">
+                      0{['Básica', 'Media', 'Premium'].indexOf(plan.nombre) + 1}
                     </span>
                     <span className="flex-1 min-w-0">
-                      <span className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-black truncate">{plan.nombre}</span>
-                        <span className="ml-auto text-[11px] font-bold text-[#f51b1b] whitespace-nowrap">{plan.precio}</span>
+                      <span className="flex items-center justify-between gap-3">
+                        <span className="text-sm font-bold text-white truncate">{plan.nombre}</span>
+                        <span className="text-xs font-bold text-cyan-200 whitespace-nowrap">{plan.precio}</span>
                       </span>
-                      <span className="block text-[11px] text-neutral-500 truncate">
-                        {plan.url === 'multidrink/index.html' ? '10 productos · WhatsApp o PSE' : 'Pago único · de por vida'}
-                      </span>
+                      <span className="mt-1 block text-[11px] leading-relaxed text-slate-400">{plan.descripcion}</span>
                     </span>
+                    <span aria-hidden="true" className="text-slate-500">↗</span>
                   </a>
                 ))}
               </motion.div>

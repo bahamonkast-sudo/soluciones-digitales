@@ -6,6 +6,7 @@ import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
 import SEO from '../components/SEO';
 import { SEO_CONFIG } from '../config/seoConfig';
+import { SCHEMAS } from '../config/schemas';
 import { PRECIOS } from '../data/precios';
 
 function useCountUp(end, duration = 2) {
@@ -208,7 +209,7 @@ export default function ChatbotPage() {
 
   return (
     <main ref={heroRef} className="relative w-full min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden selection:bg-yellow-400/30 selection:text-black">
-      <SEO {...SEO_CONFIG.chatbot} />
+      <SEO {...SEO_CONFIG.chatbot} structuredData={SCHEMAS.chatbot} />
       <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent z-50 origin-left" style={{ scaleX: scrollYProgress }} />
       <GridBg />
       <Navbar activePage="productos" />

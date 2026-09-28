@@ -4,7 +4,9 @@ import {
   ShieldCheck, ShieldAlert, ArrowRight, UserMinus, Clock, 
   TrendingDown, CheckCircle2, Link, Leaf, ArrowUpRight, MessageCircle, TrendingUp
 } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
 import { getDistUrl } from '../utils/env';
@@ -57,6 +59,7 @@ export default function ProductosPage() {
 
   return (
     <main className="relative w-full min-h-screen text-[#D7E2EA] font-sans" style={{ backgroundColor: '#0B0B0F' }}>
+            <SEO {...SEO_CONFIG.calentador} />
       <Navbar activePage="productos" />
 
       {/* 1. EL GANCHO DE SEGURIDAD (HERO) */}

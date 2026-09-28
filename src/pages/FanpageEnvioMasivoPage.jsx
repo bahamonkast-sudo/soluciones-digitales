@@ -8,7 +8,9 @@ import {
   Radio, Download, Settings, FileSpreadsheet, MapPin,
   Filter, RefreshCw
 } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
 import { PRECIOS } from '../data/precios';
@@ -524,6 +526,7 @@ export default function FanpageEnvioMasivoPage() {
 
   return (
     <div className="h-screen flex flex-col bg-[#0B0B0F] text-[#D7E2EA] selection:bg-green-500/30 overflow-hidden">
+            <SEO {...SEO_CONFIG.fanpage} />
       <Navbar activePage="productos" />
 
       <main className="flex-1 flex overflow-hidden pt-14 md:pt-16 relative">

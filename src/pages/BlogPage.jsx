@@ -67,7 +67,7 @@ function PostCard({ post, index, onRead }) {
   return (
     <FadeIn delay={index * 0.05} className="h-full">
       <a
-        href={`#/articulo/${post.slug}`}
+        href={`/blog.html?articulo=${encodeURIComponent(post.slug)}`}
         onClick={(e) => { e.preventDefault(); onRead(post.slug); }}
         className="group block h-full cursor-pointer"
       >
@@ -225,32 +225,36 @@ function ArticleReader({ post, onBack }) {
 export default function BlogPage() {
   const [posts] = useState(() => getAllBlogPosts());
   const [activeSlug, setActiveSlug] = useState(() => {
-    const match = window.location.hash.match(/^#\/articulo\/([a-zA-Z0-9-]+)/);
-    return match ? match[1] : null;
+    return new URLSearchParams(window.location.search).get('articulo');
   });
 
   const openArticle = useCallback((slug) => {
-    window.location.hash = `/articulo/${slug}`;
+    const url = new URL(window.location.href);
+    url.searchParams.set('articulo', slug);
+    window.history.pushState({ article: slug }, '', url);
     setActiveSlug(slug);
   }, []);
 
   const closeArticle = useCallback(() => {
-    history.replaceState(null, '', window.location.pathname + window.location.search);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('articulo');
+    window.history.pushState({}, '', url);
     setActiveSlug(null);
   }, []);
 
   useEffect(() => {
-    const handleHash = () => {
-      const match = window.location.hash.match(/^#\/articulo\/([a-zA-Z0-9-]+)/);
-      const slug = match ? match[1] : null;
+    const handleHistory = () => {
+      const slug = new URLSearchParams(window.location.search).get('articulo');
       const post = slug ? getBlogPostBySlug(slug) : null;
       setActiveSlug(post ? slug : null);
-      if (!post) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
+      if (slug && !post) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('articulo');
+        window.history.replaceState({}, '', url);
       }
     };
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    window.addEventListener('popstate', handleHistory);
+    return () => window.removeEventListener('popstate', handleHistory);
   }, []);
 
   const activePost = getBlogPostBySlug(activeSlug);
@@ -262,14 +266,14 @@ export default function BlogPage() {
           <SEO
             title={`${activePost.title?.rendered || 'Artículo'} | Blog`}
             description={stripHtml(activePost.excerpt?.rendered || '')}
-            path={`/blog/${activePost.slug}`}
+            path={`/blog.html?articulo=${encodeURIComponent(activePost.slug)}`}
           />
           <Navbar activePage="blog" />
           <ArticleReader post={activePost} onBack={closeArticle} />
         </>
       ) : (
         <>
-          <SEO title="Blog y Novedades" description="Últimas noticias y artículos sobre automatización, IA y marketing B2B." path="/blog" />
+          <SEO title="Blog y Novedades" description="Últimas noticias y artículos sobre automatización, IA y marketing B2B." path="/blog.html" />
           <Navbar activePage="blog" />
 
           <section className="relative z-20 px-5 sm:px-8 md:px-10 pt-28 md:pt-36 pb-24 max-w-6xl mx-auto">

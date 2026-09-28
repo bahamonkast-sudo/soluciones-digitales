@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
+import AccessPassGate from '../components/AccessPassGate';
+import { getPassSessionKey } from '../services/accessPassService';
+import { trackContact } from '../services/trackingEvents';
 import Lenis from 'lenis';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 
@@ -44,6 +49,7 @@ function RevealText({ children, className, delay = 0 }) {
 }
 
 export default function ProbadorVirtualPage() {
+  const [hasDemoPass, setHasDemoPass] = useState(() => sessionStorage.getItem(getPassSessionKey('probador')) === 'authorized');
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -63,6 +69,7 @@ export default function ProbadorVirtualPage() {
   return (
     <div className="bg-black font-sans min-h-screen text-white">
       <ScrollProgressBar />
+            <SEO {...SEO_CONFIG.probador} />
       <Navbar activePage="productos" />
 
       {/* Hero Section */}
@@ -104,18 +111,22 @@ export default function ProbadorVirtualPage() {
             </p>
           </div>
           
-          <div className="w-full bg-[#0b0b0b] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl relative min-h-[800px]">
-            {/* The actual HF Space */}
-            <iframe 
-              src="https://yisol-idm-vton.hf.space"
-              frameBorder="0"
-              width="100%"
-              height="100%"
-              className="absolute inset-0 w-full h-full"
-              title="Virtual Try On Demo"
-              allow="camera; microphone"
-            />
-          </div>
+          {hasDemoPass ? (
+            <div className="w-full bg-[#0b0b0b] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl relative min-h-[800px]">
+              {/* El proveedor aloja el demo fuera de este sitio; el pase protege el acceso desde esta página. */}
+              <iframe
+                src="https://yisol-idm-vton.hf.space"
+                frameBorder="0"
+                width="100%"
+                height="100%"
+                className="absolute inset-0 w-full h-full"
+                title="Virtual Try On Demo"
+                allow="camera; microphone"
+              />
+            </div>
+          ) : (
+            <AccessPassGate service="probador" onAuthorized={() => setHasDemoPass(true)} />
+          )}
         </div>
       </section>
 
@@ -140,7 +151,7 @@ export default function ProbadorVirtualPage() {
             <SlideButton
               label="Consultar precio de instalación"
               hoverLabel="Escríbenos por WhatsApp"
-              onClick={() => window.open(`https://wa.me/573115893220?text=${encodeURIComponent('Hola, me interesa instalar el módulo de Probador Virtual IA en mi sitio.')}`, '_blank', 'noopener')}
+              onClick={() => { trackContact('probador_virtual_whatsapp'); window.open(`https://wa.me/573115893220?text=${encodeURIComponent('Hola, me interesa instalar el módulo de Probador Virtual IA en mi sitio.')}`, '_blank', 'noopener'); }}
               width={340}
             />
           </div>

@@ -14,6 +14,9 @@ import SectionPricing from './SectionPricing';
 import SectionIndispensable from './SectionIndispensable';
 import SectionFinalCTA from './SectionFinalCTA';
 import SectionFooter from './SectionFooter';
+import SEO from '../SEO';
+import { SEO_CONFIG } from '../../config/seoConfig';
+import { SCHEMAS } from '../../config/schemas';
 
 export default function TarjetaDigitalPage({ onClose, isModal = false }) {
   const [activeTab, setActiveTab] = useState('agencia');
@@ -65,18 +68,20 @@ export default function TarjetaDigitalPage({ onClose, isModal = false }) {
 
   return (
     <div className="td-root" style={{ background: '#0C0C0C', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+      {!isModal && <SEO {...SEO_CONFIG.tarjeta} structuredData={SCHEMAS.tarjeta} />}
       <style>{`
-        body {
-          background: #0C0C0C !important;
-          font-family: 'Raleway', sans-serif !important;
-        }
-        .td-root, .td-root div, .td-root span, .td-root p, .td-root h1, .td-root h2, .td-root h3, .td-root h4 {
-          font-family: 'Raleway', sans-serif !important;
-        }
-        .td-root h1, .td-root h2, .td-root h3, .td-root h4 {
-          font-family: 'Cinzel', serif !important;
-          font-weight: 700 !important;
-        }
+        body { background: #07111e !important; font-family: 'Raleway', sans-serif !important; }
+        .td-root, .td-root div, .td-root span, .td-root p, .td-root h1, .td-root h2, .td-root h3, .td-root h4 { font-family: 'Raleway', sans-serif !important; }
+        .td-root h1, .td-root h2, .td-root h3, .td-root h4 { font-family: 'Raleway', sans-serif !important; font-weight: 750 !important; letter-spacing: -0.035em; }
+        .td-intro { display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center; padding:44px; min-height:410px; border-radius:30px; border:1px solid rgba(126,232,255,.2); background:linear-gradient(125deg,#101d2e 0%,#101724 55%,#101c28 100%); box-shadow:0 32px 80px rgba(0,0,0,.35); }
+        .td-intro-media { position:relative; min-height:290px; border-radius:22px; overflow:hidden; background:#07111e; border:1px solid rgba(126,232,255,.16); }
+        .td-intro-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:contrast(1.05) saturate(.9); }
+        .td-intro-media::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(7,17,30,.06),rgba(7,17,30,.12) 55%,rgba(7,17,30,.5)); pointer-events:none; }
+        .td-intro-kicker { display:inline-flex; align-items:center; gap:9px; padding:8px 12px; border:1px solid rgba(126,232,255,.18); background:rgba(126,232,255,.06); color:#9ceeff; border-radius:999px; font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+        .td-intro-copy { color:#bdc9d8; font-size:15px; line-height:1.8; max-width:510px; margin:18px 0 24px; }
+        .td-intro-action { min-height:48px; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:0 22px; border-radius:14px; background:#7ee8ff; color:#07111e; text-decoration:none; font-size:12px; font-weight:800; letter-spacing:.04em; box-shadow:0 10px 28px rgba(72,207,237,.18); transition:transform .2s,background .2s; }
+        .td-intro-action:hover { transform:translateY(-2px); background:#b4f3ff; }
+        @media(max-width:700px) { .td-intro { grid-template-columns:1fr; gap:22px; padding:24px; min-height:0; border-radius:23px; } .td-intro-media { min-height:215px; order:2; } .td-intro-copy { font-size:14px; } }
         .td-tabs-container::-webkit-scrollbar {
           display: none;
         }
@@ -112,35 +117,27 @@ export default function TarjetaDigitalPage({ onClose, isModal = false }) {
       <div style={bgImageStyle} />
       <div style={bgOverlayStyle} />
 
-      {/* HERO ROBOT ANIMADO + VIDEO EMPRESA - mismo que vCard/home */}
-      <div style={{ position: 'relative', zIndex: 1, padding: '18px 16px 0', maxWidth: 854, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
-        <div style={{
-          position: 'relative', width: '100%', height: 'clamp(360px,52vh,560px)', borderRadius: 22, overflow: 'hidden',
-          border: '1px solid rgba(193,150,60,0.22)', boxShadow: '0 18px 40px rgba(0,0,0,0.55)', background: '#000'
-        }}>
-          <video autoPlay muted loop playsInline preload="metadata" poster={getDistUrl('365/SOLUCIONES.png')} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.08) brightness(0.85)' }}>
-            <source src={getDistUrl('365/el_robot_esta_teclenado_sobre.mp4')} type="video/mp4" />
-            <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/v1787332603/el_robot_esta_teclenado_sobre.mp4" type="video/mp4" />
-          </video>
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 42%, rgba(12,12,12,0) 14%, rgba(12,12,12,0.32) 58%, rgba(12,12,12,0.96) 92%), linear-gradient(to top, #0C0C0C 0%, rgba(12,12,12,0.08) 55%, transparent 100%)' }} />
-          <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', textAlign: 'center', padding: '28px 18px 30px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 14px', borderRadius: 999, background: 'rgba(193,150,60,0.10)', border: '1px solid rgba(193,150,60,0.22)', color: '#c1963c', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12, backdropFilter: 'blur(8px)', fontFamily: FONTS.raleway }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4CAF50', boxShadow: '0 0 8px #4CAF50', display: 'inline-block' }} /> Cero plantillas · 100% a medida
-            </div>
-            <h1 style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black',Impact,sans-serif", fontWeight: 400, lineHeight: 0.92, letterSpacing: '0.04em', color: '#fff', textShadow: '0 6px 24px rgba(0,0,0,0.55)', fontSize: 'clamp(1.9rem,5.8vw,3.4rem)', margin: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, textTransform: 'uppercase' }}>
-              <span>SOLUCIONES</span>
-              <span style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 10, whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
-                <span>DIGITALES</span>
-                <span style={{ fontFamily: "'JetBrains Mono','Space Mono',monospace", fontSize: '0.38em', lineHeight: 1, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'lowercase', color: '#7ee8ff', background: 'linear-gradient(180deg, rgba(126,232,255,0.14), rgba(126,232,255,0.04))', border: '1px solid rgba(126,232,255,0.32)', padding: '5px 9px 4px', borderRadius: 8, boxShadow: '0 0 0 1px rgba(126,232,255,0.08) inset, 0 4px 14px rgba(41,98,255,0.18), 0 0 10px rgba(126,232,255,0.22)', textShadow: '0 0 8px rgba(126,232,255,0.75), 0 0 14px rgba(41,98,255,0.45)', position: 'relative', top: -1 }}>ai.studio</span>
-              </span>
+      {/* HERO: presentación editorial, separada del contenido de la tarjeta */}
+      <header style={{ position: 'relative', zIndex: 1, padding: '28px 20px 8px', maxWidth: 1180, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+        <div className="td-intro">
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <span className="td-intro-kicker"><span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80' }} /> Cero plantillas · 100% a medida</span>
+            <h1 style={{ margin: '22px 0 0', color: '#fff', fontSize: 'clamp(2.3rem,5vw,4.5rem)', lineHeight: .98, maxWidth: 560 }}>
+              Soluciones digitales<span style={{ color: '#7ee8ff' }}>.</span>
+              <span style={{ display: 'block', marginTop: 7, fontSize: '.44em', lineHeight: 1.2, color: '#8fa4bc', letterSpacing: '.13em', textTransform: 'uppercase' }}>ai.studio</span>
             </h1>
-            <p style={{ maxWidth: 560, color: 'rgba(255,255,255,0.78)', fontSize: 13, lineHeight: 1.65, marginTop: 12, fontWeight: 300, fontFamily: FONTS.raleway }}>
-              <strong style={{ color: '#fff', fontWeight: 600 }}>Construimos ecosistemas de conversión.</strong> Infraestructura web + automatización WhatsApp + IA conversacional para escalar sin fricción.
-            </p>
-            <a href="https://wa.me/573115893220?text=Hola%20Guillermo%2C%20vi%20la%20tarjeta%20digital%20y%20quiero%20activarla" target="_blank" rel="noopener" style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 18px', borderRadius: 999, background: '#c1963c', color: '#0C0C0C', fontWeight: 700, fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', boxShadow: '0 8px 22px rgba(193,150,60,0.28)', fontFamily: FONTS.raleway }}>Activar mi tarjeta →</a>
+            <p className="td-intro-copy"><strong style={{ color: '#fff' }}>Construimos ecosistemas de conversión.</strong> Infraestructura web + automatización WhatsApp + IA conversacional para escalar sin fricción.</p>
+            <a href="https://wa.me/573115893220?text=Hola%20Guillermo%2C%20vi%20la%20tarjeta%20digital%20y%20quiero%20activarla" target="_blank" rel="noopener noreferrer" className="td-intro-action">Activar mi tarjeta <span aria-hidden="true">↗</span></a>
+          </div>
+          <div className="td-intro-media" aria-label="Presentación audiovisual de Soluciones Digitales">
+            <video autoPlay muted loop playsInline preload="metadata" poster={getDistUrl('365/SOLUCIONES.png')}>
+              <source src={getDistUrl('365/el_robot_esta_teclenado_sobre.mp4')} type="video/mp4" />
+              <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/v1787332603/el_robot_esta_teclenado_sobre.mp4" type="video/mp4" />
+            </video>
+            <span style={{ position: 'absolute', zIndex: 1, left: 16, bottom: 14, color: '#d4e2f0', fontSize: 10, letterSpacing: '.14em', textTransform: 'uppercase' }}>Diseño · Tecnología · Conversión</span>
           </div>
         </div>
-      </div>
+      </header>
 
       <Section01Anclaje />
       

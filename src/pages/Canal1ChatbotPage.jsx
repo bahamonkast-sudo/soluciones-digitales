@@ -6,7 +6,9 @@ import {
   Check, X, Phone, Calendar, MessageSquare, Wallet, BarChart3,
   Share2, GitBranch, UserPlus, Bell, Layers, Globe, Target, Smartphone
 } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import SlideButton from '../components/SlideButton';
 import { PRECIOS } from '../data/precios';
@@ -410,6 +412,7 @@ export default function Canal1ChatbotPage() {
       <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#25D366]/[0.04] blur-[200px] rounded-full pointer-events-none z-0" />
       <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#6366f1]/[0.03] blur-[200px] rounded-full pointer-events-none z-0" />
 
+            <SEO {...SEO_CONFIG.canal1} />
       <Navbar activePage="productos" />
 
       {/* ══════════════════════════════════════════════════════════ */}

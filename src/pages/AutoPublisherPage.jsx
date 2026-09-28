@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 
 const WA_NUMBER = '573115893220';
@@ -26,6 +28,7 @@ export default function AutoPublisherPage() {
 
   return (
     <div className="min-h-screen bg-[#F0F2F5] text-[#050505] font-sans antialiased overflow-x-hidden">
+            <SEO {...SEO_CONFIG.autopublisher} />
       <Navbar activePage="productos" />
 
       {/* Espaciado para navbar fijo */}

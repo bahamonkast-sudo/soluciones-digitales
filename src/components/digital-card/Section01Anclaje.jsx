@@ -1,13 +1,19 @@
-import { glowCardStyle, COLORS, FONTS, goldGradientText } from './shared';
+import { useEffect, useState } from 'react';
+import { glowCardStyle, COLORS, FONTS } from './shared';
 import { getDistUrl } from '../../utils/env';
 
 const styles = {
   wrap: {
     ...glowCardStyle(),
-    padding: '40px 48px',
+    background: 'linear-gradient(135deg, #ffffff 0%, #f4faff 62%, #eaf7fb 100%)',
+    border: '1px solid rgba(34,148,181,0.18)',
+    borderRadius: 26,
+    boxShadow: '0 24px 64px rgba(5,31,49,0.16)',
+    animation: 'dgFadeUp 0.7s ease both',
+    padding: '34px 40px',
     display: 'flex',
     alignItems: 'center',
-    gap: '40px',
+    gap: '32px',
   },
   wrapBefore: {
     position: 'absolute',
@@ -15,7 +21,7 @@ const styles = {
     right: -60,
     width: 320,
     height: 320,
-    background: 'radial-gradient(circle, rgba(193,150,60,0.07) 0%, transparent 70%)',
+    background: 'radial-gradient(circle, rgba(34,211,238,0.12) 0%, transparent 70%)',
     pointerEvents: 'none',
   },
   wrapAfter: {
@@ -24,7 +30,7 @@ const styles = {
     left: -40,
     width: 220,
     height: 220,
-    background: 'radial-gradient(circle, rgba(193,150,60,0.04) 0%, transparent 70%)',
+    background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)',
     pointerEvents: 'none',
   },
   status: {
@@ -55,11 +61,11 @@ const styles = {
   },
   logoBox: {
     flexShrink: 0,
-    width: 240,
-    height: 240,
-    borderRadius: 22,
-    background: COLORS.card,
-    boxShadow: '6px 6px 16px #0d0d10, -4px -4px 12px #2a2a32, inset 0 0 0 1px rgba(193,150,60,0.2)',
+    width: 220,
+    height: 190,
+    borderRadius: 24,
+    background: '#061524',
+    boxShadow: '0 16px 34px rgba(5,31,49,0.2), inset 0 0 0 1px rgba(34,211,238,0.25)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -72,7 +78,7 @@ const styles = {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    transform: 'scale(6.96)',
+    transform: 'scale(1.18)',
   },
   info: {
     flex: 1,
@@ -86,7 +92,7 @@ const styles = {
     fontFamily: FONTS.cinzel,
     fontSize: 'clamp(20px, 3.2vw, 32px)',
     fontWeight: 700,
-    color: COLORS.goldSoft,
+    color: '#102a43',
     letterSpacing: 1,
     lineHeight: 1.1,
     animation: 'dgFadeUp 0.6s ease 0.2s both',
@@ -95,7 +101,7 @@ const styles = {
     fontFamily: FONTS.raleway,
     fontSize: 'clamp(13px, 1.8vw, 17px)',
     fontWeight: 600,
-    ...goldGradientText(),
+    color: '#087e9d',
     letterSpacing: 2,
     textTransform: 'uppercase',
     marginTop: 4,
@@ -103,7 +109,7 @@ const styles = {
   role: {
     fontSize: 'clamp(11px, 1.4vw, 13px)',
     fontWeight: 400,
-    color: '#9a9184',
+    color: '#64748b',
     letterSpacing: 1.5,
     textTransform: 'uppercase',
     animation: 'dgFadeUp 0.6s ease 0.35s both',
@@ -111,7 +117,7 @@ const styles = {
   divider: {
     width: 44,
     height: 1,
-    background: 'linear-gradient(90deg, transparent, #c1963c, transparent)',
+    background: 'linear-gradient(90deg, transparent, #7ee8ff, transparent)',
     margin: '10px 0',
     animation: 'dgFadeUp 0.6s ease 0.4s both',
   },
@@ -119,13 +125,24 @@ const styles = {
     fontSize: 'clamp(12px, 1.5vw, 14px)',
     fontWeight: 300,
     fontStyle: 'italic',
-    color: COLORS.textMuted,
+    color: '#475569',
     lineHeight: 1.7,
     animation: 'dgFadeUp 0.6s ease 0.45s both',
   },
 };
 
 export default function Section01Anclaje() {
+  const [isVideoExpanded, setIsVideoExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!isVideoExpanded) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setIsVideoExpanded(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isVideoExpanded]);
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '36px 16px', boxSizing: 'border-box' }}>
       <style>{`
@@ -140,6 +157,8 @@ export default function Section01Anclaje() {
           margin-left: 0;
           margin-right: auto;
         }
+        .anclaje-video-frame { width: 220px; height: 190px; }
+        .anclaje-expand:hover { background: rgba(255,255,255,.98) !important; transform: scale(1.06); }
         @media (max-width: 600px) {
           .anclaje-wrap {
             flex-direction: column !important;
@@ -152,6 +171,7 @@ export default function Section01Anclaje() {
           .anclaje-divider {
             margin: 10px auto !important;
           }
+          .anclaje-video-frame { width: min(100%, 300px) !important; height: 190px !important; }
           .anclaje-status {
             position: relative !important;
             top: 0 !important;
@@ -161,7 +181,7 @@ export default function Section01Anclaje() {
           }
         }
       `}</style>
-      <div style={{ width: '100%', maxWidth: 854 }}>
+      <div style={{ width: '100%', maxWidth: 1000 }}>
         <div style={styles.wrap} className="anclaje-wrap">
           <div style={{ ...styles.wrapBefore }} />
           <div style={{ ...styles.wrapAfter }} />
@@ -169,13 +189,37 @@ export default function Section01Anclaje() {
             <span style={styles.dot} />
             Online
           </div>
-          <div style={styles.logoBox}>
-            <img
-              style={styles.logoImg}
-              src={getDistUrl('365/Diseno-sin-titulo-24.png')}
-              alt="Soluciones Digitales Logo"
-            />
-          </div>
+          <figure style={{ position: 'relative', zIndex: 1, flexShrink: 0, margin: 0 }}>
+            <div style={styles.logoBox} className="anclaje-video-frame">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={getDistUrl('365/Diseno-sin-titulo-24.png')}
+                aria-label="Video institucional de Soluciones Digitales"
+                style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
+              >
+                <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/q_auto/f_auto/Escena_inicial_-_2026-08-03_202608021911.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <figcaption style={{ maxWidth: 220, marginTop: 9, color: '#64748b', fontFamily: FONTS.raleway, fontSize: 9, fontWeight: 700, lineHeight: 1.45, letterSpacing: 1, textAlign: 'center', textTransform: 'uppercase' }}>
+              Video institucional · Infraestructura a medida · 0 plantillas
+            </figcaption>
+            <button
+              type="button"
+              className="anclaje-expand"
+              onClick={() => setIsVideoExpanded(true)}
+              aria-label="Ampliar video institucional"
+              style={{ margin: '9px auto 0', padding: '8px 13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, borderRadius: 999, border: '1px solid rgba(15,35,55,.12)', background: '#fff', color: '#102a43', cursor: 'pointer', boxShadow: '0 4px 14px rgba(5,31,49,.1)', transition: 'transform .2s, background .2s', fontFamily: FONTS.raleway, fontSize: 10, fontWeight: 700 }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7" />
+              </svg>
+              Ampliar video
+            </button>
+          </figure>
           <div style={styles.info} className="anclaje-info">
             <div style={styles.company}>Soluciones Digitales</div>
             <div style={styles.name}>Guillermo Castellanos</div>
@@ -187,29 +231,33 @@ export default function Section01Anclaje() {
           </div>
         </div>
 
-        {/* Video institucional - inicio */}
-        <div style={{ marginTop: 22, ...glowCardStyle(), padding: 0, overflow: 'hidden', borderRadius: 18 }} className="anclaje-video-wrap">
-          <div style={{ position: 'relative', width: '100%', background: '#0a0a0f' }}>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls
-              preload="metadata"
-              style={{ width: '100%', height: 'auto', display: 'block', maxHeight: 420, objectFit: 'cover' }}
-              poster={getDistUrl('365/SOLUCIONES.png')}
-            >
-              <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/q_auto/f_auto/Escena_inicial_-_2026-08-03_202608021911.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div style={{ padding: '12px 16px', textAlign: 'center', borderTop: '1px solid rgba(193,150,60,0.12)' }}>
-            <span style={{ fontFamily: FONTS.raleway, fontSize: 10, letterSpacing: 2, color: '#8a8378', fontWeight: 600, textTransform: 'uppercase' }}>
-              Video institucional — Infraestructura a medida · 0 plantillas
-            </span>
-          </div>
-        </div>
       </div>
+      {isVideoExpanded && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video institucional ampliado"
+          onClick={() => setIsVideoExpanded(false)}
+          style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'grid', placeItems: 'center', padding: 20, background: 'rgba(3,10,19,.88)', backdropFilter: 'blur(10px)' }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsVideoExpanded(false)}
+            aria-label="Cerrar video ampliado"
+            style={{ position: 'absolute', top: 20, right: 20, width: 46, height: 46, borderRadius: 14, border: '1px solid rgba(255,255,255,.2)', background: 'rgba(255,255,255,.1)', color: '#fff', fontSize: 28, cursor: 'pointer' }}
+          >×</button>
+          <video
+            controls
+            autoPlay
+            playsInline
+            preload="metadata"
+            onClick={(event) => event.stopPropagation()}
+            style={{ width: 'min(1100px, 94vw)', maxHeight: '82vh', borderRadius: 20, background: '#000', boxShadow: '0 28px 90px rgba(0,0,0,.5)' }}
+          >
+            <source src="https://res.cloudinary.com/b1ozfqjn/video/upload/q_auto/f_auto/Escena_inicial_-_2026-08-03_202608021911.mp4" type="video/mp4" />
+          </video>
+        </div>
+      )}
     </div>
   );
 }

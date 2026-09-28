@@ -1,5 +1,28 @@
 export const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-export const GROQ_MODEL = 'groq/compound-mini';
+// Groq retiró groq/compound-mini el 21 de septiembre de 2026.
+// GPT-OSS 20B es un modelo de producción disponible y de menor costo.
+export const GROQ_MODEL = 'openai/gpt-oss-20b';
+
+async function getGroqError(response) {
+  let details = {};
+  try {
+    details = await response.json();
+  } catch {
+    // La respuesta puede no incluir JSON.
+  }
+  const code = details.error?.code;
+
+  if (response.status === 401 || response.status === 403) {
+    return 'Groq no aceptó la API Key. Revísala e intenta de nuevo.';
+  }
+  if (response.status === 429) {
+    return 'Groq alcanzó temporalmente su límite de uso. Espera un momento e inténtalo de nuevo.';
+  }
+  if (code === 'model_not_found') {
+    return 'El modelo de IA ya no está disponible para esta API Key. Informa al administrador para actualizar la configuración.';
+  }
+  return 'No fue posible generar el diagnóstico con Groq. Inténtalo de nuevo en unos minutos.';
+}
 
 /**
  * Realiza una petición completa (no streaming) a Groq.
@@ -22,13 +45,13 @@ export async function fetchGroqCompletion(messages, apiKey) {
       model: GROQ_MODEL,
       messages: messages,
       temperature: 0.75,
-      max_tokens: 8192
+      // Hay espacio para guías extensas cuando el caso necesita profundidad.
+      max_tokens: 16384
     })
   });
 
   if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`Error en Groq API: ${response.status} - ${errText}`);
+    throw new Error(await getGroqError(response));
   }
 
   const data = await response.json();
@@ -62,7 +85,7 @@ export async function fetchGroqStreaming(messages, apiKey, onChunk) {
     })
   });
 
-  if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+  if (!response.ok) throw new Error(await getGroqError(response));
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder('utf-8');

@@ -7,148 +7,128 @@
   <!-- Homepage -->
   <url>
     <loc>https://soluciones-digitales.ai.studio/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>1</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <!-- Institucional -->
   <url>
-    <loc>https://soluciones-digitales.ai.studio/quienes-somos</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/quienes-somos.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/ecosistema</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/ecosistema.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/blog</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/blog.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <!-- Producto Principal -->
   <url>
-    <loc>https://soluciones-digitales.ai.studio/chatbot</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/chatbot.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.95</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/guardian-difusion</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/auditor-estrategico.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.95</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/extractor</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/auditor-sitio-web.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.95</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/auditor-estrategico</loc>
-    <lastmod>2026-08-21</lastmod>
-    <priority>0.95</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://soluciones-digitales.ai.studio/auditor-sitio-web</loc>
-    <lastmod>2026-08-21</lastmod>
-    <priority>0.95</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://soluciones-digitales.ai.studio/tarjeta-digital</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/tarjeta-digital.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/sitios-web</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/sitios-web.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <!-- Producto Secundario -->
   <url>
-    <loc>https://soluciones-digitales.ai.studio/canal1-chatbot</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/canal1-chatbot.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/calentador-cuentas</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/fanpage-envio-masivo.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/fanpage-envio-masivo</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/autopublisher.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/probador-virtual</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/probador-virtual.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.75</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://soluciones-digitales.ai.studio/solucionesdigitales.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
 
   <!-- E-commerce -->
   <url>
-    <loc>https://soluciones-digitales.ai.studio/tienda</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/tienda.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.85</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/producto</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/producto.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <!-- Tutorial -->
   <url>
-    <loc>https://soluciones-digitales.ai.studio/tutorial-botweb</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/tutorial-botweb.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://soluciones-digitales.ai.studio/tutorial-guardian-difusion</loc>
-    <lastmod>2026-08-21</lastmod>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://soluciones-digitales.ai.studio/tutorial-ia</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/tutorial-ia.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
 
   <!-- Legal -->
   <url>
-    <loc>https://soluciones-digitales.ai.studio/politica-privacidad</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://soluciones-digitales.ai.studio/politica-privacidad.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.3</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-
-  <!-- Admin -->
-  <url>
-    <loc>https://soluciones-digitales.ai.studio/admin-auditor</loc>
-    <lastmod>2026-08-21</lastmod>
-    <priority>0.1</priority>
     <changefreq>yearly</changefreq>
   </url>
 </urlset>

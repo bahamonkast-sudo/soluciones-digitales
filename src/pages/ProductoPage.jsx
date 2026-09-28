@@ -3,7 +3,9 @@ import { ShoppingCart, Star, ShieldCheck, Truck, Check, ChevronRight, CreditCard
 import { motion, AnimatePresence } from 'framer-motion';
 import { CATALOGO } from '../data/catalogo';
 import SlideButton from '../components/SlideButton';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import SiteFooter from '../components/SiteFooter';
 import { getPageUrl } from '../utils/env';
 
@@ -21,6 +23,7 @@ export default function ProductoPage() {
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-white font-sans pb-20">
       
+            <SEO {...SEO_CONFIG.producto} />
       <Navbar activePage="tienda" />
       
       {/* HEADER TIPO E-COMMERCE */}

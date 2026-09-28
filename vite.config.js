@@ -61,6 +61,8 @@ export default defineConfig(({ command }) => ({
     cacheBustingPlugin()
   ],
   server: {
+    port: 5173,
+    strictPort: true, // ADVERTENCIA: no cambiar de puerto silenciosamente — si 5173 está ocupado por vcard-studio-builder, falla y avisa (ver scripts/check-port-advertencia.cjs)
     proxy: {
       '/api': {
         target: 'http://localhost:3006',
@@ -140,6 +142,7 @@ export default defineConfig(({ command }) => ({
         'auditor-estrategico': 'auditor-estrategico.html',
         'auditor-sitio-web': 'auditor-sitio-web.html',
         'admin-auditor': 'admin-auditor.html',
+        'admin-pases': 'admin-pases.html',
         'politica-privacidad': 'politica-privacidad.html'
       },
       output: {

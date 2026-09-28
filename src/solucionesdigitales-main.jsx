@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import SolucionesDigitalesPage from './pages/SolucionesDigitalesPage.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <HelmetProvider><StrictMode>
     <SolucionesDigitalesPage />
-  </StrictMode>,
+  </StrictMode></HelmetProvider>,
 )

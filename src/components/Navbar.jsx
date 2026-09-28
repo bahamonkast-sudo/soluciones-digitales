@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, MessageCircle, Globe, Zap, Database, Phone, Target, X, Users } from 'lucide-react';
+import { ChevronDown, MessageCircle, Globe, Zap, Phone, Target, X, Users } from 'lucide-react';
 import { getDistUrl, getPageUrl, getFrontPageUrl, getTelegramChatUrl } from '../utils/env';
 
 const TELEGRAM_URL = getTelegramChatUrl();
 
   const navCategories = [
     { name: 'Sitios Web', icon: Globe, sub: ['Vitrina de Conversión', 'Ecosistema de Autoridad', 'Hub de Negocios', 'Tarjeta Profesional de Negocios'] },
-    { name: 'Inteligencia Artificial', icon: MessageCircle, sub: ['Probador Virtual IA', 'Piloto Pro - Agente IA Autónomo', 'Chatbot Multicanal Inteligente', 'Mini Apps en Telegram'] },
-    { name: 'WhatsApp Automation', icon: Zap, sub: ['Plataforma de Envío Masivo', 'Calentador Inteligente de Cuentas'] },
-    { name: 'Minería en WhatsApp', icon: Database, sub: ['Extractor de datos de WhatsApp'] },
+    { name: 'Inteligencia Artificial', icon: MessageCircle, sub: ['Probador Virtual IA', 'Chatbot Multicanal Inteligente (pronto)', 'Mini Apps en Telegram'] },
+    { name: 'Auditoría', icon: Target, sub: ['Auditor Estratégico'] },
     { name: 'Facebook Automation', icon: Users, sub: ['AutoPublisher Pro - Grupos FB'] }
   ];
 
@@ -27,7 +26,7 @@ function NavLink({ href, active, children, onClick }) {
     <a
       href={href}
       onClick={onClick}
-      className={`relative text-[15px] tracking-[0.2em] uppercase font-semibold transition-colors duration-200 ${
+      className={`relative text-sm tracking-wide uppercase font-semibold transition-colors duration-200 ${
         active
           ? 'text-white after:absolute after:-bottom-[6px] after:left-0 after:right-0 after:h-[2px] after:bg-[#2962ff] after:rounded-full'
           : 'text-neutral-400 hover:text-white'
@@ -94,6 +93,8 @@ export default function Navbar({ activePage = 'home' }) {
   const qsPath = isDev ? '/quienes-somos.html' : getPageUrl('quienes-somos');
   const blogPath = isDev ? '/blog.html' : getPageUrl('blog');
   const prodPath = isDev ? '/index.html#productos' : getFrontPageUrl() + '#productos';
+  const whatsappMarketingPath = 'https://soluciones-wa.ai.studio/';
+  const contactPath = isDev ? '/index.html#registro' : getFrontPageUrl() + '#registro';
   const tiendaPath = isDev ? '/tienda.html' : getPageUrl('tienda');
   const ecoPath = isDev ? '/ecosistema.html' : getPageUrl('ecosistema');
 
@@ -109,9 +110,6 @@ export default function Navbar({ activePage = 'home' }) {
     if (subName.includes('Multicanal')) return isDev ? '/canal1-chatbot.html' : getPageUrl('canal1-chatbot');
     if (subName.includes('Probador Virtual')) return isDev ? '/probador-virtual.html' : getPageUrl('probador-virtual');
     if (subName.includes('Mini Apps en Telegram')) return isDev ? '/telegram/index.html' : TELEGRAM_URL;
-    if (subName === 'Calentador Inteligente de Cuentas') return isDev ? '/calentador-cuentas.html' : getPageUrl('calentador-cuentas');
-    if (subName === 'Extractor de datos de WhatsApp' || subName === 'Extractor PLUS') return isDev ? '/extractor.html' : getPageUrl('extractor');
-    if (subName === 'Plataforma de Envío Masivo') return isDev ? '/guardian-difusion.html' : getPageUrl('guardian-difusion');
     if (subName === 'AutoPublisher Pro - Grupos FB') return isDev ? '/autopublisher.html' : getPageUrl('autopublisher');
     if (subName === 'Fanpage Envío Masivo') return isDev ? '/fanpage-envio-masivo.html' : getPageUrl('fanpage-envio-masivo');
     if (subName === 'Auditor Estratégico') return isDev ? '/auditor-estrategico.html' : getPageUrl('auditor-estrategico');
@@ -120,6 +118,15 @@ export default function Navbar({ activePage = 'home' }) {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
   }, [menuOpen]);
 
   const scrollTo = (id) => {
@@ -132,7 +139,7 @@ export default function Navbar({ activePage = 'home' }) {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 navbar-glass">
+    <nav aria-label="Navegación principal" className="fixed top-0 left-0 right-0 z-50 navbar-glass">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between h-14 md:h-16">
         {/* Left: Logo + Desktop Menu + Phone */}
         <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
@@ -146,8 +153,9 @@ export default function Navbar({ activePage = 'home' }) {
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-5">
+          <div className="hidden xl:flex items-center gap-4 2xl:gap-5">
             <NavLink href={homePath} active={isHome}>Inicio</NavLink>
+            <NavLink href={whatsappMarketingPath}>WhatsApp Marketing</NavLink>
 
             {/* Productos dropdown */}
             <div className="" ref={menuRef}>
@@ -156,7 +164,9 @@ export default function Navbar({ activePage = 'home' }) {
                   e.stopPropagation();
                   setProductosOpen(!productosOpen);
                 }}
-                className="relative flex items-center gap-1 text-[15px] tracking-[0.2em] uppercase text-neutral-400 hover:text-white font-semibold transition-colors duration-200"
+                aria-expanded={productosOpen}
+                aria-haspopup="true"
+                className="relative flex items-center gap-1 text-sm tracking-wide uppercase text-neutral-400 hover:text-white font-semibold transition-colors duration-200"
               >
                 Productos
                 <ChevronDown size={11} className={`transition-transform duration-300 ${productosOpen ? 'rotate-180' : ''}`} />
@@ -217,6 +227,7 @@ export default function Navbar({ activePage = 'home' }) {
             <NavLink href={ecoPath}>Ecosistema</NavLink>
             <NavLink href={blogPath}>Blog</NavLink>
             <NavLink href={qsPath} active={isQuienesSomos}>Quiénes Somos</NavLink>
+            <a href={contactPath} className="rounded-full bg-[#2962ff] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[#1f53e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Contacto</a>
 
             {isQuienesSomos && (
               <>
@@ -237,14 +248,14 @@ export default function Navbar({ activePage = 'home' }) {
         <div className="flex items-center gap-3">
           <a
             href="tel:+573115893220"
-            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 text-[11px] tracking-wider text-neutral-300 hover:text-white transition-colors"
+            className="hidden 2xl:flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 text-[11px] tracking-wider text-neutral-300 hover:text-white transition-colors"
             style={{ background: 'rgba(11,11,15,0.5)' }}
           >
             <Phone size={11} className="text-emerald-400" />
             +57 311 589 3220
           </a>
 
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-[5px] group" aria-label="Menú">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="xl:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-lg group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="mobile-navigation">
             <span className={`block h-[1.5px] w-5 bg-neutral-300 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
             <span className={`block h-[1.5px] w-5 bg-neutral-300 transition-all duration-300 ${menuOpen ? 'opacity-0 scale-0' : ''}`} />
             <span className={`block h-[1.5px] w-5 bg-neutral-300 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
@@ -259,12 +270,15 @@ export default function Navbar({ activePage = 'home' }) {
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-14 bg-black/70 z-[60] md:hidden" onClick={() => setMenuOpen(false)}
+            className="fixed inset-0 top-14 bg-black/70 z-[60] xl:hidden" onClick={() => setMenuOpen(false)}
           >
             <motion.div
               initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 260 }}
               className="flex h-full w-full max-w-[320px] flex-col border-r border-white/5 bg-[#0b0b0f]"
+              id="mobile-navigation"
+              role="region"
+              aria-label="Menú móvil de navegación"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
@@ -284,14 +298,18 @@ export default function Navbar({ activePage = 'home' }) {
                 <div className="flex flex-col gap-1">
                   <a
                     href={homePath}
-                    className={`py-2 text-[17px] tracking-[0.2em] uppercase font-semibold transition-colors border-b border-white/5 ${isHome ? 'text-white' : 'text-neutral-300 hover:text-white'}`}
+                    className={`py-3 text-base tracking-wide uppercase font-semibold transition-colors border-b border-white/5 ${isHome ? 'text-white' : 'text-neutral-300 hover:text-white'}`}
                     onClick={() => { setMenuOpen(false); setProductosOpen(false); if (isDev) { scrollTo('inicio'); } }}
                   >
                     Inicio
                   </a>
 
+                  <a href={whatsappMarketingPath} className="py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
+                    WhatsApp Marketing
+                  </a>
+
                   <div className="border-b border-white/5 py-1">
-                    <button onClick={() => setProductosOpen(!productosOpen)} className="flex items-center justify-between w-full py-2 text-[17px] tracking-[0.2em] uppercase text-neutral-300 hover:text-white transition-colors font-semibold">
+                    <button onClick={() => setProductosOpen(!productosOpen)} aria-expanded={productosOpen} className="flex items-center justify-between w-full py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold">
                       <span>Productos</span>
                       <ChevronDown size={13} className={`transition-transform duration-300 ${productosOpen ? 'rotate-180' : ''}`} />
                     </button>
@@ -335,18 +353,18 @@ export default function Navbar({ activePage = 'home' }) {
                     </AnimatePresence>
                   </div>
 
-                  <a href={tiendaPath} className="py-2 text-[17px] tracking-[0.2em] uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
+                  <a href={tiendaPath} className="py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
                     Tienda
                   </a>
-                  <a href={ecoPath} className="py-2 text-[17px] tracking-[0.2em] uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
+                  <a href={ecoPath} className="py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
                     Ecosistema
                   </a>
-                  <a href={blogPath} className="py-2 text-[17px] tracking-[0.2em] uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
+                  <a href={blogPath} className="py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
                     Blog
                   </a>
                   <a
                     href={qsPath}
-                    className={`py-2 text-[17px] tracking-[0.2em] uppercase font-semibold transition-colors border-b border-white/5 ${isQuienesSomos ? 'text-white' : 'text-neutral-300 hover:text-white'}`}
+                    className={`py-3 text-base tracking-wide uppercase font-semibold transition-colors border-b border-white/5 ${isQuienesSomos ? 'text-white' : 'text-neutral-300 hover:text-white'}`}
                     onClick={() => { setMenuOpen(false); setProductosOpen(false); if (isDev) { scrollTo('quienes-somos'); } }}
                   >
                     Quiénes Somos

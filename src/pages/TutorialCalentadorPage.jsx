@@ -4,6 +4,7 @@ import { Download, MessageCircle, X, AlertTriangle, Key, MonitorPlay, CheckCircl
 import Navbar from '../components/Navbar';
 import SiteFooter from '../components/SiteFooter';
 import SEO from '../components/SEO';
+import { SEO_CONFIG } from '../config/seoConfig';
 import { getPageUrl } from '../utils/env';
 
 const GREEN = '#25D366';
@@ -168,7 +169,7 @@ export default function TutorialCalentadorPage() {
 
   return (
     <div className="min-h-screen bg-[#050508] text-[#D7E2EA]">
-      <SEO title="Tutorial de Instalación - Calentador de Cuentas" description="Manual paso a paso para instalar y activar la demo del Calentador de Cuentas." />
+      <SEO {...SEO_CONFIG.tutorialCalentador} />
       
       <LeadModal 
         isOpen={modalState.isOpen} 

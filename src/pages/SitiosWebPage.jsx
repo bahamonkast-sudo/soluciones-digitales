@@ -7,6 +7,8 @@ import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInVi
 import { Palette, Rocket, Lock, Smartphone, Globe, Code, ArrowRight, MousePointerClick, TrendingUp, ShieldCheck } from 'lucide-react';
 import SEO from '../components/SEO';
 import { SEO_CONFIG } from '../config/seoConfig';
+import { SCHEMAS } from '../config/schemas';
+import { trackContact } from '../services/trackingEvents';
 import { PRECIOS } from '../data/precios';
 
 function Counter({ value }) {
@@ -743,7 +745,7 @@ function PricingCard({ plan }) {
         <SlideButton
           label="Seleccionar"
           hoverLabel="Contratar por WhatsApp"
-          onClick={() => window.open(`https://wa.me/573115893220?text=${encodeURIComponent('Hola, me interesa el plan ' + plan.name + ' por ' + plan.price)}`, '_blank', 'noopener')}
+          onClick={() => { trackContact('plan_web_whatsapp'); window.open(`https://wa.me/573115893220?text=${encodeURIComponent('Hola, me interesa el plan ' + plan.name + ' por ' + plan.price)}`, '_blank', 'noopener'); }}
           icon={Rocket}
           width="100%"
           className="w-full"
@@ -1131,6 +1133,7 @@ export default function SitiosWebPage() {
   }, [activeService, closeService]);
 
   const openWa = useCallback((text) => {
+    trackContact('contacto_web_whatsapp');
     window.open(`https://wa.me/573115893220?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   }, []);
 
@@ -1142,6 +1145,7 @@ export default function SitiosWebPage() {
       {/* Scroll progress bar */}
       <ScrollProgressBar />
 
+            <SEO {...SEO_CONFIG.web} structuredData={SCHEMAS.web} />
       <Navbar activePage="sitios-web" />
 
       <section ref={(el) => { section1Ref.current = el; s1Reveal.containerRef.current = el; }} className="h-screen w-full overflow-hidden pt-14 md:pt-16 px-3 md:px-5 pb-3 md:pb-5">

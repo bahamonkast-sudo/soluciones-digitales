@@ -1,19 +1,43 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Home, X, Sparkles, ArrowLeft } from 'lucide-react';
-import { COMPANY, CATEGORIES, SITE_PAGES, CONTACTO, FAQ, KEYWORDS } from '../data/chatBrochureData';
+import { Send, Home, X, Sparkles } from 'lucide-react';
+import { COMPANY, CATEGORIES, SITE_PAGES, CONTACTO, FAQ, KEYWORDS, INDEPENDENT_WHATSAPP_SITE } from '../data/chatBrochureData';
+import { getPageUrl } from '../utils/env';
+
+const AUDITOR_CTA = 'Abrir Auditor Estratégico';
+const WHATSAPP_MARKETING_CTA = 'Ver WhatsApp Marketing';
+const WHATSAPP_PLATFORM_TERMS = [
+  'whatsapp marketing', 'envio masivo', 'envios masivos', 'difusion por whatsapp',
+  'envios a grupos', 'envio a grupos', 'despacho multicuenta', 'round robin',
+  'extractor google maps', 'validar numeros', 'validacion de lineas',
+  'extraer grupos', 'miembros de grupos', 'calentador de numeros',
+];
+const SALES_CONCERN_PHRASES = [
+  'quiero vender mas', 'quisiera vender mas', 'me gustaria vender mas', 'necesito vender mas', 'como puedo vender mas',
+  'mejorar las ventas', 'mejorar mis ventas', 'aumentar mis ventas', 'aumentar ventas', 'conseguir clientes', 'atraer clientes',
+  'no logro vender', 'no consigo vender', 'no estoy vendiendo', 'no vendo', 'vendo muy poco',
+  'mis ventas bajaron', 'mis ventas cayeron', 'tengo pocas ventas', 'ventas estancadas',
+  'me cuesta vender', 'no llegan clientes', 'no consigo clientes', 'necesito mas clientes',
+  'quiero mas clientes', 'tengo visitas pero no ventas', 'tengo redes pero no vendo',
+  'nadie compra', 'no me compran', 'mi negocio no vende', 'mi tienda no vende', 'mis productos no se venden',
+];
+
+const normalizeText = (value = '') => value
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase()
+  .replace(/[¿?¡!.,;:()[\]{}]/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
 
 function renderMd(text) {
   return text
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace('https://soluciones-wa.ai.studio/', '<a href="https://soluciones-wa.ai.studio/" target="_blank" rel="noopener noreferrer" class="text-[#9fc2ff] underline underline-offset-2">soluciones-wa.ai.studio</a>')
     .replace(/\n{2,}/g, '\n\n')
     .replace(/\n/g, '<br>');
-}
-
-function waLink(number) {
-  return 'https://wa.me/' + number.replace(/[^\d]/g, '');
 }
 
 function allCategories() {
@@ -36,29 +60,29 @@ function findPage(itemName) {
 }
 
 function formatItemSummary(it) {
-  const lines = [`**${it.name}**`, ''];
-  if (it.tagline) lines.push(`*${it.tagline}*`, '');
-  lines.push(`**Qué es:** ${it.queEs}`, '');
-  lines.push(`**Para qué sirve:** ${it.paraQue}`, '');
-  lines.push('**Beneficios:**', ...it.beneficios.map((b) => `• ${b}`), '');
-  lines.push('**Casos de uso:**', ...it.casosUso.map((c) => `• ${c}`), '');
-  if (it.precio) lines.push(`**Precio:** ${it.precio}`);
-  lines.push('', '¿Quieres contratarlo? Escríbenos por WhatsApp.');
+  const lines = [`Claro. **${it.name}**${it.tagline ? ` — ${it.tagline.toLowerCase()}` : ''}`, ''];
+  lines.push(it.queEs, '', `Puede ayudarte a ${it.paraQue.charAt(0).toLowerCase()}${it.paraQue.slice(1)}`, '');
+  lines.push('**Algunas ventajas:**', ...it.beneficios.slice(0, 3).map((b) => `• ${b}`));
+  if (it.name === 'Auditor Estratégico') {
+    lines.push('', 'El auditor te guía con preguntas sobre tu negocio y prepara un análisis con oportunidades y próximos pasos. No promete ventas: te ayuda a entender mejor qué conviene revisar.');
+    lines.push('', 'Para generar el informe, la página solicita tus datos de contacto y una API key personal de Groq.');
+  } else {
+    lines.push('', 'Si me cuentas qué necesitas, te ayudo a ver si esta opción encaja contigo.');
+  }
   return lines.join('\n');
 }
 
 function formatPageSummary(p) {
-  const lines = [`**${p.name}**`, ''];
-  if (p.tagline) lines.push(`*${p.tagline}*`, '');
-  lines.push(`**Qué es:** ${p.queEs}`, '');
-  lines.push(`**Para qué sirve:** ${p.paraQue}`, '');
-  lines.push('**Beneficios:**', ...p.beneficios.map((b) => `• ${b}`), '');
-  lines.push('**Casos de uso:**', ...p.casosUso.map((c) => `• ${c}`), '');
-  lines.push('', '¿Necesitas algo más? Escríbenos por WhatsApp.');
+  const lines = [`Claro. **${p.name}**`, ''];
+  if (p.tagline) lines.push(p.tagline, '');
+  lines.push(p.queEs, '', p.paraQue, '', '¿Qué te gustaría conocer con más detalle?');
   return lines.join('\n');
 }
 
 const CHIP_ACTIONS = {
+  'ver soluciones': 'categories',
+  'explorar soluciones': 'categories',
+  'otras soluciones': 'categories',
   'servicios': 'categories',
   'categorias': 'categories',
   'herramientas': 'categories',
@@ -66,7 +90,8 @@ const CHIP_ACTIONS = {
   'faq': 'faq',
   'preguntas': 'faq',
   'contacto': 'contact',
-  'whatsapp': 'contact',
+  'hablar con el equipo': 'contact',
+  'orientarme': 'categories',
 };
 
 export default function ChatBotBrochure({ onClose }) {
@@ -93,7 +118,7 @@ export default function ChatBotBrochure({ onClose }) {
 
   const simulateReply = (reply, chips = null) => {
     setTyping(true);
-    const delay = Math.min(Math.max(600, reply.length * 9), 2200);
+    const delay = Math.min(Math.max(420, reply.length * 3), 900);
     setTimeout(() => {
       setTyping(false);
       pushBot(reply, chips);
@@ -101,49 +126,58 @@ export default function ChatBotBrochure({ onClose }) {
   };
 
   const showCategories = (extra = '') => {
-    const list = allCategories();
-    const reply =
-      (extra ? extra + '\n\n' : '') +
-      list.map((c) => `**${c.label}**\n${c.sub.map((s) => `• ${s.label}`).join('\n')}`).join('\n\n') +
-      '\n\nEscribe el nombre de una solución y te doy su resumen completo.';
-    simulateReply(reply);
+    const intro = extra || 'Claro. Estas son las áreas que trabajamos en Soluciones Digitales IA Studio. ¿Cuál te interesa explorar?';
+    simulateReply(intro, CATEGORIES.map((category) => category.title));
   };
 
   const showCategoryItems = (cat) => {
     const labels = cat.items.map((it) => it.name);
-    simulateReply(`**${cat.title}** — estas son sus soluciones:\n\n` + labels.map((l) => `• ${l}`).join('\n'), labels);
+    simulateReply(`En **${cat.title}** tenemos estas opciones. ¿Cuál te gustaría conocer?`, labels);
   };
 
   const showItem = (cat, item) => {
     simulateReply(formatItemSummary(item), [
-      'Servicios',
-      'Preguntas',
-      'Contacto',
+      'Ver soluciones',
+      'Hablar con el equipo',
+      ...(item.name === 'Auditor Estratégico' ? [AUDITOR_CTA] : []),
       ...cat.items.filter((i) => i.name !== item.name).slice(0, 2).map((i) => i.name),
     ]);
   };
 
   const showPage = (page) => {
-    simulateReply(formatPageSummary(page), ['Servicios', 'Preguntas', 'Contacto']);
+    simulateReply(formatPageSummary(page), ['Ver soluciones', 'Preguntas', 'Hablar con el equipo']);
   };
 
   const showFaq = () => {
-    const f = FAQ.map((q) => `**Q:** ${q.q}\n**R:** ${q.a}`).join('\n\n');
-    simulateReply(f, ['Servicios', 'Contacto']);
+    const f = FAQ.map((q) => `**${q.q}**\n${q.a}`).join('\n\n');
+    simulateReply(`Con gusto. Estas respuestas pueden orientarte:\n\n${f}`, ['Ver soluciones', 'Hablar con el equipo']);
   };
 
   const showContact = () => {
-    const lines = ['**Canales directos de contacto**', ''];
+    const lines = ['Por supuesto. Si prefieres hablar con una persona, estos son los contactos publicados en el sitio:', ''];
     CONTACTO.forEach((c) => {
       lines.push(`**${c.area}:** ${c.whatsapp}`);
     });
-    lines.push('', 'Escríbenos por WhatsApp y te respondemos de inmediato.');
-    simulateReply(lines.join('\n'), ['Servicios', 'Preguntas']);
+    lines.push('', 'El equipo podrá ayudarte a definir el alcance y los siguientes pasos.');
+    simulateReply(lines.join('\n'), ['Ver soluciones', 'Preguntas']);
   };
 
   const handleChip = (label) => {
     setInput('');
     setShowHome(false);
+
+    if (label === AUDITOR_CTA) {
+      window.location.href = getPageUrl('auditor-estrategico');
+      return;
+    }
+    if (label === WHATSAPP_MARKETING_CTA) {
+      window.open(INDEPENDENT_WHATSAPP_SITE, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (label === 'Primero quiero contarte más') {
+      simulateReply('Claro, te escucho. ¿Qué vendes y qué sientes que se está haciendo más difícil: atraer personas, convertir consultas o cerrar la venta?');
+      return;
+    }
 
     const cat = CATEGORIES.find((c) => c.title === label);
     if (cat) { showCategoryItems(cat); return; }
@@ -164,44 +198,47 @@ export default function ChatBotBrochure({ onClose }) {
   };
 
   const resolveIntent = (q) => {
-    const norm = ' ' + q.toLowerCase() + ' ';
+    const normalized = normalizeText(q);
+    const norm = ` ${normalized} `;
+
+    if (SALES_CONCERN_PHRASES.some((phrase) => normalized.includes(phrase))) {
+      return { type: 'sales-concern' };
+    }
+
+    if (normalized.includes('whatsapp')) {
+      if (/(contacto|contactar|numero|telefono|canal(?:es)? de (?:contacto|atencion)|whatsapp de (?:ventas|soporte|atencion)|ventas.{0,12}whatsapp|hablar con (?:el equipo|una persona|un asesor))/.test(normalized)) return { type: 'contact' };
+      return { type: 'external-whatsapp' };
+    }
+    if (WHATSAPP_PLATFORM_TERMS.some((phrase) => normalized.includes(phrase))) {
+      return { type: 'external-whatsapp' };
+    }
 
     const ac = allCategories();
-    const acItem = ac.flatMap((c) => c.sub).find((s) => norm.includes(s.label.toLowerCase()));
+    const acItem = ac.flatMap((c) => c.sub).find((s) => norm.includes(` ${normalizeText(s.label)} `));
     if (acItem) {
       const found = findItem(acItem.catId, acItem.label);
       if (found) return { type: 'item', cat: found.cat, item: found.item };
     }
 
-    const acCat = CATEGORIES.find((c) => norm.includes(c.title.toLowerCase()));
+    const acCat = CATEGORIES.find((c) => norm.includes(` ${normalizeText(c.title)} `));
     if (acCat) return { type: 'category', cat: acCat };
 
-    const page = SITE_PAGES.find((p) => norm.includes(p.name.toLowerCase()) || norm.includes(p.alias.toLowerCase()));
+    const page = SITE_PAGES.find((p) => norm.includes(` ${normalizeText(p.name)} `) || norm.includes(` ${normalizeText(p.alias)} `));
     if (page) return { type: 'page', page };
 
-    for (const [k, v] of Object.entries(KEYWORDS)) {
-      if (norm.includes(k)) {
+    for (const [k, v] of Object.entries(KEYWORDS).sort(([left], [right]) => right.length - left.length)) {
+      if (norm.includes(` ${normalizeText(k)} `)) {
         if (v === 'contacto') return { type: 'contact' };
         if (v === 'faq') return { type: 'faq' };
         if (v === 'saludo') return { type: 'home' };
-        if (v.startsWith('web:')) {
-          const found = findItem('web', v.replace('web:', ''));
-          if (found) return { type: 'item', cat: found.cat, item: found.item };
+        if (v === 'externo:whatsapp') return { type: 'external-whatsapp' };
+        if (v.startsWith('categoria:')) {
+          const category = CATEGORIES.find((candidate) => candidate.id === v.replace('categoria:', ''));
+          if (category) return { type: 'category', cat: category };
         }
-        if (v.startsWith('ia:')) {
-          const found = findItem('ia', v.replace('ia:', ''));
-          if (found) return { type: 'item', cat: found.cat, item: found.item };
-        }
-        if (v.startsWith('wa:')) {
-          const found = findItem('wa', v.replace('wa:', ''));
-          if (found) return { type: 'item', cat: found.cat, item: found.item };
-        }
-        if (v.startsWith('data:')) {
-          const found = findItem('data', v.replace('data:', ''));
-          if (found) return { type: 'item', cat: found.cat, item: found.item };
-        }
-        if (v.startsWith('auditoria:')) {
-          const found = findItem('auditoria', v.replace('auditoria:', ''));
+        if (v.includes(':') && !v.startsWith('page:')) {
+          const [categoryId, itemName] = v.split(':');
+          const found = findItem(categoryId, itemName);
           if (found) return { type: 'item', cat: found.cat, item: found.item };
         }
         if (v.startsWith('page:')) {
@@ -211,7 +248,7 @@ export default function ChatBotBrochure({ onClose }) {
       }
     }
 
-    if (norm.includes('coti') || norm.includes('precio') || norm.includes('costo') || norm.includes('contact') || norm.includes('comprar')) {
+    if (/(cotiz|precio|costo|contact|comprar|cuanto vale|cuanto cuesta)/.test(normalized)) {
       return { type: 'contact' };
     }
 
@@ -229,7 +266,7 @@ export default function ChatBotBrochure({ onClose }) {
 
     const intent = resolveIntent(raw);
     if (!intent) {
-      simulateReply('No tengo esa información aún. Pregúntame por cualquiera de nuestras soluciones (Sitios Web, IA, WhatsApp Automation, Minería o Auditoría), o escribe: **Servicios**, **Preguntas** o **Contacto**.');
+      simulateReply('No quiero darte un dato equivocado. Si me cuentas un poco más, lo intento ubicar; también puedes elegir un tema y te oriento con gusto.', ['Sitios Web', 'Inteligencia Artificial', 'Automatización para Facebook', 'Estrategia y Auditoría', 'Preguntas', 'Hablar con el equipo']);
       return;
     }
     if (intent.type === 'item') showItem(intent.cat, intent.item);
@@ -237,7 +274,20 @@ export default function ChatBotBrochure({ onClose }) {
     if (intent.type === 'page') showPage(intent.page);
     if (intent.type === 'faq') showFaq();
     if (intent.type === 'contact') showContact();
-    if (intent.type === 'home') simulateReply('¡Hola! Soy el asistente de **Soluciones Digitales IA**.\n\nPuedo darte el resumen de cualquiera de nuestras soluciones con solo escribir su nombre o elegir una categoría.');
+    if (intent.type === 'home') {
+      const greetings = [
+        '¡Hola! Qué gusto saludarte. Soy el asistente de Soluciones Digitales IA Studio. ¿Qué te gustaría resolver hoy?',
+        '¡Hola! Gracias por escribirnos. Cuéntame qué necesita tu negocio y buscamos juntos por dónde empezar.',
+        '¡Buenas! Estoy aquí para orientarte sobre las soluciones de Soluciones Digitales IA Studio. ¿Qué tienes en mente?',
+      ];
+      simulateReply(greetings[Math.floor(Math.random() * greetings.length)], ['Sitios Web', 'Inteligencia Artificial', 'Automatización para Facebook', 'Estrategia y Auditoría']);
+    }
+    if (intent.type === 'external-whatsapp') {
+      simulateReply(`Claro. En la plataforma independiente de **WhatsApp Marketing** encontrarás, entre otras funciones:\n\n• Envíos a grupos y contactos, con despacho entre varias cuentas.\n• Herramientas de prospección y filtros para organizar datos de negocios y grupos.\n• Gestión de líneas, validación y calentamiento de números.\n\nAyuda a organizar tareas de difusión y prospección; no garantiza ventas. Puedes revisar el panel aquí: https://soluciones-wa.ai.studio/\n\nEse sistema tiene su propio sitio. En este chat también puedo orientarte sobre las soluciones de Soluciones Digitales IA Studio.`, [WHATSAPP_MARKETING_CTA, 'Ver soluciones', 'Hablar con el equipo']);
+    }
+    if (intent.type === 'sales-concern') {
+      simulateReply('Entiendo; puede ser frustrante esforzarse y no ver las ventas que esperas. Sin conocer tu negocio no sería responsable adivinar la causa: a veces conviene revisar la oferta, a quién llega, cómo se presenta o qué pasa después de una consulta.\n\nEl **Auditor Estratégico** te guía con preguntas sobre tu negocio y organiza oportunidades y próximos pasos; no promete resultados. Para generar el informe solicita datos de contacto y una API key personal de Groq.\n\nSi también quieres organizar difusión o prospección, el panel independiente de **WhatsApp Marketing** ofrece envíos a grupos y contactos, despacho multicuenta, herramientas para extraer y filtrar datos, y gestión de líneas. Tampoco garantiza ventas.\n\n¿Con cuál prefieres empezar?', [AUDITOR_CTA, WHATSAPP_MARKETING_CTA, 'Primero quiero contarte más']);
+    }
   };
 
   return (
@@ -246,10 +296,10 @@ export default function ChatBotBrochure({ onClose }) {
       <div className="flex items-center gap-3 border-b border-[rgba(59,130,246,0.12)] bg-[rgba(7,13,26,0.85)] px-5 py-3 shrink-0 relative">
         <div className="w-10 h-10 rounded-[10px] bg-gradient-to-br from-[#D4AF37] to-[#F5C842] flex items-center justify-center font-bold text-[#0a0f1e] shadow-[0_4px_16px_rgba(212,175,55,0.25)] shrink-0">SD</div>
         <div className="flex-1 min-w-0">
-          <div className="text-[15px] font-semibold text-[#ddeeff] whitespace-nowrap overflow-hidden text-ellipsis">Soluciones Digitales IA</div>
+          <div className="text-[15px] font-semibold text-[#ddeeff] whitespace-nowrap overflow-hidden text-ellipsis">Soluciones Digitales IA Studio</div>
           <div className="text-[11px] text-[#8aafd4] flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] inline-block animate-pulse" />
-            Asistente virtual · En línea
+            Asistente de Soluciones Digitales IA Studio
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -274,13 +324,13 @@ export default function ChatBotBrochure({ onClose }) {
                 <div className="w-16 h-16 mx-auto mb-3 rounded-[18px] bg-gradient-to-br from-[#D4AF37] to-[#F5C842] flex items-center justify-center shadow-[0_8px_32px_rgba(212,175,55,0.25)]">
                   <Sparkles size={22} className="text-[#0a0f1e]" />
                 </div>
-                <h2 className="text-lg font-bold text-[#ddeeff] mb-1">¿Qué solución necesitas?</h2>
-                <p className="text-[13px] text-[#8aafd4] leading-relaxed">Elige una categoría o escribe el nombre de la solución y te explico en qué te beneficia.</p>
+                <h2 className="text-lg font-bold text-[#ddeeff] mb-1">¡Hola! ¿Qué te gustaría resolver?</h2>
+                <p className="text-[13px] text-[#8aafd4] leading-relaxed">Cuéntame un poco sobre tu idea o elige un tema. Con gusto te ayudo a encontrar por dónde empezar.</p>
               </div>
 
               <div className="w-full bg-[#0f1e36] border border-[rgba(212,175,55,0.2)] rounded-2xl p-4 shadow-[0_4px_24px_rgba(212,175,55,0.06)]">
                 <div className="text-xs font-semibold text-[#D4AF37] mb-2.5 flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#D4AF37] inline-block" /> Soluciones Digitales IA
+                  <span className="w-1 h-1 rounded-full bg-[#D4AF37] inline-block" /> Soluciones Digitales IA Studio
                 </div>
                 <p className="text-[12.5px] text-[#94b8e8] leading-relaxed">{COMPANY.intro}</p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
@@ -291,8 +341,9 @@ export default function ChatBotBrochure({ onClose }) {
                     </button>
                   ))}
                 </div>
+                <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#819bb8]">También puedes conocer</p>
                 <div className="flex flex-wrap gap-1.5 mt-2">
-                  {SITE_PAGES.map((p) => (
+                  {SITE_PAGES.filter((p) => ['Tienda', 'Blog', 'Quiénes Somos'].includes(p.name)).map((p) => (
                     <button key={p.name} onClick={() => handleChip(p.name)}
                       className="px-3 py-1.5 rounded-full text-[11.5px] font-medium bg-[rgba(212,175,55,0.06)] border border-[rgba(212,175,55,0.2)] text-[#e0c06a] hover:bg-[rgba(212,175,55,0.15)] hover:text-[#f2dc9b] transition-colors cursor-pointer">
                       {p.name}
@@ -323,7 +374,7 @@ export default function ChatBotBrochure({ onClose }) {
                   ))}
                 </div>
               )}
-              <span className="block text-[9.5px] text-[rgba(255,255,255,0.3)] mt-1.5">Soluciones Digitales IA</span>
+              <span className="block text-[9.5px] text-[rgba(255,255,255,0.3)] mt-1.5">Soluciones Digitales IA Studio</span>
             </div>
             {m.role === 'user' && (
               <div className="w-7 h-7 shrink-0 rounded-full bg-gradient-to-br from-[#4f46e5] to-[#6366f1] flex items-center justify-center text-[10px] font-bold text-white">TÚ</div>
@@ -347,8 +398,8 @@ export default function ChatBotBrochure({ onClose }) {
 
       {/* Suggestions bar */}
       <div className="px-6 pb-2 pt-1 flex gap-2 flex-wrap shrink-0">
-        <button onClick={() => { setShowHome(false); showCategories('Estas son todas las soluciones de nuestro ecosistema:'); }}
-          className="px-3.5 py-1.5 rounded-full text-[12px] bg-[rgba(15,33,72,0.7)] border border-[rgba(59,130,246,0.15)] text-[#7aafff] hover:border-[rgba(59,130,246,0.35)] hover:text-[#c8dfff] transition-colors cursor-pointer">Servicios</button>
+        <button onClick={() => { setShowHome(false); showCategories(); }}
+          className="px-3.5 py-1.5 rounded-full text-[12px] bg-[rgba(15,33,72,0.7)] border border-[rgba(59,130,246,0.15)] text-[#7aafff] hover:border-[rgba(59,130,246,0.35)] hover:text-[#c8dfff] transition-colors cursor-pointer">Ver soluciones</button>
         <button onClick={() => { setShowHome(false); showFaq(); }}
           className="px-3.5 py-1.5 rounded-full text-[12px] bg-[rgba(15,33,72,0.7)] border border-[rgba(59,130,246,0.15)] text-[#7aafff] hover:border-[rgba(59,130,246,0.35)] hover:text-[#c8dfff] transition-colors cursor-pointer">Preguntas</button>
         <button onClick={() => { setShowHome(false); showContact(); }}
@@ -362,12 +413,12 @@ export default function ChatBotBrochure({ onClose }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') sendMessage(); }}
-            placeholder="Escribe una solución: landing, chatbot, extractor..."
+            placeholder="Cuéntame qué te gustaría mejorar..."
             className="w-full px-4 py-2.5 bg-[#0f1e36] border border-[rgba(59,130,246,0.15)] rounded-2xl text-[13px] text-[#c8d8ee] outline-none transition-all placeholder:text-[#5a7fa8]"
             style={{ fontFamily: 'inherit' }}
           />
         </div>
-        <button onClick={() => sendMessage()} disabled={typing}
+        <button onClick={() => sendMessage()} disabled={typing} aria-label="Enviar mensaje"
           className="px-4 py-2.5 bg-gradient-to-br from-[#D4AF37] to-[#F5C842] text-[#0a0f1e] rounded-2xl text-[13px] font-bold cursor-pointer hover:shadow-[0_6px_20px_rgba(212,175,55,0.3)] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5">
           <Send size={14} />
         </button>

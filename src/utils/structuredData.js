@@ -1,8 +1,8 @@
 // src/utils/structuredData.js
 import { getSiteUrl } from './env';
 
-export const getBaseUrl = () => getSiteUrl() || '';
-export const getLogoUrl = () => `${getBaseUrl()}/wp-content/plugins/websd-react/dist/favicon.svg`;
+export const getBaseUrl = () => (getSiteUrl() || '').replace(/\/$/, '');
+export const getLogoUrl = () => `${getBaseUrl()}/favicon.svg`;
 
 export const generateOrganizationSchema = () => {
   const baseUrl = getBaseUrl();
@@ -71,3 +71,45 @@ export const generateWebSiteSchema = () => {
     }
   };
 };
+
+export const generateFAQSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+});
+
+export const generateProductSchema = ({ name, description, url, image, price, priceCurrency = 'COP' }) => ({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": name,
+  "description": description,
+  "url": `${getBaseUrl()}${url}`,
+  ...(image ? { "image": [`${getBaseUrl()}${image}`] } : {}),
+  "brand": { "@type": "Brand", "name": "Soluciones Digitales IA" },
+  ...(price ? {
+    "offers": {
+      "@type": "Offer",
+      "price": price,
+      "priceCurrency": priceCurrency,
+      "availability": "https://schema.org/InStock",
+      "url": `${getBaseUrl()}${url}`
+    }
+  } : {})
+});
+
+export const generateBreadcrumbSchema = (items) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((it, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": it.name,
+    "item": `${getBaseUrl()}${it.path}`
+  }))
+});
+
+export const combineSchemas = (...schemas) => schemas.filter(Boolean);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Lock, Key, LayoutDashboard, FileText, Users, Eye, Clock, CheckCircle, RefreshCw, LogOut, ChevronDown, Search, Bot, X, MessageCircle, Loader2 } from 'lucide-react'
 import Navbar from '../components/Navbar'
+import SEO from '../components/SEO';
 
 const SECRET_STORAGE_KEY = 'admin_auditor_secret';
 const ADMIN_PASS = 'soluciones2026';
@@ -64,9 +65,13 @@ export default function AdminAuditorPage() {
         audits: auditsData.map(a => ({
           id: a.id,
           timestamp: a.timestamp,
-          pdfSent: a.pdfSent || false,
+          code: a.code,
+          ebookStatus: a.ebookStatus || 'generado',
+          pdfSent: a.ebookStatus === 'entregado' || a.pdfSent || false,
+          pdfRequested: ['solicitud_preparada', 'solicitud_abierta'].includes(a.ebookStatus),
           formData: a.lead,
-          leadInfo: { nombre: a.lead?.nombre, empresa: a.lead?.empresa },
+          reportSummary: a.summary,
+          leadInfo: { nombre: a.lead?.nombre, whatsapp: a.lead?.whatsapp, empresa: a.lead?.empresa },
           views: [],
           timeSpent: []
         }))
@@ -85,12 +90,20 @@ export default function AdminAuditorPage() {
     try {
       const auditsData = JSON.parse(localStorage.getItem('websd_audits') || '[]')
       const updated = auditsData.map(a => {
-        if (a.id === auditId) return { ...a, pdfSent: true }
+        if (a.id === auditId) return { ...a, pdfSent: true, ebookStatus: 'entregado', deliveredAt: a.deliveredAt || new Date().toISOString() }
         return a
       })
       localStorage.setItem('websd_audits', JSON.stringify(updated))
+
+      const deliveredAudit = updated.find(a => a.id === auditId)
+      if (deliveredAudit?.code) {
+        const leadsData = JSON.parse(localStorage.getItem('websd_leads') || '[]')
+        localStorage.setItem('websd_leads', JSON.stringify(leadsData.map(lead => lead.auditId === auditId
+          ? { ...lead, ebookStatus: 'descargado', deliveredAt: deliveredAudit.deliveredAt }
+          : lead)))
+      }
       
-      setToast('Reporte marcado como enviado.')
+      setToast('Ebook marcado como entregado.')
       setTimeout(() => setToast(''), 3000)
       await loadData(secret)
     } catch (e) {
@@ -174,6 +187,7 @@ export default function AdminAuditorPage() {
 
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-white">
+            <SEO title="Admin - Auditor Estratégico" description="Panel de administración del Auditor Estratégico." robots="noindex, nofollow" path="/admin-auditor/" />
       <Navbar activePage="home" />
       {toast && (
         <div className="fixed top-4 right-4 z-50 bg-green-600 text-white px-4 py-3 rounded-xl shadow-lg text-sm">{toast}</div>
@@ -296,13 +310,14 @@ export default function AdminAuditorPage() {
                         className="w-full p-4 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
                       >
                         <div className="flex items-center gap-4 flex-1 min-w-0">
-                          <div className={`shrink-0 w-2 h-10 rounded-full ${a.pdfSent ? 'bg-green-500' : a.pdfRequested ? 'bg-yellow-500' : 'bg-[#2962ff]'}`} />
+                          <div className={`shrink-0 w-2 h-10 rounded-full ${a.ebookStatus === 'entregado' ? 'bg-green-500' : a.pdfRequested ? 'bg-yellow-500' : 'bg-[#2962ff]'}`} />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className="font-mono text-xs text-[#2962ff]">{a.id}</span>
-                              <span className={`text-[10px] px-2 py-0.5 rounded-full ${a.status === 'pdf_sent' ? 'bg-green-500/10 text-green-400' : a.status === 'pdf_requested' ? 'bg-yellow-500/10 text-yellow-400' : 'bg-[#2962ff]/10 text-[#2962ff]'}`}>
-                                {a.status === 'pdf_sent' ? 'PDF enviado' : a.status === 'pdf_requested' ? 'PDF solicitado' : 'Completado'}
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full ${a.ebookStatus === 'entregado' ? 'bg-green-500/10 text-green-400' : a.pdfRequested ? 'bg-yellow-500/10 text-yellow-400' : 'bg-[#2962ff]/10 text-[#2962ff]'}`}>
+                                {a.ebookStatus === 'entregado' ? 'Ebook entregado' : a.ebookStatus === 'solicitud_abierta' ? 'WhatsApp abierto · envío sin confirmar' : a.ebookStatus === 'solicitud_preparada' ? 'Código generado' : 'Ebook generado · sin solicitar'}
                               </span>
+                              {a.code && <span className="font-mono text-[10px] text-neutral-500">{a.code}</span>}
                               <span className="text-[10px] text-neutral-600">{a.type === 'website' ? 'Sitio Web' : 'Estratégica'}</span>
                             </div>
                             <p className="text-sm text-neutral-300 truncate mt-1">{a.formData?.category || 'Sin categoría'}</p>
@@ -342,7 +357,7 @@ export default function AdminAuditorPage() {
                               disabled={a.pdfSent}
                               className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors disabled:opacity-50 ${a.pdfSent ? 'bg-green-500/10 text-green-400 cursor-default' : 'bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20'}`}
                             >
-                              <CheckCircle size={16} /> {a.pdfSent ? 'Enviado' : 'Marcar como enviado'}
+                              <CheckCircle size={16} /> {a.pdfSent ? 'Ebook entregado' : 'Marcar ebook como entregado'}
                             </button>
                           </div>
                         </div>
@@ -368,7 +383,7 @@ export default function AdminAuditorPage() {
                         <th className="px-4 py-3">Nombre</th>
                         <th className="px-4 py-3">WhatsApp</th>
                         <th className="px-4 py-3">Empresa</th>
-                        <th className="px-4 py-3">Código</th>
+                        <th className="px-4 py-3">Auditoría / código</th>
                         <th className="px-4 py-3">Estado</th>
                         <th className="px-4 py-3">Fecha</th>
                       </tr>
@@ -380,14 +395,15 @@ export default function AdminAuditorPage() {
                           <td className="px-4 py-3 text-neutral-400">{l.whatsapp}</td>
                           <td className="px-4 py-3 text-neutral-400">{l.empresa || '—'}</td>
                           <td className="px-4 py-3">
+                            <span className="block font-mono text-[10px] text-neutral-500">{l.auditId || '—'}</span>
                             <span className="font-mono text-xs text-[#2962ff] bg-[#2962ff]/10 px-2 py-1 rounded">{l.code}</span>
                           </td>
                           <td className="px-4 py-3">
-                            <span className={`text-xs px-2 py-0.5 rounded-full ${l.used ? 'bg-yellow-500/10 text-yellow-400' : 'bg-green-500/10 text-green-400'}`}>
-                              {l.used ? 'Usado' : 'Disponible'}
+                            <span className={`text-xs px-2 py-0.5 rounded-full ${l.ebookStatus === 'descargado' ? 'bg-green-500/10 text-green-400' : l.ebookStatus === 'solicitud_abierta' ? 'bg-yellow-500/10 text-yellow-400' : 'bg-blue-500/10 text-blue-300'}`}>
+                              {l.ebookStatus === 'descargado' ? 'Descargado' : l.ebookStatus === 'solicitud_abierta' ? 'WhatsApp abierto · envío sin confirmar' : l.ebookStatus === 'solicitud_preparada' ? 'Código listo' : 'Generado · sin solicitar'}
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-neutral-500">{new Date(l.registeredAt).toLocaleString('es-CO')}</td>
+                          <td className="px-4 py-3 text-neutral-500">{l.registeredAt || l.timestamp ? new Date(l.registeredAt || l.timestamp).toLocaleString('es-CO') : '—'}</td>
                         </tr>
                       ))}
                     </tbody>

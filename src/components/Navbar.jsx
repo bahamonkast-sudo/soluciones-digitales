@@ -110,7 +110,7 @@ export default function Navbar({ activePage = 'home' }) {
     if (subName.includes('Mini Apps en Telegram')) return '/telegram/index.html';
     if (subName === 'AutoPublisher Pro - Grupos FB') return isDev ? '/autopublisher.html' : getPageUrl('autopublisher');
     if (subName === 'Fanpage Envío Masivo') return isDev ? '/fanpage-envio-masivo.html' : getPageUrl('fanpage-envio-masivo');
-    if (subName === 'TuConsultor IA') return '/tuconsultor.html';
+    if (subName === 'TuConsultor IA') return 'https://tuconsultor.vercel.app/plan';
     return prodPath;
   };
 

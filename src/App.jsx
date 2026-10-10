@@ -1312,7 +1312,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── AUDITOR ESTRATÉGICO IA (TELEGRAM BOT) ─────────────────── */}
+      {/* ── TUCONSULTOR · CONSULTORÍA DE MARKETING ─────────────────── */}
       <section id="auditor-ia" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#111C2E' }}>
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#3b82f6]/5 blur-[120px]" />
@@ -1324,19 +1324,19 @@ export default function App() {
           <FadeIn className="text-center mb-16 md:mb-24">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/10 text-[11px] font-bold uppercase tracking-[0.16em] text-[#3b82f6] mb-6">
               <Zap size={13} className="text-[#3b82f6]" />
-              Auditor Estratégico IA · Gratis · 3 min
+              TuConsultor · Consultoría de marketing
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Tu negocio digital, <span className="text-cyan-300">auditado en 3 minutos.</span>
+              Entiende tu marketing y decide <span className="text-cyan-300">qué hacer primero.</span>
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-400 leading-relaxed mb-8">
-              Responde catorce preguntas como si fuera un chat. La IA detecta dónde pierdes ventas y te da un plan de acción para esta semana. Se ejecuta con tu propia API Key de Groq: gratuita y sin costos ocultos.
+              Explora un recorrido práctico para entender tus prioridades, recibir orientación sobre marketing y convertir tus ideas en acciones medibles. Puedes usar el diagnóstico guiado o conversar con el asistente de marketing.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2.5">
               {[
-                "API Key de Groq gratuita",
-                "Sin tarjeta de crédito",
-                "Diagnóstico sin costos ocultos"
+                "Asesoría práctica de marketing",
+                "Diagnóstico y consulta guiada",
+                "Acciones que puedes medir"
               ].map((chip) => (
                 <span key={chip} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11.5px] font-medium text-neutral-400 backdrop-blur-sm">
                   <Sparkles size={11} className="text-[#3b82f6]" /> {chip}
@@ -1346,12 +1346,10 @@ export default function App() {
 
             <div className="mt-8 flex items-center justify-center">
               <a
-                href={getPageUrl('auditor-estrategico')}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/tuconsultor.html"
                 className="group inline-flex items-center gap-2 rounded-full bg-[#3b82f6] px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#2563eb] active:scale-[0.98] shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.65)]"
               >
-                Iniciar Auditoría Estratégica en la web
+                Entrar a TuConsultor
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>
@@ -1470,7 +1468,7 @@ export default function App() {
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               {[
-                { icon: Search, titulo: "Detecta dónde pierdes clientes", texto: "El auditor analiza tu presencia, marketing, contenido y conversión. Identifica exactamente qué está frenando tus ventas y por qué." },
+                { icon: Search, titulo: "Detecta dónde pierdes clientes", texto: "TuConsultor te ayuda a revisar marketing, contenido y conversión, y a elegir qué conviene trabajar primero." },
                 { icon: BarChart2, titulo: "Prioriza por impacto real", texto: "No te da 50 tareas. Te dice cuáles 3 acciones mueven la aguja esta semana. Quick wins de 24 a 72 horas, no proyectos de 6 meses." },
                 { icon: Lightbulb, titulo: "Decide con datos, no con intuición", texto: "Score de 0 a 100, estadísticas verificadas y un plan de 90 días. Sabrás exactamente en qué invertir tu tiempo y dinero." }
               ].map((b, i) => (

@@ -58,7 +58,7 @@ Para actualizar la aplicación en vivo manteniendo siempre como fuente de verdad
 ### Fase D: Activación de Auto-deploy (una sola vez)
 Para no repetir Fase B manual:
 1. AI Studio → `Settings → Connected Repository → Auto-deploy on push: ON`
-2. `Build command: npm run build` y `Output directory: dist`
+2. En el servicio integrado, configura build `npm run build`, start `npm start` y puerto `8080` (o el valor asignado en `PORT`). No lo publiques como hosting estático con salida `dist`, porque no ejecutará Next.js ni sus API.
 3. Guardar → AI Studio crea webhook en GitHub `Settings → Webhooks → https://ai.studio.../webhook`
 
 ---
@@ -82,3 +82,13 @@ git push origin master --force-with-lease # restaurar master
 ```
 
 Guardar este doc en `docs/FLUJO-OPERATIVO-AI-STUDIO.md` para consulta futura.
+
+## 5. TuConsultor integrado en websd
+
+TuConsultor vive en `tuconsultor/` y se presenta en `/tuconsultor.html` con el menú y el pie de página compartidos de websd. La aplicación Next.js conserva sus rutas y API bajo `/tuconsultor/`.
+
+- El build raíz (`npm run build`) compila primero TuConsultor y luego el sitio Vite.
+- El servidor de producción (`npm start`, puerto `8080`) sirve `dist/` y Next.js bajo el mismo dominio. El `Dockerfile` configura este runtime para Cloud Run.
+- Para tener respuestas IA del servidor, configura `GROQ_API_KEY` como secreto de entorno en el despliegue; la clave no va en GitHub ni en el cliente. Sin esa clave, siguen disponibles los modos locales y la clave personal opcional de Groq que usa la app.
+- Configura `LEADS_TOKEN` como secreto con un valor propio antes de exponer el panel `/tuconsultor/leads`.
+- GitHub Pages publica solo los archivos estáticos de `dist`; no ejecuta las rutas API de Next.js. El sitio integrado completo debe desplegarse como servicio Node/Cloud Run, con `npm run build` y `npm start`, y no en modo de alojamiento estático con salida `dist`.

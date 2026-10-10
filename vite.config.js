@@ -177,6 +177,7 @@ export default defineConfig(({ command }) => ({
     rollupOptions: {
       input: {
         index: 'index.html',
+        tuconsultor: 'tuconsultor.html',
         'quienes-somos': 'quienes-somos.html',
         blog: 'blog.html',
         'calentador-cuentas': 'calentador-cuentas.html',

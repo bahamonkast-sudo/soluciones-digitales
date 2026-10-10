@@ -104,3 +104,5 @@ agente.md
 master.md
 biblioteca.txt
 spec.md
+# Leads de TuConsultor (datos generados en producción)
+data/leads*.jsonl

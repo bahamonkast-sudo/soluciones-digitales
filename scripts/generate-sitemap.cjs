@@ -58,6 +58,12 @@ const SITE_STRUCTURE = [
     category: 'Producto Principal'
   },
   {
+    loc: '/tuconsultor',
+    priority: 0.98,
+    changefreq: 'weekly',
+    category: 'Producto Principal'
+  },
+  {
     loc: '/auditor-estrategico',
     priority: 0.95,
     changefreq: 'weekly',

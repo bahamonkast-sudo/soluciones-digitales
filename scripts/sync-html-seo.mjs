@@ -17,6 +17,7 @@ const pages = {
   'extractor.html': 'extractor',
   'fanpage-envio-masivo.html': 'fanpage',
   'autopublisher.html': 'autopublisher',
+  'tuconsultor.html': 'tuconsultor',
   'auditor-estrategico.html': 'auditor',
   'auditor-sitio-web.html': 'auditorSitio',
   'tarjeta-digital.html': 'tarjeta',

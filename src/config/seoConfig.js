@@ -79,6 +79,13 @@ export const SEO_CONFIG = {
     path: "/autopublisher.html",
     ogImage: "/og/og-default.jpg",
   },
+  tuconsultor: {
+    title: "TuConsultor | Consultoría de marketing para tu negocio",
+    description: "Recibe orientación clara sobre marketing, contenido, ventas y los próximos pasos que puede tomar tu negocio.",
+    keywords: "consultor de marketing IA, estrategia de marketing, diagnóstico de negocio, asesoría de contenido",
+    path: "/tuconsultor.html",
+    ogImage: "/og/og-default.jpg",
+  },
   auditor: {
     title: "Auditor Estratégico IA - Análisis SEO y Conversión",
     description: "Realiza una auditoría web inteligente impulsada por IA. Evalúa el estado SEO y UX/UI de tu sitio, recibiendo recomendaciones clave para mejorar la conversión.",

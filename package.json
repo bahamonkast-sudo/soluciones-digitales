@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/check-port-advertencia.cjs && vite",
-    "build": "npm run seo:sync && vite build",
+    "build": "npm run tuconsultor:build && npm run seo:sync && vite build",
+    "tuconsultor:build": "npm --prefix tuconsultor ci && npm --prefix tuconsultor run build",
+    "start": "node websd-server.mjs",
     "watch": "vite build --watch",
     "preview": "vite preview",
     "sync": "node sync.cjs",

@@ -52,7 +52,7 @@ export default function SiteFooter() {
         { label: 'Desarrollo Web', href: servLink('/sitios-web.html', getPageUrl('sitios-web')) },
         { label: 'IA Conversacional', href: servLink('/chatbot.html', getPageUrl('chatbot')) },
         { label: 'WhatsApp Marketing', href: 'https://soluciones-wa.ai.studio/' },
-        { label: 'Auditor Estratégico', href: servLink('/auditor-estrategico.html', getPageUrl('auditor-estrategico')) },
+        { label: 'TuConsultor · Marketing', href: '/tuconsultor.html' },
       ],
     },
     {

@@ -7,7 +7,7 @@ import { getDistUrl, getPageUrl, getFrontPageUrl } from '../utils/env';
   const navCategories = [
     { name: 'Sitios Web', icon: Globe, sub: ['Vitrina de Conversión', 'Ecosistema de Autoridad', 'Hub de Negocios', 'Tarjeta Profesional de Negocios'] },
     { name: 'Inteligencia Artificial', icon: MessageCircle, sub: ['Probador Virtual IA', 'Chatbot Multicanal Inteligente (pronto)', 'Mini Apps en Telegram'] },
-    { name: 'Auditoría', icon: Target, sub: ['Auditor Estratégico'] },
+    { name: 'Consultoría de Marketing', icon: Target, sub: ['TuConsultor IA'] },
     { name: 'Facebook Automation', icon: Users, sub: ['AutoPublisher Pro - Grupos FB'] }
   ];
 
@@ -110,7 +110,7 @@ export default function Navbar({ activePage = 'home' }) {
     if (subName.includes('Mini Apps en Telegram')) return '/telegram/index.html';
     if (subName === 'AutoPublisher Pro - Grupos FB') return isDev ? '/autopublisher.html' : getPageUrl('autopublisher');
     if (subName === 'Fanpage Envío Masivo') return isDev ? '/fanpage-envio-masivo.html' : getPageUrl('fanpage-envio-masivo');
-    if (subName === 'Auditor Estratégico') return isDev ? '/auditor-estrategico.html' : getPageUrl('auditor-estrategico');
+    if (subName === 'TuConsultor IA') return '/tuconsultor.html';
     return prodPath;
   };
 

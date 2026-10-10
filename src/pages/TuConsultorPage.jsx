@@ -3,7 +3,9 @@ import Navbar from '../components/Navbar';
 import SiteFooter from '../components/SiteFooter';
 import SEO from '../components/SEO';
 
-const CONSULTOR_URL = import.meta.env.DEV ? 'http://localhost:3000/tuconsultor/' : '/tuconsultor/';
+const CONSULTOR_URL = import.meta.env.DEV
+  ? 'http://localhost:3000/'
+  : (import.meta.env.VITE_TUCONSULTOR_URL || 'https://tuconsultor.soluciones-digitales.ai.studio/');
 
 export default function TuConsultorPage() {
   const frameRef = useRef(null);

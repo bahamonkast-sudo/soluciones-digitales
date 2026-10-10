@@ -83,12 +83,11 @@ git push origin master --force-with-lease # restaurar master
 
 Guardar este doc en `docs/FLUJO-OPERATIVO-AI-STUDIO.md` para consulta futura.
 
-## 5. TuConsultor integrado en websd
+## 5. TuConsultor como app independiente
 
-TuConsultor vive en `tuconsultor/` y se presenta en `/tuconsultor.html` con el menú y el pie de página compartidos de websd. La aplicación Next.js conserva sus rutas y API bajo `/tuconsultor/`.
+TuConsultor vive en `tuconsultor/` como app Next.js independiente (sin `basePath`). Se presenta desde websd en `/tuconsultor.html`, que incrusta la app via `VITE_TUCONSULTOR_URL`.
 
-- El build raíz (`npm run build`) compila primero TuConsultor y luego el sitio Vite.
-- El servidor de producción (`npm start`, puerto `8080`) sirve `dist/` y Next.js bajo el mismo dominio. El `Dockerfile` configura este runtime para Cloud Run.
-- Para tener respuestas IA del servidor, configura `GROQ_API_KEY` como secreto de entorno en el despliegue; la clave no va en GitHub ni en el cliente. Sin esa clave, siguen disponibles los modos locales y la clave personal opcional de Groq que usa la app.
-- Configura `LEADS_TOKEN` como secreto con un valor propio antes de exponer el panel `/tuconsultor/leads`.
-- GitHub Pages publica solo los archivos estáticos de `dist`; no ejecuta las rutas API de Next.js. El sitio integrado completo debe desplegarse como servicio Node/Cloud Run, con `npm run build` y `npm start`, y no en modo de alojamiento estático con salida `dist`.
+- websd (`npm run build` / `npm start`, puerto `8080`) es solo estatico `dist/`. Su `Dockerfile` ya no incluye Next.js.
+- TuConsultor se despliega aparte en Vercel con Root Directory `tuconsultor` (`next build` / `next start`). Sus rutas API son `/api/*`.
+- Para IA del servidor, configura `GROQ_API_KEY` en Vercel; sin esa clave, siguen los modos locales y la clave personal opcional.
+- Configura `LEADS_TOKEN` en Vercel antes de exponer el panel `/leads`.

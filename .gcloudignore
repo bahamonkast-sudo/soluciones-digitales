@@ -2,8 +2,6 @@
 .git/
 .github/
 node_modules/
-tuconsultor/node_modules/
-tuconsultor/.next/
 dist/
 work/
 *.log

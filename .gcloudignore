@@ -1,0 +1,20 @@
+# Evita subir 690MB en cada deploy (ayer quemo cuota). Solo codigo fuente.
+.git/
+.github/
+node_modules/
+tuconsultor/node_modules/
+tuconsultor/.next/
+dist/
+work/
+*.log
+dev-server.log
+.env
+.env.*
+!.env.example
+*.md
+Dockerfile
+.dockerignore
+vite.config.js.timestamp-*
+public/vcard/.git
+.thumbs/
+Desktop.ini

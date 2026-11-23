@@ -1071,6 +1071,13 @@
   background: var(--neon-cian);
   opacity: 0.55;
   transition: opacity 0.4s ease, filter 0.4s ease;
+  animation: hud-border-trace 5.6s ease-in-out infinite;
+}
+
+@keyframes hud-border-trace {
+  0%, 100% { opacity: 0.2; filter: drop-shadow(0 0 0 transparent); }
+  8%, 18% { opacity: 1; filter: drop-shadow(0 0 7px var(--neon-cian-glow)); }
+  28%, 100% { opacity: 0.2; filter: drop-shadow(0 0 0 transparent); }
 }
 
 /* Líneas superior e inferior: delgadas en los extremos, gruesas al centro */
@@ -1087,6 +1094,7 @@
 .hud-line--b {
   top: auto;
   bottom: -2px;
+  animation-delay: 2.8s;
 }
 
 /* Líneas laterales: mismo lente rotado */
@@ -1104,6 +1112,11 @@
 .hud-line--r {
   left: auto;
   right: -2px;
+  animation-delay: 1.4s;
+}
+
+.hud-line--l {
+  animation-delay: 4.2s;
 }
 
 .hud-panel:hover .hud-line,
@@ -1165,18 +1178,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  border: 1px solid rgba(125, 183, 245, 0.26);
-  background: rgba(41, 98, 255, 0.08);
-  color: var(--neon-cian);
+  border: 1px solid rgba(252, 211, 77, 0.32);
+  background: rgba(252, 211, 77, 0.06);
+  color: #FCD34D;
   margin-bottom: 16px;
-  box-shadow: 0 0 14px rgba(59, 130, 246, 0.12);
+  box-shadow: 0 0 14px rgba(252, 211, 77, 0.12);
   transition: all 0.35s ease;
 }
 
 .hud-panel:hover .hud-icon,
 .hud-panel.active .hud-icon {
   background: rgba(41, 98, 255, 0.15);
-  box-shadow: 0 0 18px rgba(59, 130, 246, 0.2);
+  color: #FCD34D;
+  box-shadow: 0 0 18px rgba(252, 211, 77, 0.3);
   transform: scale(1.07);
 }
 
@@ -1231,4 +1245,9 @@
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Sombra compacta y consistente en los títulos de la portada */
+.home-page :is(h1, h2, h3, h4, h5, h6) {
+  text-shadow: 0 2px 2px rgba(15, 23, 42, 0.78);
 }

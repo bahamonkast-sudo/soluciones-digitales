@@ -48,6 +48,11 @@ const GIFS = [
 ];
 
 const HERO_PORTRAIT = 'https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png';
+const HERO_HEADLINE_WORDS = ['Plataformas', 'web', 'que', 'convierten', 'interés', 'en', 'oportunidades', 'reales.'];
+const heroWordVariants = {
+  hidden: { opacity: 0, x: -96, filter: 'blur(7px)' },
+  visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] } },
+};
 
 // ─── REUSABLE COMPONENTS ────────────────────────────────────────
 
@@ -392,63 +397,6 @@ export default function App() {
   const [apiKeyAccordionOpen, setApiKeyAccordionOpen] = useState(false);
   const videoRef = useRef(null);
 
-  // Typewriter and Sound
-  const [line, setLine] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-  const audioCtxRef = useRef(null);
-
-  useEffect(() => {
-    const text = "SOLUCIONES\nDIGITALES";
-    let index = 0;
-    let active = true;
-    setLine("");
-
-    const playTypingSound = () => {
-      try {
-        if (!audioCtxRef.current) {
-          audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        const ctx = audioCtxRef.current;
-        if (ctx.state === 'suspended') {
-          ctx.resume().catch(() => {});
-        }
-        // Small sci-fi typing click
-        const osc = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-        osc.type = 'square';
-        // Random frequency for mechanical feel
-        osc.frequency.setValueAtTime(600 + Math.random() * 400, ctx.currentTime);
-        
-        gainNode.gain.setValueAtTime(0.03, ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
-        
-        osc.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.04);
-      } catch (e) {}
-    };
-
-    const type = () => {
-      if (!active) return;
-      if (index <= text.length) {
-        if (index < text.length) {
-          const char = text[index];
-          if (char !== ' ' && char !== '\n') {
-            playTypingSound();
-          }
-        }
-        setLine(text.slice(0, index));
-        index++;
-        // Slight randomization in typing speed for realism
-        const nextDelay = Math.random() * 30 + 10;
-        setTimeout(type, nextDelay);
-      }
-    };
-    const t = setTimeout(type, 300);
-    return () => { active = false; clearTimeout(t); };
-  }, []);
-
   // Navigation activity logger (section visibility)
   const navSections = ['inicio', 'quienes-somos', 'productos', 'casos', 'registro'];
   useEffect(() => {
@@ -631,7 +579,7 @@ export default function App() {
   ];
 
   return (
-    <main className="relative w-full text-[#E2E8F0] font-sans pb-20 overflow-x-clip" style={{ backgroundColor: '#0F172A' }}>
+    <main className="home-page relative w-full text-[#E2E8F0] font-sans pb-20 overflow-x-clip" style={{ backgroundColor: '#0F172A' }}>
       <SEO {...SEO_CONFIG.home} structuredData={SCHEMAS.home} />
 
       {/* ── GLOBAL EFFECTS ──────────────────────────────────────── */}
@@ -788,102 +736,57 @@ export default function App() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0F172A]/15 to-[#0F172A] pointer-events-none" />
         </div>
 
-        {/* Hero Heading - Pushed down below the robot's face */}
-        <div className="w-full flex flex-col items-center justify-start relative px-4 md:px-8 overflow-visible mt-[32vh] md:mt-[40vh]" style={{ zIndex: 30 }}>
-          <div className="w-full text-center">
-            <h1 className="hero-heading text-[clamp(2.3rem,12vw,5.5rem)] sm:text-[clamp(2.6rem,11vw,6rem)] md:text-[clamp(3rem,10.5vw,7rem)] font-black uppercase tracking-normal leading-[0.78] w-full select-none break-words" style={{ letterSpacing: '0.02em', fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", textTransform: 'uppercase', fontWeight: 400 }}>
-              {line ? (
-                line.split("\n").map((lineText, idx, arr) => {
-                  const isLastLine = idx === arr.length - 1;
-                  return (
-                    <React.Fragment key={idx}>
-                      {idx > 0 && <br />}
-                      <span className={`relative inline-flex items-baseline justify-center gap-[0.28em] flex-wrap ${isLastLine && showCursor ? 'hero-cursor pr-1' : ''}`} style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", fontWeight: 400, letterSpacing: '0.04em', color: '#ffffff', WebkitTextFillColor: '#ffffff', WebkitTextStroke: '1.8px #ffffff', textShadow: '0 0 10px rgba(0,0,0,0.85)', textTransform: 'uppercase' }}>
-                        {lineText}
-                        {isLastLine && line.length >= 20 && (
-                          <span
-                            className="inline-flex items-center"
-                            style={{
-                              fontFamily: "'JetBrains Mono','Space Mono',monospace",
-                              fontSize: '0.28em',
-                              lineHeight: 1,
-                              fontWeight: 600,
-                              letterSpacing: '0.14em',
-                              textTransform: 'lowercase',
-                              color: '#7ee8ff',
-                              background: 'rgba(14,116,144,0.28)',
-                              border: '1px solid rgba(126,232,255,0.32)',
-                              padding: '0.22em 0.45em 0.18em',
-                              borderRadius: '0.35em',
-                              boxShadow: '0 0 0 1px rgba(126,232,255,0.08) inset, 0 4px 14px rgba(41,98,255,0.18), 0 0 10px rgba(126,232,255,0.22)',
-                              textShadow: '0 0 8px rgba(126,232,255,0.75), 0 0 14px rgba(41,98,255,0.45)',
-                              WebkitTextStroke: '0',
-                              position: 'relative',
-                              top: '-0.05em',
-                              verticalAlign: 'baseline',
-                            }}
-                          >
-                            ai.studio
-                          </span>
-                        )}
-                      </span>
-                    </React.Fragment>
-                  );
-                })
-              ) : (
-                <span className="inline-flex flex-col items-center" style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 400 }}>
-                  <span>SOLUCIONES</span>
-                  <span className="inline-flex items-baseline gap-[0.28em] justify-center flex-wrap">
-                    <span style={{ fontFamily: "'Staatliches','Barlow Condensed','Archivo Black','Anton',Impact,sans-serif", fontWeight: 400, letterSpacing: '0.04em' }}>DIGITALES</span>
-                    <span style={{ fontFamily: "'JetBrains Mono','Space Mono',monospace", fontSize: '0.28em', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'lowercase', color: '#a5f3fc', background: 'rgba(14,116,144,0.28)', border: '1px solid rgba(126,232,255,0.32)', padding: '0.22em 0.45em 0.18em', borderRadius: '0.35em', position: 'relative', top: '-0.12em' }}>ai.studio</span>
-                  </span>
-                </span>
-              )}
-            </h1>
-          </div>
-        </div>
-
-        {/* Bottom Bar: Value proposition pushed down */}
-        <div className="px-6 md:px-12 flex flex-col items-center justify-center z-10 w-full gap-8 relative pb-12 md:pb-16 mt-[12vh] md:mt-[15vh]">
+        {/* Identidad compacta y propuesta principal, alineadas a la izquierda */}
+        <div className="relative z-30 mx-auto mt-[28vh] flex w-full max-w-7xl flex-1 flex-col px-5 sm:px-8 md:mt-[34vh] md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-[780px] group"
+            initial={reduceMotion ? false : { opacity: 0, x: -42 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-4xl text-left"
           >
-            {/* Sombra Cyan */}
-            <div className="absolute -inset-[1px] bg-cyan-500 rounded-2xl opacity-10 blur-md group-hover:opacity-30 transition duration-700"></div>
-            
-            {/* Main Card */}
-            <div 
-              className="relative p-4 md:p-5 rounded-2xl border border-white/10 text-center flex items-center justify-center"
-              style={{ 
-                background: 'rgba(11, 11, 15, 0.55)', 
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+            <p className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-white/90 drop-shadow-[0_3px_16px_rgba(0,0,0,1)] sm:text-sm">
+              SOLUCIONES DIGITALES <span className="rounded border border-cyan-200/25 bg-cyan-300/10 px-2 py-1 font-mono text-[10px] tracking-[0.12em] text-cyan-200 sm:text-xs">ai.studio</span>
+            </p>
+            <motion.h1
+              initial={reduceMotion ? false : 'hidden'}
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { delayChildren: reduceMotion ? 0 : 0.12, staggerChildren: reduceMotion ? 0 : 0.15 } },
               }}
+              className="max-w-4xl text-[clamp(2.35rem,6.4vw,5.25rem)] font-black leading-[1.02] tracking-[-0.045em] text-white"
             >
-              <p 
-                className="font-light tracking-wide leading-relaxed text-neutral-300 mx-auto max-w-[700px]" 
-                style={{ fontSize: '15px', fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif' }}
-              >
-                <strong className="text-white font-black">Diseño y tecnología a la medida de tu negocio.</strong>{' '}
-                Creamos páginas web, automatizaciones e inteligencia artificial para ayudarte a atraer clientes y simplificar tu trabajo.
-              </p>
-            </div>
+              {HERO_HEADLINE_WORDS.map((word, index) => (
+                <motion.span
+                  key={word}
+                  variants={heroWordVariants}
+                  transition={reduceMotion ? { duration: 0 } : undefined}
+                  className={`mr-[0.2em] inline-block last:mr-0 ${index === 1 || index >= 6 ? 'text-[#FCD34D]' : ''}`}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-neutral-200 drop-shadow-[0_4px_18px_rgba(0,0,0,1)] sm:text-lg">
+              Ordenamos la información y la experiencia para que cada visitante entienda tu oferta, resuelva sus dudas y pueda consultar, cotizar o comprar.
+            </p>
           </motion.div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
-            <a href="#encuentra-solucion" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#2962ff] px-7 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(41,98,255,0.3)] transition-colors hover:bg-[#1f53e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, x: -28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.65, delay: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 flex w-full flex-col items-start gap-3 sm:w-auto sm:flex-row"
+          >
+            <a href="#encuentra-solucion" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#2962ff] px-7 py-3 text-sm font-bold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] shadow-[0_8px_24px_rgba(41,98,255,0.3)] transition-colors hover:bg-[#1f53e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
               Encuentra tu solución <ArrowRight size={16} />
             </a>
-            <a href="#registro" className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
+            <a href="#registro" className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3 text-sm font-semibold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
               Habla con el equipo
             </a>
-          </div>
+          </motion.div>
           
-          <FadeIn delay={0.5} y={20} className="flex flex-col items-center gap-6 self-center md:self-end">
+          <FadeIn delay={0.65} x={-18} y={0} className="mt-auto flex flex-col items-center gap-6 self-center pb-3">
             {/* Scroll Indicator */}
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -891,7 +794,7 @@ export default function App() {
               className="hidden sm:flex flex-col items-center gap-1 opacity-45 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => document.getElementById('encuentra-solucion').scrollIntoView({ behavior: 'smooth' })}
             >
-              <span className="text-[9px] tracking-widest text-neutral-400 font-semibold uppercase">Ver soluciones</span>
+              <span className="text-[9px] tracking-widest text-neutral-400 font-semibold uppercase drop-shadow-[0_1px_5px_rgba(0,0,0,0.9)]">Ver soluciones</span>
               <ChevronDown size={14} className="text-[#2962ff]" />
             </motion.div>
           </FadeIn>
@@ -918,12 +821,29 @@ export default function App() {
       </section>
 
       {/* ── ORIENTACIÓN RÁPIDA ─────────────────────────────────── */}
-      <section id="encuentra-solucion" className="relative z-20 scroll-mt-20 bg-[#F1F5F9] px-5 py-20 text-[#0F172A] sm:px-8 sm:py-24 md:px-10">
-        <div className="mx-auto max-w-6xl">
+      <section id="encuentra-solucion" className="relative z-20 scroll-mt-20 bg-[#FCD34D] px-5 py-20 text-[#0F172A] sm:px-8 sm:py-24 md:px-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-0 top-0 h-72 w-[44%] opacity-60 md:h-[360px]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.16) 1px, transparent 1.3px)',
+            backgroundSize: '18px 18px',
+            maskImage: 'linear-gradient(135deg, transparent 4%, #000 38%, #000 72%, transparent 100%)',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-0 h-32 w-[30%] opacity-50"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(135deg, transparent 0, transparent 12px, rgba(15,23,42,0.09) 13px, transparent 14px)',
+            maskImage: 'linear-gradient(90deg, #000, transparent 92%)',
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-6xl">
           <FadeIn className="mb-10 max-w-3xl">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#0E7490]">Empieza por tu necesidad</p>
-            <h2 className="text-3xl font-black leading-tight tracking-tight text-[#0F172A] sm:text-4xl md:text-5xl">¿Qué quieres resolver?</h2>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">Elige un objetivo para ver una solución relacionada. Si todavía no lo tienes claro, podemos ayudarte a definir el primer paso.</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-blue-900">Empieza por tu necesidad</p>
+            <h2 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">¿Qué quieres resolver?</h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-800 sm:text-lg">Elige un objetivo para ver una solución relacionada. Si todavía no lo tienes claro, podemos ayudarte a definir el primer paso.</p>
           </FadeIn>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -938,18 +858,18 @@ export default function App() {
                 href={href}
                 target={title === 'Automatizar tareas' ? '_blank' : undefined}
                 rel={title === 'Automatizar tareas' ? 'noopener noreferrer' : undefined}
-                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                initial={reduceMotion ? false : { opacity: 0, y: -48 }}
                 whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
-                transition={{ delay: reduceMotion ? 0 : index * 0.06, duration: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: reduceMotion ? 0 : index * 0.16, duration: reduceMotion ? 0 : 0.72, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={reduceMotion ? undefined : { y: -4, scale: 1.01, transition: { type: 'spring', stiffness: 300, damping: 24 } }}
                 whileTap={reduceMotion ? undefined : { y: -1, scale: 0.99 }}
-                className="group flex min-h-[210px] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-[#0E7490]/40 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E7490]"
+                className="group flex min-h-[210px] flex-col rounded-2xl border border-white bg-white p-6 text-[#0F172A] shadow-[0_14px_18px_rgba(15,23,42,0.58)] transition-[border-color,box-shadow,transform] duration-300 hover:border-blue-300 hover:shadow-[0_18px_22px_rgba(15,23,42,0.72)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F172A]"
               >
-                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-[#0E7490]/15 bg-[#0E7490]/[0.07] text-[#0E7490]"><Icon size={20} aria-hidden="true" /></span>
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-blue-900/10 bg-blue-50 text-blue-800"><Icon size={20} aria-hidden="true" /></span>
                 <h3 className="text-lg font-bold text-[#0F172A]">{title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{detail}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#0E7490]">Ver opción <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></span>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-800">{detail}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#0F172A]">Ver opción <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></span>
               </motion.a>
             ))}
           </div>
@@ -1009,7 +929,7 @@ export default function App() {
             
             <FadeIn delay={0.4} className="sm:mt-12">
               <div className="hud-identidad rounded-3xl p-8 flex flex-col gap-5 h-full relative group transition-all duration-300 overflow-hidden">
-                <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#2962ff] group-hover:bg-[#2962ff] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(41,98,255,0.5)] transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#FCD34D] group-hover:bg-[#2962ff] group-hover:text-[#FCD34D] group-hover:shadow-[0_0_20px_rgba(252,211,77,0.45)] transition-all duration-300">
                   <Layers size={20} />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -1021,7 +941,7 @@ export default function App() {
             
             <FadeIn delay={0.5}>
               <div className="hud-identidad rounded-3xl p-8 flex flex-col gap-5 h-full relative group transition-all duration-300 overflow-hidden">
-                <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#2962ff] group-hover:bg-[#2962ff] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(41,98,255,0.5)] transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#FCD34D] group-hover:bg-[#2962ff] group-hover:text-[#FCD34D] group-hover:shadow-[0_0_20px_rgba(252,211,77,0.45)] transition-all duration-300">
                   <Sparkles size={20} />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -1033,7 +953,7 @@ export default function App() {
             
             <FadeIn delay={0.6} className="sm:col-span-2">
               <div className="hud-identidad rounded-3xl p-8 flex flex-col sm:flex-row gap-6 items-start sm:items-center relative group transition-all duration-300 bg-gradient-to-br from-white/[0.03] to-transparent overflow-hidden">
-                <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#2962ff] group-hover:bg-[#2962ff] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(41,98,255,0.5)] transition-all duration-300 shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-white/[0.02] border border-white/10 flex items-center justify-center text-[#FCD34D] group-hover:bg-[#2962ff] group-hover:text-[#FCD34D] group-hover:shadow-[0_0_20px_rgba(252,211,77,0.45)] transition-all duration-300 shrink-0">
                   <Target size={20} />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -1124,10 +1044,24 @@ export default function App() {
       </section>
 
       {/* ── PRODUCTOS ───────────────────────────────────────────── */}
-      <section id="productos" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#0F172A' }}>
-        {/* Animated Background Blob */}
-        <div className="orb-blob w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-cyan-500/05" style={{ bottom: '-10%', left: '-15%', filter: 'blur(130px)' }} />
-        <div className="architectural-lines opacity-50" />
+      <section id="productos" className="relative z-20 py-24 sm:py-32 md:py-40 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-0 top-0 h-64 w-[38%] opacity-75"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.22) 1px, transparent 1.3px)',
+            backgroundSize: '18px 18px',
+            maskImage: 'linear-gradient(135deg, transparent 5%, #000 42%, #000 72%, transparent 100%)',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-0 h-28 w-[28%] opacity-60"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(135deg, transparent 0, transparent 13px, rgba(15,23,42,0.15) 14px, transparent 15px)',
+            maskImage: 'linear-gradient(90deg, #000, transparent 94%)',
+          }}
+        />
         <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-16 sm:gap-20 md:gap-24">
 
           {/* Bento Grid layout */}
@@ -1136,31 +1070,27 @@ export default function App() {
             {/* Bento Card 6: 'Tu idea es el punto de partida' Large Bento Card (Col span 6) */}
             <FadeIn delay={0.6} className="md:col-span-6 mt-4">
               <motion.div
-                className="rounded-3xl p-8 sm:p-12 md:p-16 flex flex-col md:flex-row gap-10 items-center justify-between cursor-default border border-neutral-200 bg-white relative overflow-hidden shadow-xl"
-                whileHover={reduceMotion ? undefined : { y: -3, borderColor: "rgba(234,179,8,0.55)", boxShadow: "0 18px 40px rgba(0,0,0,0.12)" }}
+                className="flex flex-col gap-10 py-8 md:flex-row md:items-center md:justify-between"
               >
-                {/* Highlight Glow orbe inside */}
-                <div className="absolute -right-20 -top-20 w-80 h-80 bg-yellow-400/15 rounded-full blur-[100px] pointer-events-none" />
-                
-                <div className="flex flex-col gap-5 max-w-2xl">
-                  <h3 className="font-black text-xl sm:text-3xl md:text-4xl leading-tight text-neutral-900">
+                <div className="flex max-w-2xl flex-col gap-5 text-black">
+                  <h3 className="font-black text-xl leading-tight text-black sm:text-3xl md:text-4xl" style={{ textShadow: 'none' }}>
                     Tu idea es el punto de partida,<br />
-                    <span className="text-yellow-600">
+                    <span className="text-black">
                       el resultado nuestra responsabilidad.
                     </span>
                   </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-neutral-700 font-light">
+                  <p className="text-sm font-light leading-relaxed text-black sm:text-base">
                     No ejecutamos proyectos a ciegas. Cada solución nace de entender lo que tienes en mente y se construye de forma impecable bajo un proceso estructurado: <strong>analizamos</strong> tu realidad, <strong>diseñamos</strong> a tu medida, <strong>implementamos</strong> por fases y <strong>lanzamos</strong> garantizando el resultado.
                   </p>
                 </div>
-                <div className="shrink-0 flex flex-col gap-3 w-full sm:w-auto items-stretch sm:items-center">
+                <div className="flex w-full shrink-0 flex-col items-stretch gap-3 sm:w-auto sm:items-center">
                   <CTAButton
                     label="Agendar Sesión de Diseño"
                     size="md"
                     className="!text-black"
                     onClick={() => document.getElementById('registro').scrollIntoView({ behavior: 'smooth' })}
                   />
-                  <span className="text-[10px] text-neutral-500 uppercase tracking-widest text-center mt-1">Sin costo inicial</span>
+                  <span className="mt-1 text-center text-[10px] uppercase tracking-widest text-black">Sin costo inicial</span>
                 </div>
               </motion.div>
             </FadeIn>

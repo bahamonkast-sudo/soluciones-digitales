@@ -19,10 +19,12 @@ const SECTIONS = [
   { id: 'split-factor-humano', label: 'Factor Humano', shortLabel: 'Humano' },
 ];
 
-function NavLink({ href, active, children, onClick }) {
+function NavLink({ href, active, children, onClick, target, rel }) {
   return (
     <a
       href={href}
+      target={target}
+      rel={rel}
       onClick={onClick}
       className={`relative text-sm tracking-wide uppercase font-semibold transition-colors duration-200 ${
         active
@@ -91,7 +93,7 @@ export default function Navbar({ activePage = 'home' }) {
   const qsPath = isDev ? '/quienes-somos.html' : getPageUrl('quienes-somos');
   const blogPath = isDev ? '/blog.html' : getPageUrl('blog');
   const prodPath = isDev ? '/index.html#productos' : getFrontPageUrl() + '#productos';
-  const whatsappMarketingPath = 'https://soluciones-wa.ai.studio/';
+  const whatsappMarketingPath = 'https://soluciones-wa-landing.ai.studio/';
   const contactPath = isDev ? '/index.html#registro' : getFrontPageUrl() + '#registro';
   const tiendaPath = isDev ? '/tienda.html' : getPageUrl('tienda');
   const ecoPath = isDev ? '/ecosistema.html' : getPageUrl('ecosistema');
@@ -153,7 +155,7 @@ export default function Navbar({ activePage = 'home' }) {
           {/* Desktop Menu */}
           <div className="hidden xl:flex items-center gap-4 2xl:gap-5">
             <NavLink href={homePath} active={isHome}>Inicio</NavLink>
-            <NavLink href={whatsappMarketingPath}>WhatsApp Marketing</NavLink>
+            <NavLink href={whatsappMarketingPath} target="_blank" rel="noopener noreferrer">WhatsApp Marketing</NavLink>
 
             {/* Productos dropdown */}
             <div className="" ref={menuRef}>
@@ -302,7 +304,7 @@ export default function Navbar({ activePage = 'home' }) {
                     Inicio
                   </a>
 
-                  <a href={whatsappMarketingPath} className="py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
+                  <a href={whatsappMarketingPath} target="_blank" rel="noopener noreferrer" className="py-3 text-base tracking-wide uppercase text-neutral-300 hover:text-white transition-colors font-semibold border-b border-white/5" onClick={() => { setMenuOpen(false); setProductosOpen(false); }}>
                     WhatsApp Marketing
                   </a>
 

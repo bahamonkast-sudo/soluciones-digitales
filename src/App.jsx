@@ -169,7 +169,7 @@ function AnimatedText({ text, className = "" }) {
 }
 
 // Premium CTA Button
-function CTAButton({ label = "Acción", onClick, href, size = "md" }) {
+function CTAButton({ label = "Acción", onClick, href, size = "md", className = "" }) {
   const reduceMotion = useReducedMotion();
   const sizes = {
     sm: "px-6 py-2.5 text-[11px]",
@@ -241,14 +241,14 @@ function CTAButton({ label = "Acción", onClick, href, size = "md" }) {
 
   if (href) {
     return (
-      <motion.a href={href} className={`cta ${sizes[size]}`} {...shared}>
+      <motion.a href={href} className={`cta ${sizes[size]} ${className}`} {...shared}>
         {inner}
       </motion.a>
     );
   }
 
   return (
-    <motion.button type="button" className={`cta ${sizes[size]}`} {...shared}>
+    <motion.button type="button" className={`cta ${sizes[size]} ${className}`} {...shared}>
       {inner}
     </motion.button>
   );
@@ -929,13 +929,15 @@ export default function App() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: 'Atraer más clientes', detail: 'Una web clara y preparada para convertir visitas en consultas.', href: getPageUrl('sitios-web'), icon: Globe },
-              { title: 'Automatizar tareas', detail: 'Herramientas para organizar campañas y procesos repetitivos.', href: '#modulos', icon: Zap },
+              { title: 'Automatizar tareas', detail: 'Herramientas para organizar campañas y procesos repetitivos.', href: 'https://soluciones-wa-landing.ai.studio/', icon: Zap },
               { title: 'Atender con inteligencia artificial', detail: 'Asistentes que responden preguntas y acompañan a tus clientes.', href: getPageUrl('chatbot'), icon: MessageCircle },
               { title: 'Necesito orientación', detail: 'Cuéntanos qué necesita tu negocio y te recomendamos por dónde empezar.', href: '#registro', icon: MessageSquare },
             ].map(({ title, detail, href, icon: Icon }, index) => (
               <motion.a
                 key={title}
                 href={href}
+                target={title === 'Automatizar tareas' ? '_blank' : undefined}
+                rel={title === 'Automatizar tareas' ? 'noopener noreferrer' : undefined}
                 initial={reduceMotion ? false : { opacity: 0, y: 14 }}
                 whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
@@ -1134,20 +1136,20 @@ export default function App() {
             {/* Bento Card 6: 'Tu idea es el punto de partida' Large Bento Card (Col span 6) */}
             <FadeIn delay={0.6} className="md:col-span-6 mt-4">
               <motion.div
-                className="glass rounded-3xl p-8 sm:p-12 md:p-16 flex flex-col md:flex-row gap-10 items-center justify-between cursor-default border border-white/5 relative overflow-hidden"
-                whileHover={reduceMotion ? undefined : { y: -3, borderColor: "rgba(41,98,255,0.28)", boxShadow: "0 18px 40px rgba(2,6,23,0.3)" }}
+                className="rounded-3xl p-8 sm:p-12 md:p-16 flex flex-col md:flex-row gap-10 items-center justify-between cursor-default border border-neutral-200 bg-white relative overflow-hidden shadow-xl"
+                whileHover={reduceMotion ? undefined : { y: -3, borderColor: "rgba(234,179,8,0.55)", boxShadow: "0 18px 40px rgba(0,0,0,0.12)" }}
               >
                 {/* Highlight Glow orbe inside */}
-                <div className="absolute -right-20 -top-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+                <div className="absolute -right-20 -top-20 w-80 h-80 bg-yellow-400/15 rounded-full blur-[100px] pointer-events-none" />
                 
                 <div className="flex flex-col gap-5 max-w-2xl">
-                  <h3 className="font-black text-xl sm:text-3xl md:text-4xl leading-tight text-white">
+                  <h3 className="font-black text-xl sm:text-3xl md:text-4xl leading-tight text-neutral-900">
                     Tu idea es el punto de partida,<br />
-                    <span className="text-[#2962ff]" style={{ textShadow: "0 0 20px rgba(41,98,255,0.4)" }}>
+                    <span className="text-yellow-600">
                       el resultado nuestra responsabilidad.
                     </span>
                   </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-neutral-400 font-light">
+                  <p className="text-sm sm:text-base leading-relaxed text-neutral-700 font-light">
                     No ejecutamos proyectos a ciegas. Cada solución nace de entender lo que tienes en mente y se construye de forma impecable bajo un proceso estructurado: <strong>analizamos</strong> tu realidad, <strong>diseñamos</strong> a tu medida, <strong>implementamos</strong> por fases y <strong>lanzamos</strong> garantizando el resultado.
                   </p>
                 </div>
@@ -1155,6 +1157,7 @@ export default function App() {
                   <CTAButton
                     label="Agendar Sesión de Diseño"
                     size="md"
+                    className="!text-black"
                     onClick={() => document.getElementById('registro').scrollIntoView({ behavior: 'smooth' })}
                   />
                   <span className="text-[10px] text-neutral-500 uppercase tracking-widest text-center mt-1">Sin costo inicial</span>
@@ -1163,27 +1166,6 @@ export default function App() {
             </FadeIn>
 
           </div>
-        </div>
-      </section>
-
-      {/* ── PLATAFORMA INDEPENDIENTE DE WHATSAPP ─────────────────── */}
-      <section id="modulos" className="relative z-20 py-20 sm:py-28 px-5 sm:px-8 md:px-10 overflow-hidden" style={{ backgroundColor: '#111C2E' }}>
-        <div className="max-w-5xl mx-auto text-center">
-          <FadeIn>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#2962ff] mb-4 font-semibold">Proyecto independiente</p>
-            <h2 className="productos-heading text-[clamp(2.5rem,8vw,72px)] leading-none">WhatsApp Marketing</h2>
-            <p className="max-w-2xl mx-auto mt-6 text-base sm:text-lg text-neutral-300 leading-relaxed">
-              Nuestras herramientas de WhatsApp ahora viven en una plataforma especializada, con su propia información, funciones y acceso. El chatbot multicanal de este sitio sigue disponible en la sección de Inteligencia Artificial.
-            </p>
-            <a
-              href="https://soluciones-wa.ai.studio/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#2962ff] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1f53e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              Visitar la plataforma de WhatsApp <ArrowRight size={16} aria-hidden="true" />
-            </a>
-          </FadeIn>
         </div>
       </section>
 
